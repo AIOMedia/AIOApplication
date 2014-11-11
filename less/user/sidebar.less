@@ -1,0 +1,48 @@
+.sidebar-user {
+    .clearfix();
+
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+
+    background-color: @sidebar-light-bg;
+    .box-shadow(@sidebar-box-shadow);
+    border-top: 1px solid @sidebar-dark-border;
+
+    .user-profil {
+        .clearfix();
+
+        display: block;
+        padding: 10px;
+        color: @sidebar-light-font;
+        border-top: 1px solid @sidebar-light-border;
+
+        &:hover, &:focus {
+            color: @sidebar-dark-font;
+            background: @sidebar-light-hover-bg;
+        }
+
+        > .image > img {
+            width: 45px;
+            height: 45px;
+            border: 1px solid @sidebar-dark-border;
+        }
+
+        > .info {
+            padding: 5px 5px 5px 15px;
+            font-size: 14px;
+            line-height: 1;
+
+            > p {
+              font-weight: 600;
+              margin-bottom: 9px;
+            }
+        }
+    }
+
+    // Collapsed styles
+    &.collapsed {
+
+    }
+}

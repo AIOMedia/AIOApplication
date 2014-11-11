@@ -1,0 +1,38 @@
+/* 
+    Component: alert
+------------------------
+*/
+
+.alert {
+    border: none;
+    border-left: 5px solid #eee;
+    .border-radius(0);
+
+    .alert-heading {
+        font-weight: 600;
+    }
+
+    &.alert-success {
+        color: @green;
+        background-color: lighten(@green, 50%);
+        border-color: lighten(@green, 20%);
+    }
+
+    &.alert-info {
+        color: @aqua;
+        background-color: lighten(@aqua, 50%);
+        border-color: lighten(@aqua, 20%);
+    }
+
+    &.alert-warning {
+        color: @yellow;
+        background-color: lighten(@yellow, 50%);
+        border-color: lighten(@yellow, 20%);
+    }
+
+    &.alert-danger {
+        color: lighten(@red, 90%);
+        background-color: lighten(@red, 15%);
+        border-color: @red;
+    }
+}

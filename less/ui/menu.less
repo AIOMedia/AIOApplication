@@ -1,0 +1,122 @@
+/*
+    Component: Menu
+--------------------------
+*/
+.sidebar-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-bottom: 1px solid @sidebar-light-border;
+
+    > li {
+        position: relative;
+        margin: 0;
+        padding: 0;
+        border-top: 1px solid @sidebar-light-border;
+        border-bottom: 1px solid @sidebar-dark-border;
+
+        > a {
+            padding: 14px 15px 15px 15px;
+            display: block;
+        }
+
+        // Hover and active states
+        > a:hover, &.active-menu > a, &.active > a {
+            color: @sidebar-dark-font;
+
+        }
+
+        &.active-menu > a, &.active > a {
+            background: @sidebar-light-hover-bg;
+        }
+
+        &.active-menu > a {
+            padding-left: 11px;
+            border-left: 4px solid @light-blue;
+        }
+
+        .menu-notification {
+            position: absolute;
+            right: 0;
+            top: 0;
+            padding: 0.2em 0.4em 0.3em;
+            margin: 16px;
+        }
+    }
+
+    .treeview {
+        > a {
+            > .treeview-indicator {
+                position: absolute;
+                right: 0;
+                top: 0;
+                bottom: 0;
+                font-size: 17px;
+                margin: 16px 1px;
+                opacity: 0.2;
+            }
+        }
+
+        // Tree view menu
+        .treeview-menu {
+            background: @body-bg;
+            display: none;
+            list-style: none;
+            padding:0;
+            margin:0;
+            > li {
+                margin: 0;
+                > a {
+                    color: #777;
+                    padding: 5px 5px 5px 15px;
+                    display: block;
+                    font-size: 14px;
+                    margin: 0px 0px;
+
+                    > .fa, > .glyphicon, > .ion {
+                        width: 20px;
+                    }
+                }
+
+                &.active > a, > a:hover {
+                    color: #111;
+                }
+            }
+        }
+    }
+
+    // Collapsed menu styles
+    &.collapsed {
+        > li {
+            text-align: center;
+            > a {
+                padding: 10px;
+            }
+
+            &.active-menu > a {
+                padding-left: 6px;
+            }
+
+            .menu-notification {
+                font-size: 10px;
+                margin: 5px 10px;
+            }
+        }
+
+        .treeview {
+            > a {
+                > .treeview-indicator  {
+                    margin-right: 1px;
+                    /*color: lighten(@sidebar-light-font, 40%);*/
+
+                }
+
+                &:hover {
+                    > .treeview-indicator  {
+                        color: @sidebar-dark-font;
+                    }
+                }
+            }
+        }
+    }
+}

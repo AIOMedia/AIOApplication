@@ -1,0 +1,48 @@
+/*
+    Component: Sidebar
+--------------------------
+*/
+
+.sidebar {
+    background: @sidebar-light-bg;
+    .box-shadow(@sidebar-box-shadow);
+
+    a {
+        color: @sidebar-light-font;
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    /* Sidebar header */
+    .sidebar-header {
+        position: relative;
+        padding: 8px 15px;
+        border-bottom: 1px solid @sidebar-dark-border;
+        height: @header-height;
+
+        .sidebar-toggle {
+            display: block;
+            font-size: 17px;
+            color: #555555;
+
+            &:hover, &:focus {
+                color: #333333;
+            }
+        }
+
+        a + .sidebar-toggle {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            margin: 8px 15px;
+        }
+    }
+
+    &.collapsed {
+        .sidebar-header {
+            text-align: center;
+        }
+    }
+}

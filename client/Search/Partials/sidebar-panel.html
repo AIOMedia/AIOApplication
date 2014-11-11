@@ -1,0 +1,16 @@
+<form action="#" method="get" class="sidebar-search">
+    <button class="btn btn-default" role="button" data-ng-if="sidebarPanel.collapsed">
+        <i class="fa fa-search"></i>
+        <span class="sr-only">Search</span>
+    </button>
+
+    <div class="input-group" data-ng-if="!sidebarPanel.collapsed">
+        <input type="text" name="q" class="form-control" placeholder="Search" />
+        <span class="input-group-btn">
+            <button type='submit' name='search' id='search-btn' class="btn">
+                <i class="fa fa-search"></i>
+                <span class="sr-only">Search</span>
+            </button>
+        </span>
+    </div>
+</form>
