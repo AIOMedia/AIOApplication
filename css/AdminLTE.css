@@ -71,7 +71,7 @@ body.fixed .wrapper {
 /* Content */
 .content {
   padding: 15px;
-  background: #f9f9f9;
+  /*background: @body-bg;*/
   overflow: auto;
 }
 /* Utility */
@@ -501,10 +501,6 @@ Gradient Background colors
 .dropdown-menu > li > a:hover {
   background-color: #3c8dbc;
   color: #f9f9f9;
-}
-/*Drodown in navbars*/
-.skin-blue .navbar .dropdown-menu > li > a {
-  color: #444444;
 }
 /*
     Navbar custom dropdown menu
