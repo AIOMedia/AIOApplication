@@ -1505,7 +1505,7 @@ Gradient Background colors
 }
 .box > .loading-img {
   z-index: 1020;
-  background: transparent url('../img/ajax-loader1.gif') 50% 50% no-repeat;
+  background: transparent url('../../img/ajax-loader1.gif') 50% 50% no-repeat;
 }
 /*
 Component: timeline
@@ -2064,7 +2064,7 @@ Component: timeline
 */
 /* ADD THIS CLASS TO THE <HTML> TAG */
 .lockscreen {
-  background: url(../img/blur-background09.jpg) repeat center center fixed;
+  background: url(../../img/blur-background09.jpg) repeat center center fixed;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
