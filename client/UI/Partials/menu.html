@@ -1,103 +1,26 @@
 <menu class="sidebar-menu" data-ng-class="{ 'collapsed': menu.collapsed }">
-    <li data-ng-repeat="item in menu.items | orderBy : 'position'" data-ng-class="{ 'active-menu': item.active }">
-        <a href="{{ item.url }}">
-            <i data-ng-if="item.icon" class="menu-icon {{ item.icon }}"></i>
+    <li data-ng-repeat="item in menu.items | orderBy : 'position'" data-ng-class="{ 'active-menu': item.active, 'treeview': 0 < item.children.length, 'opened': item.opened }">
+        <a href="{{ item.url }}" data-ng-click="menu.toggleItem(item)">
+            <!-- Title and Icon -->
+            <i class="menu-icon fa fa-fw fa-{{ item.icon }}" data-ng-if="item.icon" data-ng-class="{ 'fa-2x': menu.collapsed }"></i>
             <span data-ng-if="!menu.collapsed">{{ item.title }}</span>
 
-            <i class="treeview-indicator fa fa-caret-left" data-ng-if="0 !== item.children.length"></i>
-        </a>
-    </li>
+            <!-- Notifications -->
+            <small class="menu-notification label bg-{{ item.notification.color }}" data-ng-if="item.notification">{{ item.notification.value }}</small>
 
-    <li class="active-menu">
-        <a href="index.html">
-            <i class="fa fa-fw fa-dashboard" data-ng-class="{ 'fa-2x': menu.collapsed }"></i>
-            <span data-ng-if="!menu.collapsed">Dashboard</span>
+            <!-- Submenu indicator -->
+            <i class="treeview-indicator fa" data-ng-class="{ 'fa-caret-down': !menu.collapsed && item.opened, 'fa-caret-left': !item.opened, 'fa-caret-right': menu.collapsed && item.opened }" data-ng-if="0 !== item.children.length"></i>
         </a>
-    </li>
-    <li>
-        <a href="pages/widgets.html">
-            <i class="fa fa-fw fa-th" data-ng-class="{ 'fa-2x': menu.collapsed }"></i>
-            <span data-ng-if="!menu.collapsed">Widgets</span>
-            <small class="menu-notification label bg-green">new</small>
-        </a>
-    </li>
-    <li class="treeview">
-        <a href="#">
-            <i class="fa fa-fw fa-bar-chart-o" data-ng-class="{ 'fa-2x': menu.collapsed }"></i>
-            <span data-ng-if="!menu.collapsed">Charts</span>
-            <i class="treeview-indicator fa fa-caret-left"></i>
-        </a>
-        <ul class="treeview-menu">
-            <li><a href="pages/charts/morris.html"><i class="fa fa-angle-double-right"></i> Morris</a></li>
-            <li><a href="pages/charts/flot.html"><i class="fa fa-angle-double-right"></i> Flot</a></li>
-            <li><a href="pages/charts/inline.html"><i class="fa fa-angle-double-right"></i> Inline charts</a></li>
-        </ul>
-    </li>
-    <li class="treeview">
-        <a href="#">
-            <i class="fa fa-fw fa-laptop" data-ng-class="{ 'fa-2x': menu.collapsed }"></i>
-            <span data-ng-if="!menu.collapsed">UI Elements</span>
-            <i class="treeview-indicator fa fa-caret-left"></i>
-        </a>
-        <ul class="treeview-menu">
-            <li><a href="pages/UI/general.html"><i class="fa fa-angle-double-right"></i> General</a></li>
-            <li><a href="pages/UI/icons.html"><i class="fa fa-angle-double-right"></i> Icons</a></li>
-            <li><a href="pages/UI/buttons.html"><i class="fa fa-angle-double-right"></i> Buttons</a></li>
-            <li><a href="pages/UI/sliders.html"><i class="fa fa-angle-double-right"></i> Sliders</a></li>
-            <li><a href="pages/UI/timeline.html"><i class="fa fa-angle-double-right"></i> Timeline</a></li>
-        </ul>
-    </li>
-    <li class="treeview">
-        <a href="#">
-            <i class="fa fa-fw fa-edit" data-ng-class="{ 'fa-2x': menu.collapsed }"></i>
-            <span data-ng-if="!menu.collapsed">Forms</span>
-            <i class="treeview-indicator fa fa-caret-left"></i>
-        </a>
-        <ul class="treeview-menu">
-            <li><a href="pages/forms/general.html"><i class="fa fa-angle-double-right"></i> General Elements</a></li>
-            <li><a href="pages/forms/advanced.html"><i class="fa fa-angle-double-right"></i> Advanced Elements</a></li>
-            <li><a href="pages/forms/editors.html"><i class="fa fa-angle-double-right"></i> Editors</a></li>
-        </ul>
-    </li>
-    <li class="treeview">
-        <a href="#">
-            <i class="fa fa-fw fa-table" data-ng-class="{ 'fa-2x': menu.collapsed }"></i>
-            <span data-ng-if="!menu.collapsed">Tables</span>
-            <i class="treeview-indicator fa fa-caret-left"></i>
-        </a>
-        <ul class="treeview-menu">
-            <li><a href="pages/tables/simple.html"><i class="fa fa-angle-double-right"></i> Simple tables</a></li>
-            <li><a href="pages/tables/data.html"><i class="fa fa-angle-double-right"></i> Data tables</a></li>
-        </ul>
-    </li>
-    <li>
-        <a href="pages/calendar.html">
-            <i class="fa fa-fw fa-calendar" data-ng-class="{ 'fa-2x': menu.collapsed }"></i>
-            <span data-ng-if="!menu.collapsed">Calendar</span>
-            <small class="menu-notification label bg-red">3</small>
-        </a>
-    </li>
-    <li>
-        <a href="pages/mailbox.html">
-            <i class="fa fa-fw fa-envelope" data-ng-class="{ 'fa-2x': menu.collapsed }"></i>
-            <span data-ng-if="!menu.collapsed">Mailbox</span>
-            <small class="menu-notification label bg-yellow">12</small>
-        </a>
-    </li>
-    <li class="treeview">
-        <a href="#">
-            <i class="fa fa-fw fa-folder" data-ng-class="{ 'fa-2x': menu.collapsed }"></i>
-            <span data-ng-if="!menu.collapsed">Examples</span>
-            <i class="treeview-indicator fa fa-caret-left"></i>
-        </a>
-        <ul class="treeview-menu">
-            <li><a href="pages/examples/invoice.html"><i class="fa fa-angle-double-right"></i> Invoice</a></li>
-            <li><a href="pages/examples/login.html"><i class="fa fa-angle-double-right"></i> Login</a></li>
-            <li><a href="pages/examples/register.html"><i class="fa fa-angle-double-right"></i> Register</a></li>
-            <li><a href="pages/examples/lockscreen.html"><i class="fa fa-angle-double-right"></i> Lockscreen</a></li>
-            <li><a href="pages/examples/404.html"><i class="fa fa-angle-double-right"></i> 404 Error</a></li>
-            <li><a href="pages/examples/500.html"><i class="fa fa-angle-double-right"></i> 500 Error</a></li>
-            <li><a href="pages/examples/blank.html"><i class="fa fa-angle-double-right"></i> Blank Page</a></li>
-        </ul>
+
+        <!-- Submenu -->
+        <div class="treeview-menu" data-ng-if="item.children && 0 < item.children.length" data-ng-show="item.opened">
+            <span class="treeview-header" data-ng-if="menu.collapsed">{{ item.title }}</span>
+            <ul>
+                <li data-ng-repeat="subItem in item.children">
+                    <a href="{{ subItem.url }}">{{ subItem.title }}</a>
+                </li>
+            </ul>
+        </div>
+
     </li>
 </menu>

@@ -21,12 +21,11 @@
         }
 
         // Hover and active states
-        > a:hover, &.active-menu > a, &.active > a {
+        > a:hover, &.active-menu > a, &.opened > a {
             color: @sidebar-dark-font;
-
         }
 
-        &.active-menu > a, &.active > a {
+        &.active-menu > a, &.opened > a {
             background: @sidebar-light-hover-bg;
         }
 
@@ -51,69 +50,112 @@
                 right: 0;
                 top: 0;
                 bottom: 0;
-                font-size: 17px;
-                margin: 16px 1px;
+                font-size: 13px;
+                margin: 18px 1px;
                 opacity: 0.2;
             }
         }
 
         // Tree view menu
         .treeview-menu {
-            background: @body-bg;
-            display: none;
-            list-style: none;
-            padding:0;
-            margin:0;
-            > li {
-                margin: 0;
-                > a {
-                    color: #777;
-                    padding: 5px 5px 5px 15px;
-                    display: block;
-                    font-size: 14px;
-                    margin: 0px 0px;
+            text-align: left;
+            background: darken(@sidebar-light-bg, 2%);
+            border-top: 1px solid @sidebar-dark-border;
+            .box-shadow(@sidebar-box-shadow);
 
-                    > .fa, > .glyphicon, > .ion {
-                        width: 20px;
+
+            > ul {
+                list-style: none;
+                margin:0;
+                padding: 0;
+                > li {
+                    margin: 0;
+                    > a {
+                        color: #777;
+                        padding: 5px 15px;
+                        padding-left: 35px;
+                        display: block;
+                        font-size: 14px;
+                        margin: 0px;
+
+                        &:hover {
+                            color: #111;
+                        }
                     }
                 }
+            }
+        }
 
-                &.active > a, > a:hover {
-                    color: #111;
-                }
+        &.opened {
+            .treeview-indicator {
+                opacity: 1;
             }
         }
     }
+}
 
-    // Collapsed menu styles
-    &.collapsed {
-        > li {
-            text-align: center;
-            > a {
-                padding: 10px;
+// Collapsed menu styles
+.sidebar-menu.collapsed {
+    > li {
+        text-align: center;
+        > a {
+            padding: 10px;
+        }
+
+        &.active-menu > a {
+            padding-left: 6px;
+        }
+
+        .menu-notification {
+            font-size: 10px;
+            margin: 5px 10px;
+        }
+    }
+
+    .treeview {
+        > a {
+            > .treeview-indicator  {
+                margin-right: 1px;
             }
 
-            &.active-menu > a {
-                padding-left: 6px;
-            }
-
-            .menu-notification {
-                font-size: 10px;
-                margin: 5px 10px;
+            &:hover {
+                > .treeview-indicator  {
+                    color: @sidebar-dark-font;
+                }
             }
         }
 
-        .treeview {
-            > a {
-                > .treeview-indicator  {
-                    margin-right: 1px;
-                    /*color: lighten(@sidebar-light-font, 40%);*/
+        .treeview-menu {
+            position: absolute;
+            top: -1px;
+            left: @left-side-collapsed-width;
+            z-index: 1000;
+            background: @sidebar-light-bg;
+            box-shadow: none;
+            /*border: 1px solid @sidebar-dark-border;*/
+            border: none;
+            white-space: nowrap;
+            min-width: 200px;
 
-                }
+            .treeview-header {
+                color: @sidebar-dark-font;
+                font-size: 18px;
+                background: @sidebar-light-hover-bg;
+                height: 100%;
+                display: block;
+                padding: 12px 15px;
+                border-bottom: 1px solid @sidebar-dark-border;
+            }
 
-                &:hover {
-                    > .treeview-indicator  {
-                        color: @sidebar-dark-font;
+            > ul {
+                > li {
+                    > a {
+                        color: @sidebar-light-font;
+                        padding: 8px 15px;
+
+                        &:hover, &:focus {
+                            color: @sidebar-dark-font;
+                        }
                     }
                 }
             }

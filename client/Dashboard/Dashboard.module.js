@@ -4,5 +4,7 @@
 (function () {
     'use strict';
 
-    angular.module('DashboardModule', []);
+    angular.module('DashboardModule', [
+        'ngRoute'
+    ]);
 })();

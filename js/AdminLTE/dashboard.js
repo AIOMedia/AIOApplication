@@ -113,7 +113,7 @@ $(function() {
         fillColor: "#ebf4f9",
         height: '50',
         width: '80'
-    });    
+    });
 
     //The Calender
     $("#calendar").datepicker();
@@ -125,7 +125,7 @@ $(function() {
 
     /* Morris.js Charts */
     // Sales chart
-    var area = new Morris.Area({
+    /*var area = new Morris.Area({
         element: 'revenue-chart',
         resize: true,
         data: [
@@ -187,7 +187,7 @@ $(function() {
             {label: "Mail-Order Sales", value: 20}
         ],
         hideHover: 'auto'
-    });
+    });*/
     /*Bar chart
     var bar = new Morris.Bar({
         element: 'bar-chart',

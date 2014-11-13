@@ -15,38 +15,11 @@ var header_height = 40;
 $(function() {
     "use strict";
 
-    /*var scroll = $(".content").slimscroll({
-        height: $(window).height(),
+    $(".content").slimscroll({
+        height: 'auto',
         alwaysVisible: false,
         size: "5px",
         wheelStep: 1
-    });*/
-
-    /*
-
-    console.log(scroll);
-
-    $(window).on('resize', function () {
-        scroll.slimscroll({
-            height: $(window).height()
-        });
-    })*/
-
-    //Enable sidebar toggle
-    $("[data-toggle='offcanvas']").click(function(e) {
-        e.preventDefault();
-
-        //If window is small enough, enable sidebar push menu
-        if ($(window).width() <= 992) {
-            $('.row-offcanvas').toggleClass('active');
-            $('.left-side').removeClass("collapse-left");
-            $(".right-side").removeClass("strech");
-            $('.row-offcanvas').toggleClass("relative");
-        } else {
-            //Else, enable content streching
-            $('.left-side').toggleClass("collapse-left");
-            $(".right-side").toggleClass("strech");
-        }
     });
 
     //Add hover support for touch devices
@@ -105,13 +78,13 @@ $(function() {
     });
 
     $("[data-widget='remove']").click(function() {
-        //Find the box parent        
+        //Find the box parent
         var box = $(this).parents(".box").first();
         box.slideUp();
     });
 
     /* Sidebar tree view */
-    $(".sidebar-menu .treeview").tree();
+    /*$(".sidebar-menu .treeview").tree();*/
 
     /* 
      * Make sure that the sidebar is streched full height

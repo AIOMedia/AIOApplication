@@ -1,7 +1,11 @@
+/**
+ * Application
+ */
 (function () {
     'use strict';
 
     angular.module('App', [
-        'UIModule'
+        'UIModule',
+        'DashboardModule'
     ]);
 })();

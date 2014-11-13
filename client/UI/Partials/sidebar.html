@@ -1,12 +1,12 @@
 <div class="sidebar" data-ng-class="{ 'collapsed collapse-left stretch': sidebar.collapsed }">
     <header class="sidebar-header">
-        <a href="index.html" data-ng-if="!sidebar.collapsed || !sidebar.toggle">
+        <a href="#/" data-ng-if="!sidebar.collapsed || !sidebar.toggle">
             <img data-ng-if="!sidebar.collapsed" data-ng-src="resources/images/logo-low.png" alt="AIOMedia" />
 
             <img data-ng-if="sidebar.collapsed" data-ng-src="resources/images/logo-low-min.png" alt="AIOMedia" />
         </a>
 
-        <a href="#" class="sidebar-toggle" data-ng-if="sidebar.toggle" data-ng-click="sidebar.toggleSidebar()" role="button">
+        <a href="" class="sidebar-toggle" data-ng-if="sidebar.toggle" data-ng-click="sidebar.toggleSidebar()" role="button">
             <i class="fa fa-bars"></i>
             <span class="sr-only">Toggle sidebar</span>
         </a>
