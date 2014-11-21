@@ -1,0 +1,23 @@
+{
+  "name": "AIOApplication",
+  "version": "0.0.1",
+  "description": "CMS for Media and Home Improvement management built on Node.js",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AIOMedia/AIOApplication.git"
+  },
+  "keywords": [
+    "nodejs",
+    "angular",
+    "home-improvement",
+    "media",
+    "cms"
+  ],
+  "author": "Axel Penin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/AIOMedia/AIOApplication/issues"
+  },
+  "homepage": "https://github.com/AIOMedia/AIOApplication"
+}
