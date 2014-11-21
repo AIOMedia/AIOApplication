@@ -11,10 +11,16 @@ CMS for Media and Home Improvement management built on Node.js
 Clone project from GitHub
 
 ```
-$ git@github.com:AIOMedia/AIOApplication.git
+$ git clone git@github.com:AIOMedia/AIOApplication.git
 ```
 
 **OR** download zip archive and extract it into your project directory
+
+Install project dependencies
+
+```
+$ npm install
+```
 
 ## Third party libraries
 

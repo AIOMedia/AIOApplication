@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/AIOMedia/AIOApplication/issues"
   },
-  "homepage": "https://github.com/AIOMedia/AIOApplication"
+  "homepage": "https://github.com/AIOMedia/AIOApplication",
+  "dependencies": {
+    "express": "^4.10.2"
+  }
 }
