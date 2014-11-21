@@ -1,16 +1,20 @@
 # AIO Application
 
+CMS for Media and Home Improvement management built on Node.js
+
 ## Requirements
 
 * Node.js - [Download & Install Node.js](http://www.nodejs.org/download/) and the npm package manager.
 
 ## Installation
 
-1. Grab project from GitHub (OR download zip archive and extract it into your project directory)
+Clone project from GitHub
 
 ```
 $ git@github.com:AIOMedia/AIOApplication.git
 ```
+
+**OR** download zip archive and extract it into your project directory
 
 ## Third party libraries
 
