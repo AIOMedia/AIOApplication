@@ -6,33 +6,30 @@
     list-style: none;
     margin: 0;
     padding: 0;
-    border-bottom: 1px solid @sidebar-light-border;
+
+    a {
+        display: block;
+        padding: 15px;
+    }
+
+    // Active states
+    .active-menu > a, .opened > a {
+        color: @sidebar-hover-color;
+    }
+
+    a:hover, .active-menu > a {
+        background: @sidebar-hover-bg;
+    }
+
+    .active-menu > a {
+        padding-left: 11px;
+        border-left: 4px solid @light-blue;
+    }
 
     > li {
         position: relative;
         margin: 0;
         padding: 0;
-        border-top: 1px solid @sidebar-light-border;
-        border-bottom: 1px solid @sidebar-dark-border;
-
-        > a {
-            padding: 14px 15px 15px 15px;
-            display: block;
-        }
-
-        // Hover and active states
-        > a:hover, &.active-menu > a, &.opened > a {
-            color: @sidebar-dark-font;
-        }
-
-        &.active-menu > a, &.opened > a {
-            background: @sidebar-light-hover-bg;
-        }
-
-        &.active-menu > a {
-            padding-left: 11px;
-            border-left: 4px solid @light-blue;
-        }
 
         .menu-notification {
             position: absolute;
@@ -44,25 +41,20 @@
     }
 
     .treeview {
-        > a {
-            > .treeview-indicator {
-                position: absolute;
-                right: 0;
-                top: 0;
-                bottom: 0;
-                font-size: 13px;
-                margin: 18px 1px;
-                opacity: 0.2;
-            }
+        .treeview-indicator {
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            font-size: 13px;
+            margin: 18px 0;
+            color: @body-bg;
         }
 
         // Tree view menu
         .treeview-menu {
             text-align: left;
-            background: darken(@sidebar-light-bg, 2%);
-            border-top: 1px solid @sidebar-dark-border;
-            .box-shadow(@sidebar-box-shadow);
-
+            background: lighten(@sidebar-bg, 2%);
 
             > ul {
                 list-style: none;
@@ -71,16 +63,9 @@
                 > li {
                     margin: 0;
                     > a {
-                        color: #777;
-                        padding: 5px 15px;
-                        padding-left: 35px;
-                        display: block;
-                        font-size: 14px;
+                        padding-top: 8px;
+                        padding-bottom: 8px;
                         margin: 0px;
-
-                        &:hover {
-                            color: #111;
-                        }
                     }
                 }
             }
@@ -88,7 +73,7 @@
 
         &.opened {
             .treeview-indicator {
-                opacity: 1;
+                color: @sidebar-hover-color;
             }
         }
     }
@@ -113,51 +98,33 @@
     }
 
     .treeview {
-        > a {
-            > .treeview-indicator  {
-                margin-right: 1px;
-            }
+        &.opened > a {
+            background: @sidebar-hover-bg;
+        }
 
-            &:hover {
-                > .treeview-indicator  {
-                    color: @sidebar-dark-font;
-                }
+        > a:hover, &.active-menu > a {
+            > .treeview-indicator  {
+                color: @sidebar-hover-color;
             }
         }
 
         .treeview-menu {
             position: absolute;
-            top: -1px;
+            top: 0px;
             left: @left-side-collapsed-width;
             z-index: 1000;
-            background: @sidebar-light-bg;
             box-shadow: none;
-            /*border: 1px solid @sidebar-dark-border;*/
             border: none;
             white-space: nowrap;
             min-width: 200px;
 
             .treeview-header {
-                color: @sidebar-dark-font;
-                font-size: 18px;
-                background: @sidebar-light-hover-bg;
+                color: @sidebar-hover-color;
+                font-size: 19px;
+                background: @sidebar-hover-bg;
                 height: 100%;
                 display: block;
-                padding: 12px 15px;
-                border-bottom: 1px solid @sidebar-dark-border;
-            }
-
-            > ul {
-                > li {
-                    > a {
-                        color: @sidebar-light-font;
-                        padding: 8px 15px;
-
-                        &:hover, &:focus {
-                            color: @sidebar-dark-font;
-                        }
-                    }
-                }
+                padding: 11px 15px;
             }
         }
     }

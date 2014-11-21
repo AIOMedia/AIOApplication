@@ -2,44 +2,26 @@
     <div>
         <!-- Page title -->
         <h1>
-            <i class="fa fa-fw fa-dashboard"></i>
-            Dashboard
-            <small>Control panel</small>
+            <i class="fa fa-fw fa-{{ info.icon }}" data-ng-if="info.icon"></i>
+            {{ info.title }}
+            <small data-ng-if="info.description">{{ info.description }}</small>
         </h1>
 
         <!-- Breadcrumb -->
         <ui-breadcrumb></ui-breadcrumb>
     </div>
 
-    <div class="header-btns">
+    <div class="header-btns" data-ng-if="info.hasHelp || info.hasConfig">
         <!-- Help Button -->
-        <button class="btn btn-default" role="button">
+        <button class="btn btn-default" role="button" data-ng-if="info.hasHelp">
             <i class="fa fa-fw fa-info"></i>
             <span class="sr-only">Help</span>
         </button>
 
         <!-- Configuration Button -->
-        <button class="btn btn-default" role="button">
+        <button class="btn btn-default" role="button" data-ng-if="info.hasConfig">
             <i class="fa fa-fw fa-cog"></i>
             <span class="sr-only">Configuration</span>
         </button>
     </div>
-
-    <!--<menu class="content-nav">
-        <li>
-            &lt;!&ndash; Help Button &ndash;&gt;
-            <a href="#">
-                <i class="fa fa-fw fa-info"></i>
-                <span class="sr-only">Help</span>
-            </a>
-        </li>
-
-        <li>
-            &lt;!&ndash; Configuration Button &ndash;&gt;
-            <a href="#">
-                <i class="fa fa-fw fa-cog"></i>
-                <span class="sr-only">Configuration</span>
-            </a>
-        </li>
-    </menu>-->
 </header>

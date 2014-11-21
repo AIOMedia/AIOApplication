@@ -4,19 +4,14 @@
 */
 .content-header {
     z-index: 100;
-    color: @content-header-color;
-    background: @body-bg;
-
-    /*.box-shadow(@content-header-box-shadow);*/
+    color: @gray-darker;
+    background: @gray;
     position: fixed;
     top: 0;
     left: @left-side-width;
     right: 0;
     padding: 8px 15px;
-
     height: @header-height;
-    /*border-bottom: 1px solid darken(@sidebar-light-bg, 5%);*/
-    /*border-left: 1px solid @body-bg;*/
 
     // Header Text
     h1 {
@@ -24,7 +19,9 @@
         font-size: 22px;
         font-weight: 900;
         display: inline-block;
+        color: @gray-darker;
         > small {
+            color: @gray-dark;
             font-size: 15px;
             display: inline-block;
             padding-left: 4px;
@@ -44,14 +41,14 @@
             display: inline-block;
             padding: 6px;
             margin: 3px 2px;
-            border-color: darken(@sidebar-light-hover-bg, 6%);
-            border-top: none;
-            background-color: #ffffff;
-
-            .border-radius(20px 20px);
+            border: none;
+            background-color: @sidebar-light-bg;
+            color: @light-font;
+            border-radius: 20px 20px;
 
             &:hover, &:focus, &:active {
-
+              background-color: @sidebar-light-hover-bg !important;
+              color: @sidebar-dark-font !important;
             }
 
             &:first-of-type {
@@ -64,43 +61,6 @@
         }
     }
 
-    .content-nav {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        margin: 0;
-        padding: 0;
-        height: 100%;
-
-        > li {
-            position: relative;
-            height: 100%;
-            float: left;
-            list-style-type: none;
-            border-left: 1px solid @sidebar-dark-border;
-
-            > a {
-                position: relative;
-                height: 100%;
-                color: @content-header-link-color;
-                background: @content-header-bg;
-                display: inline-block;
-                padding: 8px 10px;
-                vertical-align: middle;
-
-                &:hover, &:focus {
-                    color: @content-header-color;
-                    background-color: darken(@content-header-bg, 2%);
-                }
-
-                > * {
-                    vertical-align: middle;
-                }
-            }
-        }
-    }
-
     .breadcrumb {
         float: right;
         background: transparent;
@@ -109,10 +69,10 @@
         font-size: 12px;
         padding: 3px 15px;
         margin-right: 70px;
-        .border-radius(2px);
+        border-radius: 2px;
 
         > li > a {
-            color: #444;
+            color: @gray-dark;
             text-decoration: none;
 
             > .fa, > .glyphicon, > .ion {
@@ -124,8 +84,13 @@
             }
         }
 
+        .active {
+            color: @sidebar-light-font;
+        }
+
         > li + li:before {
             content: '>\00a0';
+            color: darken(@sidebar-light-font, 15%);
         }
     }
 
@@ -170,14 +135,4 @@
     .navbar .navbar-right {
         float: right;
     }
-}
-
-// Collapse header 
-@media screen and (max-width: @screen-header-collapse) {
-    body.fixed {
-        > .wrapper, .sidebar-offcanvas {
-            margin-top: 100px!important;
-        }
-    }
-
 }

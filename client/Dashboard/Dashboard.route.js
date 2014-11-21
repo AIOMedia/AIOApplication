@@ -10,7 +10,15 @@
             $routeProvider.when('/dashboard', {
                 templateUrl: 'client/Dashboard/Partials/dashboard.html',
                 controller: 'DashboardController',
-                controllerAs: 'controller'
+                controllerAs: 'controller',
+
+                pageInfo: {
+                    icon:        'dashboard',
+                    title:       'Dashboard',
+                    description: 'Control panel',
+                    hasHelp:     true,
+                    hasConfig:   true
+                }
             });
         }]
     );

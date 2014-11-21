@@ -4,14 +4,13 @@
 */
 
 .sidebar {
-    background: @sidebar-light-bg;
-    .box-shadow(@sidebar-box-shadow);
+    background: @sidebar-bg;
+    box-shadow: @sidebar-box-shadow;
 
     a {
-        color: @sidebar-light-font;
-        &:hover {
-            color: @sidebar-dark-font;
-            text-decoration: none;
+        color: @sidebar-color;
+        &:hover, &:focus {
+            color: @sidebar-hover-color;
         }
     }
 
@@ -19,7 +18,7 @@
     .sidebar-header {
         position: relative;
         padding: 8px 15px;
-        border-bottom: 1px solid @sidebar-dark-border;
+        border-bottom: @sidebar-dark-border;
         height: @header-height;
 
         .sidebar-toggle {

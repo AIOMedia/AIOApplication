@@ -4,5 +4,7 @@
 (function () {
     'use strict';
 
-    angular.module('UserModule', []);
+    angular.module('UserModule', [
+        'NotificationModule'
+    ]);
 })();

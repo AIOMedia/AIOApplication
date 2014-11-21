@@ -5,11 +5,16 @@
     'use strict';
 
     angular.module('UIModule').directive('uiHeader', [
-        function () {
+        'PageInfoService',
+        function (PageInfoService) {
             return {
                 restrict: 'E',
                 replace: true,
-                templateUrl: 'client/UI/Partials/header.html'
+                scope: {},
+                templateUrl: 'client/UI/Partials/header.html',
+                link: function (scope, element, attrs) {
+                    scope.info = PageInfoService.get();
+                }
             };
         }
     ]);

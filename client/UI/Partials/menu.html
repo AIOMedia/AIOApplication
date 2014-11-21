@@ -1,26 +1,28 @@
-<menu class="sidebar-menu" data-ng-class="{ 'collapsed': menu.collapsed }">
-    <li data-ng-repeat="item in menu.items | orderBy : 'position'" data-ng-class="{ 'active-menu': item.active, 'treeview': 0 < item.children.length, 'opened': item.opened }">
-        <a href="{{ item.url }}" data-ng-click="menu.toggleItem(item)">
+<menu class="sidebar-menu" data-ng-class="{ 'collapsed': collapsed }">
+    <li data-ng-repeat="item in items | orderBy : 'position'" data-ng-class="{ 'active-menu': item.active, 'treeview': 0 < item.children.length, 'opened': item.opened }">
+        <a href="{{ item.url }}" data-ng-click="toggleItemMenu($event, item)">
             <!-- Title and Icon -->
-            <i class="menu-icon fa fa-fw fa-{{ item.icon }}" data-ng-if="item.icon" data-ng-class="{ 'fa-2x': menu.collapsed }"></i>
-            <span data-ng-if="!menu.collapsed">{{ item.title }}</span>
+            <i class="fa fa-fw fa-{{ item.icon }}" data-ng-if="item.icon" data-ng-class="{ 'fa-2x': collapsed }"></i>
+            <span data-ng-if="!collapsed">{{ item.title }}</span>
 
             <!-- Notifications -->
             <small class="menu-notification label bg-{{ item.notification.color }}" data-ng-if="item.notification">{{ item.notification.value }}</small>
 
             <!-- Submenu indicator -->
-            <i class="treeview-indicator fa" data-ng-class="{ 'fa-caret-down': !menu.collapsed && item.opened, 'fa-caret-left': !item.opened, 'fa-caret-right': menu.collapsed && item.opened }" data-ng-if="0 !== item.children.length"></i>
+            <i class="treeview-indicator fa" data-ng-class="{ 'fa-caret-left': !item.opened || !collapsed, 'fa-caret-right': collapsed && item.opened }" data-ng-if="0 !== item.children.length"></i>
         </a>
 
         <!-- Submenu -->
         <div class="treeview-menu" data-ng-if="item.children && 0 < item.children.length" data-ng-show="item.opened">
-            <span class="treeview-header" data-ng-if="menu.collapsed">{{ item.title }}</span>
+            <span class="treeview-header" data-ng-if="collapsed">{{ item.title }}</span>
             <ul>
-                <li data-ng-repeat="subItem in item.children">
-                    <a href="{{ subItem.url }}">{{ subItem.title }}</a>
+                <li data-ng-repeat="subItem in item.children" data-ng-class="{ 'active-menu': subItem.active }">
+                    <a href="{{ subItem.url }}">
+                        <i class="fa fa-fw fa-{{ subItem.icon }}"></i>
+                        {{ subItem.title }}
+                    </a>
                 </li>
             </ul>
         </div>
-
     </li>
 </menu>

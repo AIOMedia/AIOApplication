@@ -6,6 +6,9 @@
 
     angular.module('App', [
         'UIModule',
-        'DashboardModule'
+        'DashboardModule',
+
+        // To remove
+        'DemoModule'
     ]);
 })();

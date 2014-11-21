@@ -1,0 +1,70 @@
+/* Define 2 column template */
+.right-side, .left-side {
+  min-height: 100%;
+  display: block;
+}
+/*right side - contins main content*/
+.right-side {
+  background-color: @body-bg;
+  margin-left: @left-side-width;
+  padding-top: @header-height;
+  position: relative;
+  height: 100%;
+}
+/*left side - contains sidebar*/
+.left-side {
+  position: fixed;
+  width: @left-side-width;
+  top: 0;
+}
+
+@media screen and (min-width: @screen-md) {
+  /* Left side collapse */
+  .left-side.collapse-left {
+    width: @left-side-collapsed-width;
+
+    & + .right-side {
+      margin-left: @left-side-collapsed-width;
+    }
+  }
+}
+
+/*Give content full width on xs screens*/
+@media screen and (max-width: @screen-md) {
+  .right-side {
+    margin-left: 0;
+  }
+}
+
+/*
+ * Off Canvas
+ * --------------------------------------------------
+ *  Gives us the push menu effect
+ */
+@media screen and (max-width: @screen-md) {
+  .relative {
+    position: relative;
+  }
+
+  .row-offcanvas-right
+  .sidebar-offcanvas {
+    right: -@left-side-width;
+  }
+
+  .row-offcanvas-left
+  .sidebar-offcanvas {
+    left: -@left-side-width;
+  }
+
+  .row-offcanvas-right.active {
+    right: @left-side-width;
+  }
+
+  .row-offcanvas-left.active {
+    left: @left-side-width;
+  }
+
+  .sidebar-offcanvas {
+    left: 0;
+  }
+}

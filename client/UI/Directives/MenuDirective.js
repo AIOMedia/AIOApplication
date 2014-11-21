@@ -6,7 +6,8 @@
     'use strict';
 
     angular.module('UIModule').directive('uiMenu', [
-        function () {
+        'MenuService',
+        function (MenuService) {
             return {
                 restrict: 'E',
                 replace: true,
@@ -14,18 +15,14 @@
                     collapsed: '=?'
                 },
                 templateUrl: 'client/UI/Partials/menu.html',
-                controller:   'MenuController',
-                controllerAs: 'menu',
-                link: function (scope, element, attrs, menu) {
-                    // Define defaults
-                    if (typeof scope.collapsed === 'undefined') {
-                        scope.collapsed = menu.collapsed;
-                    }
+                link: function (scope, element, attrs) {
+                    scope.items = MenuService.getItems();
 
-                    // Watch for attribute changes
-                    scope.$watch('collapsed', function (newValue) {
-                        menu.collapsed = newValue;
-                    });
+                    scope.toggleItemMenu = function (event, item) {
+                        if (MenuService.toggleItemMenu(item)) {
+                            event.preventDefault();
+                        }
+                    };
                 }
             };
         }
