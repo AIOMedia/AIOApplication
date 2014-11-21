@@ -9,6 +9,12 @@ Requirements
 Getting started
 ------------------------------
 
+1. Grab project from GitHub (OR download zip archive and extract it into your project directory)
+
+```
+$ git@github.com:AIOMedia/AIOApplication.git
+```
+
 Third party libraries
 ------------------------------
 
@@ -23,7 +29,7 @@ License
 ------------------------------
 
 The MIT License (MIT).
-See LICENSE file for mor information
+See LICENSE file for mor information.
 
 Authors
 ------------------------------
