@@ -11,8 +11,8 @@
                 replace: true,
                 templateUrl: 'client/UI/Partials/sidebar.html',
                 scope: {
-                    collapsed: '=?',
-                    toggle   : '=?'
+                    collapsed: '@collapsed',
+                    toggle   : '@toggle'
                 },
                 controller:   'SidebarController',
                 controllerAs: 'sidebar',
