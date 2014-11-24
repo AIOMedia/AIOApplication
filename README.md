@@ -1,6 +1,6 @@
 # AIO Application
 
-CMS for Media and Home Improvement management built on Node.js
+CMS for Media and Home Improvement management built on Node.js and AngularJS
 
 [![Dependencies Status](https://david-dm.org/AIOMedia/AIOApplication.svg)](https://david-dm.org/AIOMedia/AIOApplication)
 
@@ -22,6 +22,27 @@ Install project dependencies
 
 ```
 $ npm install
+```
+
+## Running application
+
+After the install process is over, you'll be able to run your application using NPM, just run npm start script:
+
+$ npm start
+
+Your application should run on the 3000 port so in your browser just go to http://localhost:3000
+
+## File structure
+
+```
+|- bin/
+|  `- www
+|- client/
+|- public/
+|  |- css/
+|  |- images/
+|  |- js/
+|  `- favicon.ico
 ```
 
 ## Third party libraries
