@@ -36,6 +36,7 @@
                 restrict: 'A',
                 scope: {},
                 link: function (scope, element, attrs) {
+                    console.log('scrollbar');
                     // used in event handlers and for better minification
                     var me = $(element);
 
