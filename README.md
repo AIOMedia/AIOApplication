@@ -3,6 +3,7 @@
 Application for Media and Home Improvement management built on Node.js and AngularJS
 
 [![Dependencies Status](https://david-dm.org/AIOMedia/AIOApplication.svg)](https://david-dm.org/AIOMedia/AIOApplication)
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/AIOMedia/aioapplication/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
 ## Requirements
 
