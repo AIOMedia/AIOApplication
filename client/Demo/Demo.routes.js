@@ -20,45 +20,6 @@
                 }
             });
 
-            // Charts - Morris
-            $routeProvider.when('/charts/morris', {
-                templateUrl: 'client/Demo/Partials/charts/morris.html',
-
-                pageInfo: {
-                    icon:        'bar-chart-o',
-                    title:       'Charts',
-                    description: 'Morris',
-                    hasHelp:     true,
-                    hasConfig:   true
-                }
-            });
-
-            // Charts - Flot
-            $routeProvider.when('/charts/flot', {
-                templateUrl: 'client/Demo/Partials/charts/flot.html',
-
-                pageInfo: {
-                    icon:        'bar-chart-o',
-                    title:       'Charts',
-                    description: 'Flot',
-                    hasHelp:     true,
-                    hasConfig:   true
-                }
-            });
-
-            // Charts - Inline
-            $routeProvider.when('/charts/inline', {
-                templateUrl: 'client/Demo/Partials/charts/inline.html',
-
-                pageInfo: {
-                    icon:        'bar-chart-o',
-                    title:       'Charts',
-                    description: 'Inline',
-                    hasHelp:     true,
-                    hasConfig:   true
-                }
-            });
-
             // UI - General
             $routeProvider.when('/ui/general', {
                 templateUrl: 'client/Demo/Partials/UI/general.html',

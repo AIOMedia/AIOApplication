@@ -24,18 +24,6 @@
                 }
             });
 
-            // Charts
-            MenuService.addItem({
-                id: 'charts',
-                icon: 'bar-chart-o',
-                title: 'Charts',
-                children: [
-                    { id: 'moris',         title: 'Moris',         url: '#/charts/morris' },
-                    { id: 'flot',          title: 'Flot',          url: '#/charts/flot' },
-                    { id: 'inline-charts', title: 'Inline Charts', url: '#/charts/inline' }
-                ]
-            });
-
             // UI Elements
             MenuService.addItem({
                 id: 'ui-elements',
@@ -57,7 +45,6 @@
                 children: [
                     { id: 'general-elements',  title: 'General Elements',  url: '#/forms/general' },
                     { id: 'advanced-elements', title: 'Advanced Elements', url: '#/forms/advanced' },
-                    { id: 'editors',           title: 'Editors',           url: '#/forms/editors' }
                 ]
             });
 
