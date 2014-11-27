@@ -10,10 +10,10 @@ Application for Media and Home Improvement management built on Node.js and Angul
 
 ## Installation
 
-Clone project from GitHub
+Clone project from GitHub into `your_project_name` directory
 
 ```
-$ git clone git@github.com:AIOMedia/AIOApplication.git
+$ git clone git@github.com:AIOMedia/AIOApplication.git your_project_name
 ```
 
 **OR** download zip archive and extract it into your project directory
@@ -21,6 +21,7 @@ $ git clone git@github.com:AIOMedia/AIOApplication.git
 Install project dependencies
 
 ```
+$ cd your_project_name
 $ npm install
 ```
 
@@ -28,7 +29,9 @@ $ npm install
 
 After the install process is over, you'll be able to run your application using NPM, just run npm start script:
 
+```
 $ npm start
+```
 
 Your application should run on the 3000 port so in your browser just go to http://localhost:3000
 
