@@ -48,7 +48,7 @@ Your application should run on the 3000 port so in your browser just go to http:
 |  |- js/
 |  |- less/
 |  `- favicon.ico
-|- server/
+`- server/
 ```
 
 ## Third party libraries
