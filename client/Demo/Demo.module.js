@@ -44,7 +44,7 @@
                 title: 'Forms',
                 children: [
                     { id: 'general-elements',  title: 'General Elements',  url: '#/forms/general' },
-                    { id: 'advanced-elements', title: 'Advanced Elements', url: '#/forms/advanced' },
+                    { id: 'advanced-elements', title: 'Advanced Elements', url: '#/forms/advanced' }
                 ]
             });
 
