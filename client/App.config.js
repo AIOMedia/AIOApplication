@@ -9,7 +9,7 @@
         'PageInfoService',
         'MenuService',
         function ($rootScope, PageInfoService, MenuService) {
-            $rootScope.$on('$routeChangeSuccess', function(event, next, current) {
+            $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
                 // Update Page info
                 if (next.pageInfo) {
                     PageInfoService.set(next.pageInfo);

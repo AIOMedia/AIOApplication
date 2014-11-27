@@ -1,6 +1,6 @@
 # AIO Application
 
-CMS for Media and Home Improvement management built on Node.js and AngularJS
+Application for Media and Home Improvement management built on Node.js and AngularJS
 
 [![Dependencies Status](https://david-dm.org/AIOMedia/AIOApplication.svg)](https://david-dm.org/AIOMedia/AIOApplication)
 
@@ -40,9 +40,12 @@ Your application should run on the 3000 port so in your browser just go to http:
 |- client/
 |- public/
 |  |- css/
+|  |- fonts/
 |  |- images/
 |  |- js/
+|  |- less/
 |  `- favicon.ico
+|- server/
 ```
 
 ## Third party libraries
