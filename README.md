@@ -9,15 +9,21 @@ Application for Media and Home Improvement management built on Node.js and Angul
 
 * Node.js - [Download & Install Node.js](http://www.nodejs.org/download/) and the npm package manager.
 
-## Installation
+## Download
 
-Clone project from GitHub into `your_project_name` directory
+### GitHub Repository
+
+Clone project repository into `your_project_name` directory.
 
 ```
 $ git clone git@github.com:AIOMedia/AIOApplication.git your_project_name
 ```
 
-**OR** download zip archive and extract it into your project directory
+### Zip archive
+
+Download zip archive and extract it into your project directory.
+
+## Installation
 
 Install project dependencies
 
