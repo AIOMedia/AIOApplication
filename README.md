@@ -8,7 +8,7 @@ Application for Media and Home Improvement management built on Node.js and Angul
 ## Requirements
 
 * Node.js - [Download & Install Node.js](http://www.nodejs.org/download/) and the npm package manager.
-
+* MongoDB - [Download & Install MongoDB](http://docs.mongodb.org/manual/installation/)
 ## Download
 
 ### GitHub Repository
