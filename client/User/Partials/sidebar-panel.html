@@ -1,5 +1,5 @@
 <div class="sidebar-user" data-ng-class="{ 'collapsed': sidebarPanel.collapsed }">
-    <a class="user-profile" href="#">
+    <a class="user-profile" href="#/user/profile">
         <img src="public/images/avatar3.png" class="image img-circle" alt="User Image" />
 
         <div class="info" data-ng-if="!sidebarPanel.collapsed">
@@ -14,10 +14,10 @@
             <span class="sr-only">Notifications</span>
         </button>
 
-        <button type="button" class="btn">
+        <a class="btn" href="#/admin">
             <i class="fa fa-fw fa-wrench"></i>
             <span class="sr-only">Options</span>
-        </button>
+        </a>
 
         <button type="button" class="btn">
             <i class="fa fa-fw fa-sign-out"></i>
