@@ -62,6 +62,19 @@ Your application should run on the 3000 port so in your browser just go to http:
 `- server/
 ```
 
+Basically, This application is an aggregate of two applications :
+* the **Server** : a RESTful API provided by Node.js.
+* the **Client** : an HTML/AngularJS user interface completely independent from the **Server**. It will just call the Server API with AJAX. As it's just HTML & JavaScript, it doesn't require any server side process to run.
+
+* `bin/` contains the application commands
+  * `www` start command of the **Server**
+* `client/` contains the **Client** application
+  * `public/` contains all public assets (css, images, js, less, favicon, etc.)
+  * `src/` contains AngularJs source files
+  * `index.html` entry point of the **Client**
+* `server/` contains the **Server** application
+
+
 ## Third party libraries
 
 ### Server
