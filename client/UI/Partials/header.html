@@ -11,15 +11,15 @@
         <ui-breadcrumb></ui-breadcrumb>
     </div>
 
-    <div class="header-btns" data-ng-if="info.hasHelp || info.hasConfig">
+    <div class="header-btns" data-ng-if="info.help || info.config">
         <!-- Help Button -->
-        <button class="btn btn-default" role="button" data-ng-if="info.hasHelp">
+        <button class="btn btn-default" role="button" data-ng-if="info.help">
             <i class="fa fa-fw fa-info"></i>
             <span class="sr-only">Help</span>
         </button>
 
         <!-- Configuration Button -->
-        <button class="btn btn-default" role="button" data-ng-if="info.hasConfig">
+        <button class="btn btn-default" role="button" data-ng-if="info.config">
             <i class="fa fa-fw fa-cog"></i>
             <span class="sr-only">Configuration</span>
         </button>

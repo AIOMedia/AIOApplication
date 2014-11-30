@@ -16,8 +16,20 @@
             }
 
             return {
-                get: function () {
-                    return info;
+                get: function (key) {
+                    var ret = null;
+
+                    if (key) {
+                        // Check if requested key exists
+                        if (info[key]) {
+                            ret = info[key];
+                        }
+                    } else {
+                        // Return all info if no key provided
+                        ret = info;
+                    }
+
+                    return ret;
                 },
 
                 set: function (pageInfo) {
@@ -25,8 +37,8 @@
                         info.icon        = pageInfo.icon        ? pageInfo.icon        : null;
                         info.title       = pageInfo.title       ? pageInfo.title       : null;
                         info.description = pageInfo.description ? pageInfo.description : null;
-                        info.hasHelp     = pageInfo.hasHelp     ? pageInfo.hasHelp     : false;
-                        info.hasConfig   = pageInfo.hasConfig   ? pageInfo.hasConfig   : false;
+                        info.help        = pageInfo.help        ? pageInfo.help        : false;
+                        info.config      = pageInfo.config      ? pageInfo.config      : false;
                     }
 
                     return this;
