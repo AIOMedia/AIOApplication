@@ -1,17 +1,15 @@
 <header class="content-header">
-    <div>
-        <!-- Page title -->
-        <h1>
-            <i class="fa fa-fw fa-{{ info.icon }}" data-ng-if="info.icon"></i>
-            {{ info.title }}
-            <small data-ng-if="info.description">{{ info.description }}</small>
-        </h1>
+    <!-- Page title -->
+    <h1>
+        <i class="fa fa-fw fa-{{ info.icon }}" data-ng-if="info.icon"></i>
+        {{ info.title }}
+        <small data-ng-if="info.description">{{ info.description }}</small>
+    </h1>
 
+    <div class="header-btns">
         <!-- Breadcrumb -->
         <ui-breadcrumb></ui-breadcrumb>
-    </div>
 
-    <div class="header-btns" data-ng-if="info.help || info.config">
         <!-- Help Button -->
         <button class="btn btn-default" role="button" data-ng-if="info.help">
             <i class="fa fa-fw fa-info"></i>
