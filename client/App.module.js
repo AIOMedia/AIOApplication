@@ -6,6 +6,7 @@
 
     angular.module('App', [
         'UIModule',
+        'AdministrationModule',
         'DashboardModule',
 
         // To remove
