@@ -99,6 +99,10 @@
                             }
                         }
 
+                        if (!match && activate) {
+                            this.setActive(null);
+                        }
+
                         return match;
                     }.bind(this);
 
