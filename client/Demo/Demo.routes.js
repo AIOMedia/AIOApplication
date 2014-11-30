@@ -15,8 +15,8 @@
                     icon:        'th',
                     title:       'Widgets',
                     description: 'Preview page',
-                    hasHelp:     true,
-                    hasConfig:   true
+                    help:        true,
+                    config:   true
                 }
             });
 
@@ -28,8 +28,8 @@
                     icon:        'laptop',
                     title:       'UI Elements',
                     description: 'General',
-                    hasHelp:     true,
-                    hasConfig:   true
+                    help:     true,
+                    config:   true
                 }
             });
 
@@ -41,8 +41,8 @@
                     icon:        'laptop',
                     title:       'UI Elements',
                     description: 'Buttons',
-                    hasHelp:     true,
-                    hasConfig:   true
+                    help:     true,
+                    config:   true
                 }
             });
 
@@ -54,8 +54,8 @@
                     icon:        'laptop',
                     title:       'UI Elements',
                     description: 'Sliders',
-                    hasHelp:     true,
-                    hasConfig:   true
+                    help:     true,
+                    config:   true
                 }
             });
 
@@ -67,8 +67,8 @@
                     icon:        'laptop',
                     title:       'UI Elements',
                     description: 'Timeline',
-                    hasHelp:     true,
-                    hasConfig:   true
+                    help:     true,
+                    config:   true
                 }
             });
 
@@ -80,8 +80,8 @@
                     icon:        'edit',
                     title:       'Forms',
                     description: 'General elements',
-                    hasHelp:     true,
-                    hasConfig:   true
+                    help:     true,
+                    config:   true
                 }
             });
 
@@ -93,8 +93,8 @@
                     icon:        'edit',
                     title:       'Forms',
                     description: 'Advanced elements',
-                    hasHelp:     true,
-                    hasConfig:   true
+                    help:     true,
+                    config:   true
                 }
             });
 
@@ -106,8 +106,8 @@
                     icon:        'edit',
                     title:       'Forms',
                     description: 'Editors',
-                    hasHelp:     true,
-                    hasConfig:   true
+                    help:     true,
+                    config:   true
                 }
             });
 
@@ -119,8 +119,8 @@
                     icon:        'table',
                     title:       'Tables',
                     description: 'preview of simple tables',
-                    hasHelp:     true,
-                    hasConfig:   true
+                    help:     true,
+                    config:   true
                 }
             });
 
@@ -131,8 +131,8 @@
                 pageInfo: {
                     icon:        'calendar',
                     title:       'Calendar',
-                    hasHelp:     true,
-                    hasConfig:   true
+                    help:     true,
+                    config:   true
                 }
             });
 
@@ -143,8 +143,8 @@
                 pageInfo: {
                     icon:        'envelope',
                     title:       'Mailbox',
-                    hasHelp:     true,
-                    hasConfig:   true
+                    help:     true,
+                    config:   true
                 }
             });
 
@@ -156,8 +156,8 @@
                     icon:        'folder',
                     title:       'Blank page',
                     description: 'it all starts here',
-                    hasHelp:     true,
-                    hasConfig:   true
+                    help:     true,
+                    config:   true
                 }
             });
         }]
