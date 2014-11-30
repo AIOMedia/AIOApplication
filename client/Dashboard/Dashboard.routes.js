@@ -16,8 +16,8 @@
                     icon:        'dashboard',
                     title:       'Dashboard',
                     description: 'Control panel',
-                    hasHelp:     true,
-                    hasConfig:   true
+                    help:        true,
+                    config:   true
                 }
             });
         }]
