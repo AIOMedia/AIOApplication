@@ -1,8 +1,8 @@
 var config = {
     db: {
-        host: '',
-        port: '',
-        name: '',
+        host: 'localhost',
+        port: 27017,
+        name: 'aiomedia',
         user: '',
         password: ''
     }
