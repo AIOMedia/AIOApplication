@@ -9,7 +9,7 @@
         function ($routeProvider) {
             // Widgets
             $routeProvider.when('/widgets', {
-                templateUrl: 'client/Demo/Partials/widgets.html',
+                templateUrl: 'src/Demo/Partials/widgets.html',
 
                 pageInfo: {
                     icon:        'th',
@@ -22,7 +22,7 @@
 
             // UI - General
             $routeProvider.when('/ui/general', {
-                templateUrl: 'client/Demo/Partials/UI/general.html',
+                templateUrl: 'src/Demo/Partials/UI/general.html',
 
                 pageInfo: {
                     icon:        'laptop',
@@ -35,7 +35,7 @@
 
             // UI - Buttons
             $routeProvider.when('/ui/buttons', {
-                templateUrl: 'client/Demo/Partials/UI/buttons.html',
+                templateUrl: 'src/Demo/Partials/UI/buttons.html',
 
                 pageInfo: {
                     icon:        'laptop',
@@ -48,7 +48,7 @@
 
             // UI - Sliders
             $routeProvider.when('/ui/sliders', {
-                templateUrl: 'client/Demo/Partials/UI/sliders.html',
+                templateUrl: 'src/Demo/Partials/UI/sliders.html',
 
                 pageInfo: {
                     icon:        'laptop',
@@ -61,7 +61,7 @@
 
             // UI - Timeline
             $routeProvider.when('/ui/timeline', {
-                templateUrl: 'client/Demo/Partials/UI/timeline.html',
+                templateUrl: 'src/Demo/Partials/UI/timeline.html',
 
                 pageInfo: {
                     icon:        'laptop',
@@ -74,7 +74,7 @@
 
             // Forms - General elements
             $routeProvider.when('/forms/general', {
-                templateUrl: 'client/Demo/Partials/forms/general.html',
+                templateUrl: 'src/Demo/Partials/forms/general.html',
 
                 pageInfo: {
                     icon:        'edit',
@@ -87,7 +87,7 @@
 
             // Forms - Advanced elements
             $routeProvider.when('/forms/advanced', {
-                templateUrl: 'client/Demo/Partials/forms/advanced.html',
+                templateUrl: 'src/Demo/Partials/forms/advanced.html',
 
                 pageInfo: {
                     icon:        'edit',
@@ -100,7 +100,7 @@
 
             // Forms - Editors
             $routeProvider.when('/forms/editors', {
-                templateUrl: 'client/Demo/Partials/forms/editors.html',
+                templateUrl: 'src/Demo/Partials/forms/editors.html',
 
                 pageInfo: {
                     icon:        'edit',
@@ -113,7 +113,7 @@
 
             // Tables
             $routeProvider.when('/tables', {
-                templateUrl: 'client/Demo/Partials/tables.html',
+                templateUrl: 'src/Demo/Partials/tables.html',
 
                 pageInfo: {
                     icon:        'table',
@@ -126,7 +126,7 @@
 
             // Calendar
             $routeProvider.when('/calendar', {
-                templateUrl: 'client/Demo/Partials/calendar.html',
+                templateUrl: 'src/Demo/Partials/calendar.html',
 
                 pageInfo: {
                     icon:        'calendar',
@@ -138,7 +138,7 @@
 
             // Mailbox
             $routeProvider.when('/mailbox', {
-                templateUrl: 'client/Demo/Partials/mailbox.html',
+                templateUrl: 'src/Demo/Partials/mailbox.html',
 
                 pageInfo: {
                     icon:        'envelope',
@@ -150,7 +150,7 @@
 
             // Examples - Blank page
             $routeProvider.when('/blank', {
-                templateUrl: 'client/Demo/Partials/examples/blank.html',
+                templateUrl: 'src/Demo/Partials/examples/blank.html',
 
                 pageInfo: {
                     icon:        'folder',

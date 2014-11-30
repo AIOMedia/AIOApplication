@@ -8,7 +8,7 @@
         '$routeProvider',
         function ($routeProvider) {
             $routeProvider.when('/user/profile', {
-                templateUrl: 'client/User/Partials/profile.html',
+                templateUrl: 'src/User/Partials/profile.html',
 
                 pageInfo: {
                     icon:        'user',

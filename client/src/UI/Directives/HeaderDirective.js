@@ -11,7 +11,7 @@
                 restrict: 'E',
                 replace: true,
                 scope: {},
-                templateUrl: 'client/UI/Partials/header.html',
+                templateUrl: 'src/UI/Partials/header.html',
                 link: function (scope, element, attrs) {
                     scope.info = PageInfoService.get();
                 }

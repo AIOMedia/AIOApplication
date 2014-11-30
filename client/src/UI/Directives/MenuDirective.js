@@ -14,7 +14,7 @@
                 scope: {
                     collapsed: '=?'
                 },
-                templateUrl: 'client/UI/Partials/menu.html',
+                templateUrl: 'src/UI/Partials/menu.html',
                 link: function (scope, element, attrs) {
                     scope.items = MenuService.getItems();
 

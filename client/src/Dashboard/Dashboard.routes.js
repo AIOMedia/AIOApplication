@@ -8,7 +8,7 @@
         '$routeProvider',
         function ($routeProvider) {
             $routeProvider.when('/dashboard', {
-                templateUrl: 'client/Dashboard/Partials/dashboard.html',
+                templateUrl: 'src/Dashboard/Partials/dashboard.html',
                 controller: 'DashboardController',
                 controllerAs: 'controller',
 

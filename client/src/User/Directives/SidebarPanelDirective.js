@@ -10,7 +10,7 @@
             return {
                 restrict: 'E',
                 replace: true,
-                templateUrl: 'client/User/Partials/sidebar-panel.html',
+                templateUrl: 'src/User/Partials/sidebar-panel.html',
                 scope: {
                     collapsed: '=?'
                 },

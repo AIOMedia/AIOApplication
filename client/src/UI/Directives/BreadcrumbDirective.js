@@ -9,7 +9,7 @@
             return {
                 restrict: 'E',
                 replace: true,
-                templateUrl: 'client/UI/Partials/breadcrumb.html'
+                templateUrl: 'src/UI/Partials/breadcrumb.html'
             };
         }
     ]);

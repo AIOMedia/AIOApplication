@@ -8,7 +8,7 @@
         '$routeProvider',
         function ($routeProvider) {
             $routeProvider.when('/admin', {
-                templateUrl: 'client/Administration/Partials/index.html',
+                templateUrl: 'src/Administration/Partials/index.html',
 
                 pageInfo: {
                     icon:        'wrench',

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html data-ng-app="App" data-ng-cloak="">
+    <head>
+        <title>AIOMedia</title>
+        <link type="image/x-icon" rel="icon" href="public/favicon.ico" />
+
+        <meta charset="UTF-8" />
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport' />
+
+        <!-- Font awesome -->
+        <link type="text/css" rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.min.css" />
+        <!-- Ionicons -->
+        <link type="text/css" rel="stylesheet" href="//code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css" />
+
+        <!-- Theme style -->
+        <link type="text/css" rel="stylesheet" href="public/css/bootstrap-app.css" />
+
+        <!-- AngularJS App -->
+        <script type="text/javascript" src="../node_modules/angular/angular.min.js"></script>
+        <script type="text/javascript" src="../node_modules/angular-route/angular-route.min.js"></script>
+
+        <script type="text/javascript" src="src/Administration/Administration.module.js"></script>
+        <script type="text/javascript" src="src/Administration/Administration.routes.js"></script>
+
+        <script type="text/javascript" src="src/Dashboard/Dashboard.module.js"></script>
+        <script type="text/javascript" src="src/Dashboard/Dashboard.routes.js"></script>
+        <script type="text/javascript" src="src/Dashboard/Controllers/DashboardController.js"></script>
+
+        <script type="text/javascript" src="src/Search/Search.module.js"></script>
+        <script type="text/javascript" src="src/Search/Controllers/SidebarPanelController.js"></script>
+        <script type="text/javascript" src="src/Search/Directives/SidebarPanelDirective.js"></script>
+
+        <script type="text/javascript" src="src/Help/Help.module.js"></script>
+
+        <script type="text/javascript" src="src/Notification/Notification.module.js"></script>
+
+        <script type="text/javascript" src="src/User/User.module.js"></script>
+        <script type="text/javascript" src="src/User/User.routes.js"></script>
+        <script type="text/javascript" src="src/User/Directives/SidebarPanelDirective.js"></script>
+
+        <script type="text/javascript" src="src/UI/UI.module.js"></script>
+        <script type="text/javascript" src="src/UI/UI.routes.js"></script>
+        <script type="text/javascript" src="src/UI/Controllers/SidebarController.js"></script>
+        <script type="text/javascript" src="src/UI/Directives/MenuDirective.js"></script>
+        <script type="text/javascript" src="src/UI/Directives/SidebarDirective.js"></script>
+        <script type="text/javascript" src="src/UI/Directives/ScrollbarDirective.js"></script>
+        <script type="text/javascript" src="src/UI/Directives/HeaderDirective.js"></script>
+        <script type="text/javascript" src="src/UI/Directives/BreadcrumbDirective.js"></script>
+        <script type="text/javascript" src="src/UI/Services/AlertService.js"></script>
+        <script type="text/javascript" src="src/UI/Services/MenuService.js"></script>
+        <script type="text/javascript" src="src/UI/Services/PageInfoService.js"></script>
+
+        <!-- DEMO to remove -->
+        <script type="text/javascript" src="src/Demo/Demo.module.js"></script>
+        <script type="text/javascript" src="src/Demo/Demo.routes.js"></script>
+        <!-- DEMO end to remove -->
+
+        <script type="text/javascript" src="src/app.module.js"></script>
+        <script type="text/javascript" src="src/app.config.js"></script>
+        <script type="text/javascript" src="src/app.routes.js"></script>
+    </head>
+
+    <body>
+        <div class="wrapper row-offcanvas row-offcanvas-left">
+            <!-- Left side column. Contains the logo and sidebar -->
+            <ui-sidebar data-toggle="true" data-collapsed="true" class="left-side sidebar-offcanvas"></ui-sidebar>
+
+            <!-- Right side column. Contains the content of the page -->
+            <div class="right-side">
+                <!-- Content Header -->
+                <ui-header></ui-header>
+
+                <!-- Main content -->
+                <section class="content" data-ui-scrollbar="auto" data-ng-view=""></section>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="../node_modules/jquery/dist/jquery.min.js"></script>
+        <script type="text/javascript" src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    </body>
+</html>
