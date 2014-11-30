@@ -50,13 +50,15 @@ Your application should run on the 3000 port so in your browser just go to http:
 |- bin/
 |  `- www
 |- client/
-|- public/
-|  |- css/
-|  |- fonts/
-|  |- images/
-|  |- js/
-|  |- less/
-|  `- favicon.ico
+|  |- public/
+|  |  |- css/
+|  |  |- fonts/
+|  |  |- images/
+|  |  |- js/
+|  |  |- less/
+|  |  `- favicon.ico
+|  |- src/
+|  `- index.html
 `- server/
 ```
 
