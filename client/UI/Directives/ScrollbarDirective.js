@@ -7,7 +7,8 @@
 
     angular.module('UIModule').directive('uiScrollbar', [
         '$window',
-        function ($window) {
+        '$timeout',
+        function ($window, $timeout) {
             var defaults = {
                 width            : 'auto',         // width in pixels of the visible scroll area
                 height           : 'auto',         // height in pixels of the visible scroll area
@@ -339,7 +340,7 @@
                     function showBar() {
                         // recalculate bar height
                         getBarHeight();
-                        clearTimeout(queueHide);
+                        $timeout.cancel(queueHide);
 
                         // when bar reached top or bottom
                         if (percentScroll == ~~percentScroll) {
@@ -373,7 +374,7 @@
                     function hideBar() {
                         // only hide when options allow it
                         if (!o.alwaysVisible) {
-                            queueHide = setTimeout(function() {
+                            queueHide = $timeout(function() {
                                 if (!(o.disableFadeOut && isOverPanel) && !isOverBar && !isDrag) {
                                     bar.fadeOut('slow');
                                     rail.fadeOut('slow');
