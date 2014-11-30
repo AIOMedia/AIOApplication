@@ -7,8 +7,9 @@ Application for Media and Home Improvement management built on Node.js and Angul
 
 ## Requirements
 
-* Node.js - [Download & Install Node.js](http://www.nodejs.org/download/) and the npm package manager.
-* MongoDB - [Download & Install MongoDB](http://docs.mongodb.org/manual/installation/).
+* Node.js - [Download & Install Node.js](http://www.nodejs.org/download/)
+* NPM Package Manager - [Download & Install NPM](https://www.npmjs.org/doc/README.html)
+* MongoDB - [Download & Install MongoDB](http://docs.mongodb.org/manual/installation/)
 
 ## Download
 
@@ -62,8 +63,8 @@ Your application should run on the 3000 port so in your browser just go to http:
 ## Third party libraries
 
 ### Server
-* Express v4.10.2 - [http://expressjs.com/](http://expressjs.com)
-* Mongoose v3.8.19 - [http://mongoosejs.com/](http://mongoosejs.com)
+* Express v4.10.2 - [http://expressjs.com](http://expressjs.com)
+* Mongoose v3.8.19 - [http://mongoosejs.com](http://mongoosejs.com)
 
 ### Client
 * AngularJS v1.2.18 - [https://angularjs.org](https://angularjs.org)
