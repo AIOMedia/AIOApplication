@@ -226,6 +226,8 @@
                         // Remove bar
                         bar.remove();
 
+                        removeWheel();
+
                         $window.removeEventListener('resize', resize);
                     });
 
@@ -307,11 +309,20 @@
                     }
 
                     function attachWheel() {
-                        if (window.addEventListener) {
+                        if ($window.addEventListener) {
                             element[0].addEventListener('DOMMouseScroll', _onWheel, false );
                             element[0].addEventListener('mousewheel', _onWheel, false );
                         } else {
-                            document.attachEvent("onmousewheel", _onWheel)
+                            $window.document.attachEvent('onmousewheel', _onWheel);
+                        }
+                    }
+
+                    function removeWheel() {
+                        if ($window.removeEventListener) {
+                            element[0].removeEventListener('DOMMouseScroll', _onWheel, false );
+                            element[0].removeEventListener('mousewheel',     _onWheel, false );
+                        } else {
+                            $window.document.removeEvent('onmousewheel', _onWheel);
                         }
                     }
 
