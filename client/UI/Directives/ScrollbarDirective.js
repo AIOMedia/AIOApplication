@@ -6,7 +6,8 @@
     'use strict';
 
     angular.module('UIModule').directive('uiScrollbar', [
-        function () {
+        '$window',
+        function ($window) {
             var defaults = {
                 width            : 'auto',         // width in pixels of the visible scroll area
                 height           : 'auto',         // height in pixels of the visible scroll area
@@ -36,7 +37,6 @@
                 restrict: 'A',
                 scope: {},
                 link: function (scope, element, attrs) {
-                    console.log('scrollbar');
                     // used in event handlers and for better minification
                     var me = $(element);
 
@@ -50,10 +50,14 @@
                         barHeight, percentScroll, lastScroll,
                         divS = '<div></div>',
                         minBarHeight = 30,
-                        releaseScroll = false;
+                        releaseScroll = false,
+                        heightAuto = false;
 
                     // optionally set height to the parent's height
-                    o.height = (o.height == 'auto') ? me.parent().height() : o.height;
+                    if ('auto' == o.height) {
+                        o.height = me.parent().height();
+                        heightAuto = true;
+                    }
 
                     // wrap content
                     var wrapper = $(divS)
@@ -168,8 +172,7 @@
 
                     // support for mobile
                     me.bind('touchstart', function(e,b){
-                        if (e.originalEvent.touches.length)
-                        {
+                        if (e.originalEvent.touches.length) {
                             // record where touch started
                             touchDif = e.originalEvent.touches[0].pageY;
                         }
@@ -177,12 +180,10 @@
 
                     me.bind('touchmove', function(e){
                         // prevent scrolling the page if necessary
-                        if(!releaseScroll)
-                        {
+                        if(!releaseScroll) {
                             e.originalEvent.preventDefault();
                         }
-                        if (e.originalEvent.touches.length)
-                        {
+                        if (e.originalEvent.touches.length) {
                             // see how far user swiped
                             var diff = (touchDif - e.originalEvent.touches[0].pageY) / o.touchScrollStep;
                             // scroll content
@@ -195,14 +196,12 @@
                     getBarHeight();
 
                     // check start position
-                    if (o.start === 'bottom')
-                    {
+                    if (o.start === 'bottom') {
                         // scroll content to bottom
                         bar.css({ top: me.outerHeight() - bar.outerHeight() });
                         scrollContent(0, true);
                     }
-                    else if (o.start !== 'top')
-                    {
+                    else if (o.start !== 'top') {
                         // assume jQuery selector
                         scrollContent($(o.start).position().top, null, true);
 
@@ -213,8 +212,32 @@
                     // attach scroll events
                     attachWheel();
 
-                    function _onWheel(e)
-                    {
+                    // If height of scroll is "auto" resize scroll on element resize
+                    $window.addEventListener('resize', resize);
+
+                    // Destroy the scrollbar when directive is destroyed
+                    scope.$on('$destroy', function() {
+                        // Remove wrapper
+                        me.unwrap();
+
+                        // Remove rail
+                        rail.remove();
+
+                        // Remove bar
+                        bar.remove();
+
+                        $window.removeEventListener('resize', resize);
+                    });
+
+                    function resize() {
+                        if (heightAuto) {
+                            var height = me.parent().parent().height();
+                            me.parent().css('height', height);
+                            me.css('height', height);
+                        }
+                    }
+
+                    function _onWheel(e) {
                         // use mouse wheel only when mouse is over
                         if (!isOverPanel) { return; }
 
@@ -235,8 +258,7 @@
                         if (!releaseScroll) { e.returnValue = false; }
                     }
 
-                    function scrollContent(y, isWheel, isJump)
-                    {
+                    function scrollContent(y, isWheel, isJump) {
                         releaseScroll = false;
                         var delta = y;
                         var maxTop = me.outerHeight() - bar.outerHeight();
@@ -284,8 +306,7 @@
                         hideBar();
                     }
 
-                    function attachWheel()
-                    {
+                    function attachWheel() {
                         if (window.addEventListener) {
                             element[0].addEventListener('DOMMouseScroll', _onWheel, false );
                             element[0].addEventListener('mousewheel', _onWheel, false );
@@ -294,8 +315,7 @@
                         }
                     }
 
-                    function getBarHeight()
-                    {
+                    function getBarHeight() {
                         // calculate scrollbar height and make sure it is not too small
                         barHeight = Math.max((me.outerHeight() / me[0].scrollHeight) * me.outerHeight(), minBarHeight);
                         bar.css({ height: barHeight + 'px' });
@@ -305,8 +325,7 @@
                         bar.css({ display: display });
                     }
 
-                    function showBar()
-                    {
+                    function showBar() {
                         // recalculate bar height
                         getBarHeight();
                         clearTimeout(queueHide);
@@ -332,14 +351,15 @@
                             releaseScroll = true;
                             return;
                         }
+
                         bar.stop(true,true).fadeIn('fast');
+
                         if (o.railVisible) {
                             rail.stop(true,true).fadeIn('fast');
                         }
                     }
 
-                    function hideBar()
-                    {
+                    function hideBar() {
                         // only hide when options allow it
                         if (!o.alwaysVisible) {
                             queueHide = setTimeout(function() {
@@ -350,11 +370,6 @@
                             }, 1000);
                         }
                     }
-
-                    // Destroy the scrollbar when directive is destroyed
-                    scope.$on('$destroy', function() {
-
-                    });
                 }
             };
         }
