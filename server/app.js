@@ -18,6 +18,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', routes);
 app.use('/users', users);
 
+// Check which server user is used to execute Node code
+if (process.getuid && process.setuid) {
+    console.log('Current uid: ' + process.getuid());
+}
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
