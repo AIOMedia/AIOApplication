@@ -106,7 +106,15 @@
                         return match;
                     }.bind(this);
 
-                    return checkItems(items);
+                    if (route) {
+                        return checkItems(items);
+                    } else {
+                        if (activate) {
+                            this.setActive(null);
+                        }
+
+                        return false;
+                    }
                 },
 
                 /**
