@@ -28,7 +28,7 @@ db.connect();
 
 // Declare routes
 app.use('/', routes);
-app.use('/users', users);
+app.use('/user', users);
 
 // Check which server user is used to execute Node code
 if (process.getuid && process.setuid) {
