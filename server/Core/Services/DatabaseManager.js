@@ -76,12 +76,12 @@ DatabaseManager.prototype.connect = function () {
 
     // Connect to DB using Mongoose
     mongoose.connect(dbUri, function (err) {
-        if(err) {
+        if (err) {
             console.log('error connecting to MongoDB Database. ' + err);
         } else {
             console.log('Connected to Database "' + this.dbName + '".');
         }
-    });
+    }.bind(this));
 };
 
 module.exports = DatabaseManager;
