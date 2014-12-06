@@ -2,24 +2,24 @@
  * User Controller
  */
 var UserController = {
-    list: function () {
-        return { message: 'User list' };
+    list: function (req, res) {
+        res.json({ message: 'User list' });
     },
 
-    get: function (id) {
-        return { message: 'User get ' + id };
+    get: function (req, res) {
+        res.json({ message: 'User get ' + req.params.id });
     },
 
-    create: function () {
-        return { message: 'User create' };
+    create: function (req, res) {
+        res.json({ message: 'User create' });
     },
 
-    update: function (userData) {
-        return { message: 'User update', data: userData };
+    update: function (req, res) {
+        res.json({ message: 'User update ' + req.params.id });
     },
 
-    delete: function (id) {
-        return { message: 'User delete ' + id };
+    delete: function (req, res) {
+        res.json({ message: 'User delete ' + req.params.id });
     }
 };
 
