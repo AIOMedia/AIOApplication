@@ -13,6 +13,7 @@ var config = require('./config');
 // Load routes
 var routes = require('./routes');
 var users  = require('./User/routes');
+var users  = require('./Task/routes');
 
 // Initialize the App
 var app = express();
