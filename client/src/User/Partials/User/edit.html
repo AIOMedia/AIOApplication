@@ -1,25 +1,31 @@
 <form role="form">
-    <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input type="text" class="form-control" id="firstName" placeholder="First Name" data-ng-model="userEditCtrl.user.firstName" />
+    <div class="box box-default">
+        <div class="box-body">
+            <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" class="form-control" id="firstName" placeholder="First Name" data-ng-model="userEditCtrl.user.firstName" />
+            </div>
+
+            <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" class="form-control" id="lastName" placeholder="Last Name" data-ng-model="userEditCtrl.user.lastName" />
+            </div>
+
+            <div class="form-group">
+                <label for="login">Login</label>
+                <input type="text" class="form-control" id="login" placeholder="Login" data-ng-model="userEditCtrl.user.login" />
+            </div>
+        </div>
     </div>
 
-    <div class="form-group">
-        <label for="lastName">Last Name</label>
-        <input type="text" class="form-control" id="lastName" placeholder="Last Name" data-ng-model="userEditCtrl.user.lastName" />
+    <div class="pull-right">
+        <button type="submit" class="btn btn-primary" data-ng-click="userEditCtrl.save()">
+            <span class="fa fa-check-circle-o"></span>
+            {{ userEditCtrl.user._id ? 'Edit' : 'Create' }}
+        </button>
+        <button type="button" class="btn btn-default" data-ng-click="userEditCtrl.cancel()">
+            <span class="fa fa-times-circle-o"></span>
+            Cancel
+        </button>
     </div>
-
-    <div class="form-group">
-        <label for="login">Login</label>
-        <input type="text" class="form-control" id="login" placeholder="Login" data-ng-model="userEditCtrl.user.login" />
-    </div>
-
-    <button type="submit" class="btn btn-primary" data-ng-click="userEditCtrl.save()">
-        <span class="fa fa-check-circle-o"></span>
-        {{ userEditCtrl.user._id ? 'Edit' : 'Create' }}
-    </button>
-    <button type="button" class="btn btn-default" data-ng-click="userEditCtrl.cancel()">
-        <span class="fa fa-times-circle-o"></span>
-        Cancel
-    </button>
 </form>

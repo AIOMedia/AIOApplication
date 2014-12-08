@@ -1,15 +1,17 @@
 <header class="content-header">
-    <!-- Page title -->
-    <h1>
-        <i class="fa fa-fw fa-{{ info.icon }}" data-ng-if="info.icon"></i>
-        {{ info.title }}
-        <small class="hidden-xs" data-ng-if="info.description">{{ info.description }}</small>
-    </h1>
+    <i class="fa fa-2x fa-{{ info.icon }}" data-ng-if="info.icon"></i>
+
+    <ol class="breadcrumb">
+        <!-- Parent elements -->
+        <li data-ng-repeat="item in path">
+            <a href="{{ item.url }}">{{ item.title }}</a>
+        </li>
+
+        <!-- Current page -->
+        <li class="active">{{ info.title }}</li>
+    </ol>
 
     <div class="header-btns">
-        <!-- Breadcrumb -->
-        <ui-breadcrumb></ui-breadcrumb>
-
         <!-- Help Button -->
         <button class="btn btn-default" role="button" data-ng-if="info.help">
             <i class="fa fa-fw fa-info"></i>

@@ -13,7 +13,8 @@
                 scope: {},
                 templateUrl: 'src/UI/Partials/header.html',
                 link: function (scope, element, attrs) {
-                    scope.info = PageInfoService.get();
+                    scope.info = PageInfoService.getInfo();
+                    scope.path = PageInfoService.getPath();
                 }
             };
         }

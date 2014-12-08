@@ -7,159 +7,148 @@
     angular.module('DemoModule').config([
         '$routeProvider',
         function ($routeProvider) {
-            // Widgets
-            $routeProvider.when('/widgets', {
+            var demo = {
+                name: 'demo',
+                abstract: true,
+
+                pageInfo: {
+                    title: 'Demo'
+                }
+            };
+
+            var demoWidgets = {
+                name: 'demo.widgets',
+                url: '#/demo/widgets',
+                parent: demo,
                 templateUrl: 'src/Demo/Partials/widgets.html',
 
                 pageInfo: {
-                    icon:        'th',
-                    title:       'Widgets',
-                    description: 'Preview page',
-                    help:        true,
-                    config:   true
+                    icon:   'th',
+                    title:  'Widgets',
+                    help:   true,
+                    config: true
                 }
-            });
+            };
+
+            var demoUI = {
+                name: 'demo.ui',
+                abstract: true,
+                parent: demo,
+
+                pageInfo: {
+                    icon:   'laptop',
+                    title:  'UI Elements'
+                }
+            };
 
             // UI - General
-            $routeProvider.when('/ui/general', {
+            var demoUIGeneral = {
+                name: 'demo.ui.general',
+                url: '#/demo/ui/general',
+                parent: demoUI,
                 templateUrl: 'src/Demo/Partials/UI/general.html',
 
                 pageInfo: {
-                    icon:        'laptop',
-                    title:       'UI Elements',
-                    description: 'General',
-                    help:     true,
-                    config:   true
+                    title:  'General',
+                    help:   true,
+                    config: true
                 }
-            });
+            };
 
             // UI - Buttons
-            $routeProvider.when('/ui/buttons', {
+            var demoUIButtons = {
+                name: 'demo.ui.buttons',
+                url: '#/demo/ui/buttons',
+                parent: demoUI,
                 templateUrl: 'src/Demo/Partials/UI/buttons.html',
 
                 pageInfo: {
-                    icon:        'laptop',
-                    title:       'UI Elements',
-                    description: 'Buttons',
-                    help:     true,
-                    config:   true
+                    title:  'Buttons',
+                    help:   true,
+                    config: true
                 }
-            });
+            };
 
-            // UI - Sliders
-            $routeProvider.when('/ui/sliders', {
-                templateUrl: 'src/Demo/Partials/UI/sliders.html',
+            // UI - Tables
+            var demoUITables = {
+                name: 'demo.ui.tables',
+                url: '#/demo/ui/tables',
+                parent: demoUI,
+                templateUrl: 'src/Demo/Partials/UI/tables.html',
 
                 pageInfo: {
-                    icon:        'laptop',
-                    title:       'UI Elements',
-                    description: 'Sliders',
-                    help:     true,
-                    config:   true
+                    title:  'Tables',
+                    help:   true,
+                    config: true
                 }
-            });
+            };
+
+            // UI - Forms
+            var demoUIForms = {
+                name: 'demo.ui.forms',
+                url: '#/demo/ui/forms',
+                parent: demoUI,
+                templateUrl: 'src/Demo/Partials/UI/forms.html',
+
+                pageInfo: {
+                    title:  'Forms',
+                    help:   true,
+                    config: true
+                }
+            };
 
             // UI - Timeline
-            $routeProvider.when('/ui/timeline', {
+            var demoUITimeline = {
+                name: 'demo.ui.timeline',
+                url: '#/demo/ui/timeline',
+                parent: demoUI,
                 templateUrl: 'src/Demo/Partials/UI/timeline.html',
 
                 pageInfo: {
-                    icon:        'laptop',
-                    title:       'UI Elements',
-                    description: 'Timeline',
-                    help:     true,
-                    config:   true
+                    title:  'Timeline',
+                    help:   true,
+                    config: true
                 }
-            });
-
-            // Forms - General elements
-            $routeProvider.when('/forms/general', {
-                templateUrl: 'src/Demo/Partials/forms/general.html',
-
-                pageInfo: {
-                    icon:        'edit',
-                    title:       'Forms',
-                    description: 'General elements',
-                    help:     true,
-                    config:   true
-                }
-            });
-
-            // Forms - Advanced elements
-            $routeProvider.when('/forms/advanced', {
-                templateUrl: 'src/Demo/Partials/forms/advanced.html',
-
-                pageInfo: {
-                    icon:        'edit',
-                    title:       'Forms',
-                    description: 'Advanced elements',
-                    help:     true,
-                    config:   true
-                }
-            });
-
-            // Forms - Editors
-            $routeProvider.when('/forms/editors', {
-                templateUrl: 'src/Demo/Partials/forms/editors.html',
-
-                pageInfo: {
-                    icon:        'edit',
-                    title:       'Forms',
-                    description: 'Editors',
-                    help:     true,
-                    config:   true
-                }
-            });
-
-            // Tables
-            $routeProvider.when('/tables', {
-                templateUrl: 'src/Demo/Partials/tables.html',
-
-                pageInfo: {
-                    icon:        'table',
-                    title:       'Tables',
-                    description: 'preview of simple tables',
-                    help:     true,
-                    config:   true
-                }
-            });
+            };
 
             // Calendar
-            $routeProvider.when('/calendar', {
+            var demoCalendar = {
+                name: 'demo.calendar',
+                url: '#/demo/calendar',
+                parent: demo,
                 templateUrl: 'src/Demo/Partials/calendar.html',
 
                 pageInfo: {
-                    icon:        'calendar',
-                    title:       'Calendar',
-                    help:     true,
-                    config:   true
+                    icon:   'calendar',
+                    title:  'Calendar',
+                    help:   true,
+                    config: true
                 }
-            });
+            };
 
-            // Mailbox
-            $routeProvider.when('/mailbox', {
-                templateUrl: 'src/Demo/Partials/mailbox.html',
-
-                pageInfo: {
-                    icon:        'envelope',
-                    title:       'Mailbox',
-                    help:     true,
-                    config:   true
-                }
-            });
-
-            // Examples - Blank page
-            $routeProvider.when('/blank', {
+            // Blank page
+            var demoBlank = {
+                name: 'demo.blank',
+                url: '#/demo/blank',
+                parent: demo,
                 templateUrl: 'src/Demo/Partials/examples/blank.html',
 
                 pageInfo: {
-                    icon:        'folder',
-                    title:       'Blank page',
-                    description: 'it all starts here',
-                    help:     true,
-                    config:   true
+                    icon:  'folder',
+                    title: 'Blank page'
                 }
-            });
+            };
+
+            // Register states
+            $routeProvider
+                .when('/demo/widgets',     demoWidgets)
+                .when('/demo/ui/general',  demoUIGeneral)
+                .when('/demo/ui/buttons',  demoUIButtons)
+                .when('/demo/ui/tables',   demoUITables)
+                .when('/demo/ui/forms',    demoUIForms)
+                .when('/demo/ui/timeline', demoUITimeline)
+                .when('/demo/calendar',    demoCalendar)
+                .when('/demo/blank',       demoBlank);
         }]
     );
 })();

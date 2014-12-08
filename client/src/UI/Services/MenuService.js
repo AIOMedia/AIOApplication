@@ -21,100 +21,33 @@
                     return items;
                 },
 
+                browseItems: function (items, callback) {
+                    var callbackResult = null;
+                    for (var i = 0; i < items.length; i++) {
+                        var item = items[i];
+
+                        callbackResult = callback(item);
+                        if (callbackResult) {
+                            break;
+                        } else if (item.children) {
+                            callbackResult = this.browseItems(item.children, callback);
+                            if (callbackResult) {
+                                break;
+                            }
+                        }
+                    }
+
+                    return callbackResult;
+                },
+
                 /**
                  * Find an item by id
                  * @param itemId
                  */
                 findItem: function (itemId) {
-                    var searchItem = function (collection, itemId) {
-                        var item = null;
-                        for (var i = 0; i < collection.length; i++) {
-                            if (collection[i].id === itemId) {
-                                item = collection[i];
-                            } else if (0 !== collection[i].children.length) {
-                                // Search in children
-                                item = searchItem(collection[i].children, itemId);
-                            }
-
-                            if (item) {
-                                break;
-                            }
-                        }
-
-                        return item;
-                    };
-
-                    return searchItem(items, itemId);
-                },
-
-                setActive: function (itemId) {
-                    if (active) {
-                        this.setInactive(active);
-                    }
-
-                    active = itemId;
-                    var newActive = this.findItem(active);
-                    if (newActive) {
-                        newActive.active = true;
-                    }
-
-                    return this;
-                },
-
-                setInactive: function (itemId) {
-                    // TODO : loop over all items to mark all inactive
-                    var item = this.findItem(itemId);
-                    if (item) {
-                        item.active = false;
-                    }
-
-                    return this;
-                },
-
-                /**
-                 * Check if a route is managed by the menu
-                 * @param route RegExp of the current route
-                 * @returns {boolean}
-                 */
-                checkRoute: function (route, activate) {
-                    var checkItems = function (collection) {
-                        var match = false;
-                        for (var i = 0; i < collection.length; i++) {
-                            if (0 === collection[i].children.length) {
-                                // Check route of current item
-                                var toTest = collection[i].url.replace('#', '');
-                                match = route.test(toTest);
-                            } else {
-                                // Check routes of children
-                                match = checkItems(collection[i].children);
-                            }
-
-                            if (match) {
-                                // Route found => stop the search
-                                if (activate) {
-                                    this.setActive(items[i].id);
-                                }
-
-                                break;
-                            }
-                        }
-
-                        if (!match && activate) {
-                            this.setActive(null);
-                        }
-
-                        return match;
-                    }.bind(this);
-
-                    if (route) {
-                        return checkItems(items);
-                    } else {
-                        if (activate) {
-                            this.setActive(null);
-                        }
-
-                        return false;
-                    }
+                    return this.browseItems(items, function (item) {
+                        return item.id === itemId ? item : null;
+                    });
                 },
 
                 /**
@@ -204,6 +137,66 @@
                     }
 
                     return valid;
+                },
+
+                setActive: function (itemId) {
+                    if (active) {
+                        this.setInactive(active);
+                    }
+                    active = itemId;
+                    var newActive = this.findItem(active);
+                    if (newActive) {
+                        newActive.active = true;
+                    }
+                    return this;
+                },
+                setInactive: function (itemId) {
+                    // TODO : loop over all items to mark all inactive
+                    var item = this.findItem(itemId);
+                    if (item) {
+                        item.active = false;
+                    }
+                    return this;
+                },
+
+                /**
+                 * Check if a route is managed by the menu
+                 * @param route RegExp of the current route
+                 * @returns {boolean}
+                 */
+                checkRoute: function (route, activate) {
+                    var checkItems = function (collection) {
+                        var match = false;
+                        for (var i = 0; i < collection.length; i++) {
+                            if (0 === collection[i].children.length) {
+                                // Check route of current item
+                                var toTest = collection[i].url.replace('#', '');
+                                match = route.test(toTest);
+                            } else {
+                                // Check routes of children
+                                match = checkItems(collection[i].children);
+                            }
+                            if (match) {
+                                // Route found => stop the search
+                                if (activate) {
+                                    this.setActive(items[i].id);
+                                }
+                                break;
+                            }
+                        }
+                        if (!match && activate) {
+                            this.setActive(null);
+                        }
+                        return match;
+                    }.bind(this);
+                    if (route) {
+                        return checkItems(items);
+                    } else {
+                        if (activate) {
+                            this.setActive(null);
+                        }
+                        return false;
+                    }
                 }
             };
         }

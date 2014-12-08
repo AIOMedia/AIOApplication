@@ -7,37 +7,45 @@
     angular.module('UserModule').config([
         '$routeProvider',
         function ($routeProvider) {
-            $routeProvider.when('/user/profile', {
+            var profile = {
+                name: 'profile',
+                url: '#/profile',
                 templateUrl: 'src/User/Partials/profile.html',
 
                 pageInfo: {
-                    icon:        'user',
-                    title:       'My profile',
-                    description: ''
+                    icon:  'user',
+                    title: 'My profile'
                 }
-            });
+            };
 
             // List Users
-            $routeProvider.when('/user', {
+            var user = {
+                name: 'user',
+                url: '#/user',
                 templateUrl: 'src/User/Partials/User/list.html',
                 controller: 'UserController',
                 controllerAs: 'userCtrl',
 
                 resolve: {
-                    users: function (UserService) {
-                        return UserService.list();
-                    }
+                    users: [
+                        'UserService',
+                        function (UserService) {
+                            return UserService.list();
+                        }
+                    ]
                 },
 
                 pageInfo: {
-                    icon:        'users',
-                    title:       'Users',
-                    description: 'Authorized users in the application'
+                    icon:  'users',
+                    title: 'Users'
                 }
-            });
+            };
 
             // Create new User
-            $routeProvider.when('/user/create', {
+            var userCreate = {
+                name: 'user.create',
+                url: '#/user/create',
+                parent: user,
                 templateUrl:  'src/User/Partials/User/edit.html',
                 controller:   'UserEditController',
                 controllerAs: 'userEditCtrl',
@@ -49,29 +57,40 @@
                 },
 
                 pageInfo: {
-                    icon:        'plus',
-                    title:       'Create new User',
-                    description: ''
+                    title: 'Create'
                 }
-            });
+            };
 
-            $routeProvider.when('/user/edit/:userId', {
+            // Edit an existing User
+            var userEdit = {
+                name: 'user.edit',
+                url: '#/user/edit',
+                parent: user,
                 templateUrl:  'src/User/Partials/User/edit.html',
                 controller:   'UserEditController',
                 controllerAs: 'userEditCtrl',
 
                 resolve: {
-                    user: function ($route, UserService) {
-                        return UserService.get($route.current.params.userId);
-                    }
+                    user: [
+                        '$route',
+                        'UserService',
+                        function ($route, UserService) {
+                            return UserService.get($route.current.params.userId);
+                        }
+                    ]
                 },
 
                 pageInfo: {
-                    icon:        'pencil',
-                    title:       'Edit User',
-                    description: ''
+                    title: 'Edit'
                 }
-            });
+            };
+
+            // Register states
+            $routeProvider
+                .when('/profile',           profile)
+                .when('/user',              user)
+                .when('/user/create',       userCreate)
+                .when('/user/edit/:userId', userEdit);
         }]
     );
 })();

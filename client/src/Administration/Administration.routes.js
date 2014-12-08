@@ -7,16 +7,18 @@
     angular.module('AdministrationModule').config([
         '$routeProvider',
         function ($routeProvider) {
-            $routeProvider.when('/admin', {
+            var admin = {
+                name: 'admin',
                 templateUrl: 'src/Administration/Partials/index.html',
 
                 pageInfo: {
-                    icon:        'wrench',
-                    title:       'Parameters',
-                    description: 'Configure your application',
-                    help: true
+                    icon:  'wrench',
+                    title: 'Parameters',
+                    help:  true
                 }
-            });
+            };
+
+            $routeProvider.when('/admin', admin);
         }]
     );
 })();
