@@ -8,17 +8,18 @@
 //## Gray and brand colors for use across Bootstrap.
 @gray-base:              #1C2024;
 
-@gray-darker:            #a8b3c4;
-@gray-dark:              #8a95a6;
+@gray-darker:            lighten(@gray-light, 60%);
+@gray-dark:              lighten(@gray-light, 50%);
 @gray:                   #1C2024;
 @gray-light:             #12161a;
-@gray-lighter:           #080c10;
+@gray-lighter:           darken(@gray-light, 5%);
 
-@brand-primary:         darken(#428bca, 6.5%);
-@brand-success:         #5cb85c;
-@brand-info:            #5bc0de;
-@brand-warning:         #f0ad4e;
-@brand-danger:          #d9534f;
+@brand-default:         @gray-light;
+@brand-primary:         @blue;
+@brand-success:         @green;
+@brand-info:            @aqua;
+@brand-warning:         @yellow;
+@brand-danger:          @red;
 
 
 //== Scaffolding
@@ -33,7 +34,7 @@
 //** Global textual link color.
 @link-color:            @brand-primary;
 //** Link hover color set via `darken()` function.
-@link-hover-color:      darken(@link-color, 15%);
+@link-hover-color:      lighten(@link-color, 15%);
 //** Link hover decoration.
 @link-hover-decoration: none;
 
@@ -107,7 +108,7 @@
 @border-radius-small:       0px;
 
 //** Global color for active items (e.g., navs or dropdowns).
-@component-active-color:    #fff;
+@component-active-color:    @gray-darker;
 //** Global background color for active items (e.g., navs or dropdowns).
 @component-active-bg:       @brand-primary;
 
@@ -144,9 +145,9 @@
 
 @btn-font-weight:                normal;
 
-@btn-default-color:              #333;
-@btn-default-bg:                 #fff;
-@btn-default-border:             #ccc;
+@btn-default-color:              #fff;
+@btn-default-bg:                 @brand-default;
+@btn-default-border:             darken(@btn-default-bg, 5%);
 
 @btn-primary-color:              #fff;
 @btn-primary-bg:                 @brand-primary;
@@ -223,20 +224,20 @@
 //## Dropdown menu container and contents.
 
 //** Background for the dropdown menu.
-@dropdown-bg:                    #fff;
+@dropdown-bg:                    @gray;
 //** Dropdown menu `border-color`.
 @dropdown-border:                rgba(0,0,0,.15);
 //** Dropdown menu `border-color` **for IE8**.
-@dropdown-fallback-border:       #ccc;
+@dropdown-fallback-border:       @gray-light;
 //** Divider color for between dropdown items.
-@dropdown-divider-bg:            #e5e5e5;
+@dropdown-divider-bg:            @gray-light;
 
 //** Dropdown link text color.
 @dropdown-link-color:            @gray-dark;
 //** Hover color for dropdown links.
-@dropdown-link-hover-color:      darken(@gray-dark, 5%);
+@dropdown-link-hover-color:      @gray-darker;
 //** Hover background for dropdown links.
-@dropdown-link-hover-bg:         #f5f5f5;
+@dropdown-link-hover-bg:         @component-active-bg;
 
 //** Active dropdown menu item text color.
 @dropdown-link-active-color:     @component-active-color;
@@ -776,14 +777,14 @@
 //
 //##
 
-@breadcrumb-padding-vertical:   8px;
-@breadcrumb-padding-horizontal: 15px;
+@breadcrumb-padding-vertical:   5px;
+@breadcrumb-padding-horizontal: 10px;
 //** Breadcrumb background color
 @breadcrumb-bg:                 #f5f5f5;
 //** Breadcrumb text color
-@breadcrumb-color:              #ccc;
+@breadcrumb-color:              @gray-dark;
 //** Text color of current page in the breadcrumb
-@breadcrumb-active-color:       @gray-light;
+@breadcrumb-active-color:       @gray-dark;
 //** Textual separator for between breadcrumb elements
 @breadcrumb-separator:          "/";
 

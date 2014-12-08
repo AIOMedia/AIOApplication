@@ -4,30 +4,15 @@
 */
 .content-header {
     z-index: 100;
-    color: @gray-darker;
     background: @gray;
+    color: @gray-darker;
     position: fixed;
     top: 0;
     left: @left-side-width;
     right: 0;
-    padding: 8px 15px;
+    padding: 0px 15px;
     height: @header-height;
-
-    // Header Text
-    h1 {
-        margin: 0;
-        font-size: 22px;
-        font-weight: 900;
-        display: inline-block;
-        color: @gray-darker;
-        > small {
-            color: @gray-dark;
-            font-size: 15px;
-            display: inline-block;
-            padding-left: 4px;
-            font-weight: 300;
-        }
-    }
+    vertical-align: middle;
 
     .header-btns {
         position: absolute;
@@ -62,46 +47,24 @@
         }
     }
 
+    .fa {
+        vertical-align: middle;
+    }
+
     .breadcrumb {
+        font-size: 20px;
         display: inline-block;
         vertical-align: middle;
         background: transparent;
-        margin-top: 0px;
-        margin-bottom: 0;
-        font-size: 12px;
-        padding: 3px 15px;
-        border-radius: 2px;
+        margin: 0;
 
         > li > a {
-            color: @gray-dark;
-            text-decoration: none;
-
-            > .fa, > .glyphicon, > .ion {
-                margin-right: 5px;
-            }
+            color: @gray-darker;
+          font-weight: bold;
 
             &:hover, &:focus {
-              text-decoration: underline;
+                text-decoration: underline;
             }
-        }
-
-        .active {
-            color: @sidebar-light-font;
-        }
-
-        > li + li:before {
-            content: '>\00a0';
-            color: darken(@sidebar-light-font, 15%);
-        }
-    }
-
-    @media screen and (max-width: @screen-sm) {
-        .breadcrumb {
-            position: relative;
-            margin-top: 5px;
-            top: 0;
-            right: 0;
-            background: #efefef;
         }
     }
 }
@@ -118,6 +81,10 @@
 
 //Control navbar scaffolding on x-small screens
 @media (max-width: @screen-sm) {
+    .content-header {
+      left: 0;
+    }
+
     .navbar .navbar-nav > li {
         float: left;
     }
