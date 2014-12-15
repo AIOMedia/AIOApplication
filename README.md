@@ -2,7 +2,8 @@
 
 Application for Media and Home Improvement management built on Node.js and AngularJS
 
-[![Dependencies Status](https://david-dm.org/AIOMedia/AIOApplication.svg)](https://david-dm.org/AIOMedia/AIOApplication)
+[![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
+[![Dependencies Status](https://david-dm.org/AIOMedia/AIOApplication.svg?style=flat-square)](https://david-dm.org/AIOMedia/AIOApplication)
 
 ## Requirements
 
