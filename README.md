@@ -1,8 +1,8 @@
 # AIO Application
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
-[![Dependencies Status](https://david-dm.org/AIOMedia/AIOApplication.svg?style=flat-square)](https://david-dm.org/AIOMedia/AIOApplication)
-[![Travis CI build](https://travis-ci.org/AIOMedia/AIOApplication.svg?style=flat-square)](https://travis-ci.org/AIOMedia/AIOApplication)
+[![Dependencies Status](https://img.shields.io/david/AIOMedia/AIOApplication.svg?style=flat-square)](https://david-dm.org/AIOMedia/AIOApplication)
+[![Travis CI build](https://img.shields.io/travis/AIOMedia/AIOApplication/master.svg?style=flat-square)](https://travis-ci.org/AIOMedia/AIOApplication)
 
 Application for Media and Home Improvement management built on Node.js and AngularJS.
 
