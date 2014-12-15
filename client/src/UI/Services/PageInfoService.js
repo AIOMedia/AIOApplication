@@ -69,6 +69,10 @@
                             path.pop();
                         }
 
+                        if (!state.pageInfo) {
+                            state.pageInfo = {};
+                        }
+
                         // Get info of the current element (we try to fill missing with parent info, except for help and config)
                         info.icon   = state.pageInfo.icon   ? state.pageInfo.icon   : null;
                         info.title  = state.pageInfo.title  ? state.pageInfo.title  : null;
