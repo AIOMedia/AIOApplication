@@ -1,19 +1,15 @@
 // Load App dependencies (packages)
-var express      = require('express');
-var path         = require('path');
-var logger       = require('morgan');
-var bodyParser   = require('body-parser');
+var express    = require('express');
+var path       = require('path');
+var logger     = require('morgan');
+var bodyParser = require('body-parser');
 
 // Load App dependencies (local modules)
-var dbManager = require('./Core/Services/DatabaseManager');
+var dbManager     = require('./Core/Services/DatabaseManager');
+var moduleManager = require('./Core/Services/ModuleManager');
 
 // Load configuration file
 var config = require('./config');
-
-// Load routes
-var routes = require('./routes');
-var users  = require('./User/routes');
-var users  = require('./Task/routes');
 
 // Initialize the App
 var app = express();
@@ -33,9 +29,38 @@ app.use(function (req, res, next) {
 var db = new dbManager();
 db.connect();
 
-// Declare routes
-app.use('/', routes);
-app.use('/user', users);
+// Register modules
+if (config && config.modules) {
+    var mod = new moduleManager();
+
+    var registeredModules = Object.keys(config.modules);
+    for (var i = 0; i < registeredModules.length; i++) {
+        var registeredModule = registeredModules[i];
+        var registeredConfig = config.modules[registeredModule];
+
+        // Register module
+        mod.register(registeredModule, registeredConfig);
+
+        // Check if current module provides route
+        if (registeredConfig.route) {
+            var routeFilePath = './' + registeredModule + '/routes';
+
+            try {
+                // Try to load the routes
+                var routes = require(routeFilePath);
+
+                // Register routes into the app
+                app.use(registeredConfig.route, routes);
+            } catch (e) {
+                console.log('Load modules : Module "' + registeredModule + '". (' + e + ')');
+            }
+        }
+    }
+}
+
+// Declare default routes
+var defaultRoutes = require('./routes');
+app.use('/', defaultRoutes);
 
 // Check which server user is used to execute Node code
 if (process.getuid && process.setuid) {

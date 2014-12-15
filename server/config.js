@@ -4,7 +4,14 @@ var config = {
         port: 27017,
         name: 'aiomedia'
     },
-    modules: []
+    modules: {
+        Configuration: {
+            route: '/config'
+        },
+        User: {
+            route: '/user'
+        }
+    }
 };
 
 module.exports = config;
