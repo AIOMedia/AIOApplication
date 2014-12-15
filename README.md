@@ -1,9 +1,11 @@
 # AIO Application
 
-Application for Media and Home Improvement management built on Node.js and AngularJS
-
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![Dependencies Status](https://david-dm.org/AIOMedia/AIOApplication.svg?style=flat-square)](https://david-dm.org/AIOMedia/AIOApplication)
+
+Application for Media and Home Improvement management built on Node.js and AngularJS.
+
+This a quick overview of the AIOMedia application. For more information visit the [Project Wiki](https://github.com/AIOMedia/AIOApplication/wiki).
 
 ## Requirements
 
