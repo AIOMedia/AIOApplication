@@ -107,7 +107,7 @@ Files and directories of the Client are :
 ## License
 
 The MIT License (MIT).
-See LICENSE file for more information.
+See [LICENSE file](LICENSE) for more information.
 
 ## Authors
 
