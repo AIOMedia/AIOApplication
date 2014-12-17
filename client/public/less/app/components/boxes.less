@@ -79,6 +79,7 @@
 
         &.chart-responsive {
             width: 100%;
+
             overflow: hidden;
         }
 
@@ -210,108 +211,10 @@
         }
     }
 
-
-    // jQuery Knob in a box
-    .knob-label {
-        text-align: center;
-        color: #333;
-        font-weight: 100;
-        font-size: 12px;
-        margin-bottom: 0.3em;
-    }
-
     //
     //  Widgets
     //-----------
     //
-
-    // Widget: TODO LIST
-
-    .todo-list {
-        margin: 0;
-        padding: 0px 0px;
-        list-style: none;
-        // Todo list element
-        > li {
-            .border-radius(0px);
-            padding: 10px;
-            background: @table-striped-color;
-            margin-bottom: 3px;
-            border-left: 4px solid darken(@table-striped-color, 20%);
-            color: #444;
-            &:last-of-type {
-                margin-bottom: 0;
-            }
-            // Color varaity
-            &.danger {
-                border-left-color: @red;
-            }
-            &.warning {
-                border-left-color: @yellow;
-            }
-            &.info {
-                border-left-color: @aqua;
-            }
-            &.success {
-                border-left-color: @green;
-            }
-            &.primary {
-                border-left-color: @light-blue;
-            }
-
-            > input[type='checkbox']  {
-                margin: 0 10px 0 5px;
-            }
-
-            .text {
-                display: inline-block;
-                margin-left: 5px;
-                font-weight: 600;
-            }
-
-            // Time labels
-            .label {
-                margin-left: 10px;
-                font-size: 9px;
-            }
-
-            // Tools and options box
-            .tools {
-                display: none;
-                float: right;
-                color: @red;
-                // icons
-                > .fa, > .glyphicon, > .ion {
-                    margin-right: 5px;
-                    cursor: pointer;
-                }
-
-            }
-            &:hover .tools {
-                display: inline-block;
-            }
-
-            &.done {
-                color: #999;
-                .text {
-                    text-decoration: line-through;
-                    font-weight: 500;
-                }
-
-                .label {
-                    background: @gray!important;
-                }
-            }
-        }
-
-        .handle {
-            display: inline-block;
-            cursor: move;
-            margin: 0 5px;
-        }
-
-    }
-    // END TODO WIDGET
 
     // Chat widget
     .chat {
