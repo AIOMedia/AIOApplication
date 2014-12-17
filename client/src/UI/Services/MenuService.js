@@ -179,7 +179,7 @@
                             if (match) {
                                 // Route found => stop the search
                                 if (activate) {
-                                    this.setActive(items[i].id);
+                                    this.setActive(collection[i].id);
                                 }
                                 break;
                             }
