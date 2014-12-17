@@ -111,21 +111,6 @@
                 }
             };
 
-            // Calendar
-            var demoCalendar = {
-                name: 'demo.calendar',
-                url: '#/demo/calendar',
-                parent: demo,
-                templateUrl: 'src/Demo/Partials/calendar.html',
-
-                pageInfo: {
-                    icon:   'calendar',
-                    title:  'Calendar',
-                    help:   true,
-                    config: true
-                }
-            };
-
             // Blank page
             var demoBlank = {
                 name: 'demo.blank',
@@ -147,7 +132,6 @@
                 .when('/demo/ui/tables',   demoUITables)
                 .when('/demo/ui/forms',    demoUIForms)
                 .when('/demo/ui/timeline', demoUITimeline)
-                .when('/demo/calendar',    demoCalendar)
                 .when('/demo/blank',       demoBlank);
         }]
     );
