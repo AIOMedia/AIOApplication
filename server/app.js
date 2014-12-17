@@ -15,10 +15,10 @@ var config = require('./config');
 var app = express();
 
 // Configuration
-app.use(express.static(path.join(__dirname, 'public')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 
+// Allow cross-origin request to make the API available even when you are not on same network
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -61,10 +61,5 @@ if (config && config.modules) {
 // Declare default routes
 var defaultRoutes = require('./routes');
 app.use('/', defaultRoutes);
-
-// Check which server user is used to execute Node code
-if (process.getuid && process.setuid) {
-    console.log('Current uid: ' + process.getuid());
-}
 
 module.exports = app;

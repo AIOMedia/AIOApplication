@@ -5,6 +5,9 @@
  * @description CRUD for Task management
  */
 
+// Load Response
+var Response = require('../../Core/Response');
+
 // Load Task model
 var Task = require('../Models/Task');
 
@@ -17,7 +20,8 @@ var TaskController = {
     list: function (req, res) {
         return Task.find(function (err, tasks) {
             if (!err) {
-                return res.json({ data: tasks });
+                /*return res.json({ data: tasks });*/
+                return new Response.Data.Collection(tasks);
             } else {
                 res.statusCode = 500;
                 console.log('Internal error(%d): %s' ,res.statusCode, err.message);

@@ -67,8 +67,6 @@ var UserController = {
             lastName : req.body.lastName
         });
 
-        /*console.dir(user)*/;
-
         return user.save(function (err) {
             if (err) {
                 console.log('Error while saving user : ' + err);
@@ -127,7 +125,7 @@ var UserController = {
                     } else {
                         res.statusCode = 500;
 
-                        return res.json({ error: 'Internal Server error' });
+                        return res.json(new Response.Error.Internal());
                     }
                 }
             });
@@ -156,7 +154,7 @@ var UserController = {
                     res.statusCode = 500;
 
                     console.log('Internal error(%d): %s', res.statusCode, err.message);
-                    return res.json({ error: 'Internal Server error' });
+                    return res.json(new Response.Error.Internal());
                 }
             })
         });

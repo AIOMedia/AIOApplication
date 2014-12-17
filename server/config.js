@@ -10,6 +10,9 @@ var config = {
         },
         User: {
             route: '/user'
+        },
+        Task: {
+            route: '/task'
         }
     }
 };

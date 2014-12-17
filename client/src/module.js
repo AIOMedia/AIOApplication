@@ -10,6 +10,7 @@
             'UIModule',
             'AdministrationModule',
             'DashboardModule',
+            'TaskModule',
 
             // To remove
             'DemoModule'
