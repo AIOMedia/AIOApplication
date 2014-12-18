@@ -11,7 +11,17 @@
                 name: 'task',
                 url: '#/task',
                 templateUrl: 'src/Task/Partials/list.html',
+                controller: 'TaskController',
+                controllerAs: 'taskCtrl',
 
+                resolve: {
+                    tasks: [
+                        'TaskService',
+                        function (TaskService) {
+                            return TaskService.list();
+                        }
+                    ]
+                },
                 pageInfo: {
                     icon:  'tasks',
                     title: 'My tasks'

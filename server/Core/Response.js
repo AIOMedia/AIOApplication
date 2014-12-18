@@ -19,9 +19,9 @@ var Response = {
         CREATED:      { status: 201, message: 'Created' },
         // Accepted but is being processed async
         ACCEPTED:     { status: 202, message: 'Accepted' },
-        // Bad request (synthax)
+        // Bad request (syntax)
         BAD_REQUEST:  { status: 400, message: 'Bad Request' },
-        // Invalid data has been posted
+        // Invalid data have been posted
         INVALID:      { status: 400, message: 'Invalid Data' },
         // The requested URL or the resource can not be found
         NOT_FOUND:    { status: 404, message: 'Not found' },

@@ -21,7 +21,7 @@ var TaskController = {
         return Task.find(function (err, tasks) {
             if (!err) {
                 /*return res.json({ data: tasks });*/
-                return new Response.Data.Collection(tasks);
+                return new res.json(Response.Data.Collection(tasks));
             } else {
                 res.statusCode = 500;
                 console.log('Internal error(%d): %s' ,res.statusCode, err.message);
