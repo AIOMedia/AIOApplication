@@ -259,8 +259,8 @@ th {
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url(' ../fonts/glyphicons-halflings-regular.eot');
-  src: url(' ../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url(' ../fonts/glyphicons-halflings-regular.woff') format('woff'), url(' ../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url(' ../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+  src: url('../fonts/glyphicons-halflings-regular.eot');
+  src: url('../fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../fonts/glyphicons-halflings-regular.woff') format('woff'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 .glyphicon {
   position: relative;
@@ -7748,6 +7748,7 @@ Component: timeline
 }
 /*
     Component: Navs
+----------------------------
 */
 /* NAV PILLS */
 .nav.nav-pills > li > a {
@@ -8558,6 +8559,9 @@ Component: timeline
   border-left: 4px solid #08090b;
   color: #8295a9;
   vertical-align: middle;
+  /*> input[type='checkbox']  {
+        margin: 0 10px 0 5px;
+      }*/
 }
 .todo-list > li:last-of-type {
   margin-bottom: 0;
@@ -8576,9 +8580,6 @@ Component: timeline
 }
 .todo-list > li.primary {
   border-left-color: #3c8dbc;
-}
-.todo-list > li > input[type='checkbox'] {
-  margin: 0 10px 0 5px;
 }
 .todo-list > li .text {
   display: inline-block;
