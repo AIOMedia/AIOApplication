@@ -9,7 +9,7 @@
             return {
                 restrict: 'E',
                 replace: true,
-                templateUrl: 'src/UI/Partials/sidebar.html',
+                templateUrl: '../app/UI/Partials/sidebar.html',
                 scope: {
                     collapsed: '@collapsed',
                     toggle   : '@toggle'

@@ -9,7 +9,7 @@
         function ($routeProvider) {
             var admin = {
                 name: 'admin',
-                templateUrl: 'src/Administration/Partials/index.html',
+                templateUrl: '../app/Administration/Partials/index.html',
 
                 pageInfo: {
                     icon:  'wrench',

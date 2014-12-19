@@ -10,7 +10,7 @@
             var profile = {
                 name: 'profile',
                 url: '#/profile',
-                templateUrl: 'src/User/Partials/profile.html',
+                templateUrl: '../app/User/Partials/profile.html',
 
                 pageInfo: {
                     icon:  'user',
@@ -22,7 +22,7 @@
             var user = {
                 name: 'user',
                 url: '#/user',
-                templateUrl: 'src/User/Partials/User/list.html',
+                templateUrl: '../app/User/Partials/User/list.html',
                 controller: 'UserController',
                 controllerAs: 'userCtrl',
 
@@ -46,7 +46,7 @@
                 name: 'user.create',
                 url: '#/user/create',
                 parent: user,
-                templateUrl:  'src/User/Partials/User/edit.html',
+                templateUrl:  '../app/User/Partials/User/edit.html',
                 controller:   'UserEditController',
                 controllerAs: 'userEditCtrl',
 
@@ -66,7 +66,7 @@
                 name: 'user.edit',
                 url: '#/user/edit',
                 parent: user,
-                templateUrl:  'src/User/Partials/User/edit.html',
+                templateUrl:  '../app/User/Partials/User/edit.html',
                 controller:   'UserEditController',
                 controllerAs: 'userEditCtrl',
 

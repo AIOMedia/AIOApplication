@@ -10,7 +10,7 @@
             var task = {
                 name: 'task',
                 url: '#/task',
-                templateUrl: 'src/Task/Partials/list.html',
+                templateUrl: '../app/Task/Partials/list.html',
                 controller: 'TaskController',
                 controllerAs: 'taskCtrl',
 

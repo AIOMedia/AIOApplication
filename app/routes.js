@@ -24,7 +24,7 @@
             var error404 = {
                 name: 'error.404',
                 parent: error,
-                templateUrl: 'src/UI/Partials/error/404.html',
+                templateUrl: '../app/UI/Partials/error/404.html',
 
                 pageInfo: {
                     title: '404 Page not found'
@@ -34,7 +34,7 @@
             var error500 = {
                 name: 'error.500',
                 parent: error,
-                templateUrl: 'src/UI/Partials/error/500.html',
+                templateUrl: '../app/UI/Partials/error/500.html',
 
                 pageInfo: {
                     title: '500 Internal server error'

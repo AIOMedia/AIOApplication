@@ -9,7 +9,7 @@
             var dashboard = {
                 name: 'dashboard',
                 url: '/dashboard',
-                templateUrl: 'src/Dashboard/Partials/dashboard.html',
+                templateUrl: '../app/Dashboard/Partials/dashboard.html',
                 controller: 'DashboardController',
                 controllerAs: 'controller',
 
