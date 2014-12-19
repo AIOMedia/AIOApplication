@@ -7996,26 +7996,6 @@ Component: timeline
   font-size: 10px;
   font-weight: 400;
 }
-.btn.btn-social-old {
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  opacity: 0.9;
-  padding: 0;
-}
-.btn.btn-social-old > .fa {
-  padding: 10px 0;
-  width: 40px;
-}
-.btn.btn-social-old > .fa + span {
-  border-left: 1px solid rgba(255, 255, 255, 0.3);
-}
-.btn.btn-social-old span {
-  padding: 10px;
-}
-.btn.btn-social-old:hover {
-  opacity: 1;
-}
 .btn.btn-circle {
   width: 30px;
   height: 30px;
