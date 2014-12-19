@@ -18,7 +18,7 @@
 
             var demoWidgets = {
                 name: 'demo.widgets',
-                url: '#/demo/widgets',
+                url: '#/demo/ui/widgets',
                 parent: demo,
                 templateUrl: 'src/Demo/Partials/widgets.html',
 
@@ -126,7 +126,7 @@
 
             // Register states
             $routeProvider
-                .when('/demo/widgets',     demoWidgets)
+                .when('/demo/ui/widgets',  demoWidgets)
                 .when('/demo/ui/general',  demoUIGeneral)
                 .when('/demo/ui/buttons',  demoUIButtons)
                 .when('/demo/ui/tables',   demoUITables)
