@@ -6,7 +6,8 @@
 
     angular
         .module('TaskModule', [
-            'ngRoute'
+            'ngRoute',
+            'ui.sortable'
         ])
         .run([
             'MenuService',

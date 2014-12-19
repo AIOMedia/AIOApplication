@@ -6,8 +6,14 @@
 <br/>
 <br/>
 
-<ul class="todo-list">
-    <li>
+<ul class="todo-list" data-ui-sortable="" data-ng-model="taskCtrl.tasks">
+    <li data-ng-repeat="task in taskCtrl.tasks">
+
+    </li>
+<!--</ul>
+
+<ul class="todo-list">-->
+    <li class="danger">
         <!-- drag handle -->
         <span class="handle">
             <i class="fa fa-ellipsis-v"></i>

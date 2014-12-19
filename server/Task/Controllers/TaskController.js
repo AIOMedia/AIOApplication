@@ -20,8 +20,7 @@ var TaskController = {
     list: function (req, res) {
         return Task.find(function (err, tasks) {
             if (!err) {
-                /*return res.json({ data: tasks });*/
-                return new res.json(Response.Data.Collection(tasks));
+                return res.json(new Response.Data.Collection(tasks));
             } else {
                 res.statusCode = 500;
                 console.log('Internal error(%d): %s' ,res.statusCode, err.message);
