@@ -1,0 +1,50 @@
+ul.ui-sortable {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    > li.ui-sortable-handle {
+        cursor: move;
+        .border-radius(@border-radius-base);
+        padding: @padding-large-vertical @padding-large-horizontal;
+        padding-left: @padding-large-horizontal + floor(@padding-large-horizontal / 2);
+        background: @gray-light;
+        margin-bottom: 3px;
+        border-left: 4px solid @gray-lighter;
+        color: @gray-dark;
+        vertical-align: middle;
+        position: relative;
+
+        &:before {
+            font-family: FontAwesome;
+            content: "\f142  \f142";
+            color: @gray-dark;
+            opacity: 0.2;
+            position: absolute;
+            left: 0;
+            height: 100%;
+            vertical-align: middle;
+            padding: 0 6px;
+        }
+
+        &:last-of-type {
+          margin-bottom: 0;
+        }
+
+        &.danger {
+            border-left-color: @brand-danger;
+        }
+        &.warning {
+            border-left-color: @brand-warning;
+        }
+        &.info {
+            border-left-color: @brand-info;
+        }
+        &.success {
+            border-left-color: @brand-success;
+        }
+        &.primary {
+            border-left-color: @brand-primary;
+        }
+    }
+}
