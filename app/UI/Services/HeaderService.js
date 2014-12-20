@@ -1,11 +1,11 @@
 /**
- * Page Info Service
+ * Header Service
  * Contains information about current page
  */
 (function () {
     'use strict';
 
-    angular.module('UIModule').factory('PageInfoService', [
+    angular.module('UIModule').factory('HeaderService', [
         '$window',
         function ($window) {
             var defaultTitle = 'AIOMedia';
@@ -16,10 +16,10 @@
              */
             var info = {
                 icon  : null,
-                title : null,
-                help  : false,
-                config: false
+                title : null
             };
+
+            var buttons = [];
 
             /**
              * Path to the current
@@ -62,6 +62,28 @@
                     return path;
                 },
 
+                getButtons: function () {
+                    return buttons;
+                },
+
+                addButton: function (buttonConfig) {
+                    var button = {
+                        icon  : buttonConfig.icon   ? buttonConfig.icon   : null,
+                        label : buttonConfig.label  ? buttonConfig.label  : '',
+                        url   : buttonConfig.url    ? buttonConfig.url    : '',
+                        action: buttonConfig.action ? buttonConfig.action : function () {}
+                    };
+
+                    if (buttonConfig.action) {
+                        button.action = {
+                            func:   buttonConfig.action.func ? buttonConfig.action.func : function () {},
+                            params: buttonConfig.action.params ? buttonConfig.action.params : []
+                        }
+                    }
+
+                    buttons.push(button);
+                },
+
                 build: function (state, first) {
                     if (first) {
                         // We start rebuilding the path, so empty old
@@ -69,15 +91,24 @@
                             path.pop();
                         }
 
+                        while (buttons.length > 0) {
+                            buttons.pop();
+                        }
+
                         if (!state.pageInfo) {
                             state.pageInfo = {};
                         }
 
                         // Get info of the current element (we try to fill missing with parent info, except for help and config)
-                        info.icon   = state.pageInfo.icon   ? state.pageInfo.icon   : null;
-                        info.title  = state.pageInfo.title  ? state.pageInfo.title  : null;
-                        info.help   = state.pageInfo.help   ? state.pageInfo.help   : false;
-                        info.config = state.pageInfo.config ? state.pageInfo.config : false;
+                        info.icon    = state.pageInfo.icon    ? state.pageInfo.icon    : null;
+                        info.title   = state.pageInfo.title   ? state.pageInfo.title   : null;
+
+                        // Add buttons
+                        if (state.buttons) {
+                            for (var i = 0; i < state.buttons.length; i++) {
+                                this.addButton(state.buttons[i]);
+                            }
+                        }
 
                         first = false;
                     } else {

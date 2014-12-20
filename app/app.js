@@ -24,15 +24,15 @@
         ])
         .run([
             '$rootScope',
-            'PageInfoService',
+            'HeaderService',
             'MenuService',
-            function ($rootScope, PageInfoService, MenuService) {
+            function ($rootScope, HeaderService, MenuService) {
                 $rootScope.$on('$routeChangeSuccess', function (event, next, current) {
                     // Store previous state
-                    PageInfoService.setPrevious(current);
+                    HeaderService.setPrevious(current);
 
                     // Store current state
-                    PageInfoService.setCurrent(next);
+                    HeaderService.setCurrent(next);
 
                     MenuService.checkRoute(next.regexp, true);
 

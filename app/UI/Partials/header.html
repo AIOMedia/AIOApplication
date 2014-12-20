@@ -11,17 +11,10 @@
         <li class="active">{{ info.title }}</li>
     </ol>
 
-    <div class="header-btns">
-        <!-- Help Button -->
-        <button class="btn btn-default" role="button" data-ng-if="info.help">
-            <i class="fa fa-fw fa-info"></i>
-            <span class="sr-only">Help</span>
-        </button>
-
-        <!-- Configuration Button -->
-        <button class="btn btn-default" role="button" data-ng-if="info.config">
-            <i class="fa fa-fw fa-cog"></i>
-            <span class="sr-only">Configuration</span>
-        </button>
+    <div class="header-btns" data-ng-if="buttons && buttons.length !== 0">
+        <a data-ng-repeat="button in buttons" href="{{ button.url }}" data-ng-click="buttonClick(button)" class="btn btn-default" role="button">
+            <span class="fa fa-fw fa-{{ button.icon }}" data-ng-if="button.icon"></span>
+            <span data-ng-class="{ 'sr-only': button.iconOnly }" data-ng-if="button.label">{{ button.label }}</span>
+        </a>
     </div>
 </header>
