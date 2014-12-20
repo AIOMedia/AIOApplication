@@ -1,81 +1,15 @@
-.todo-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
-
-    // Todo list element
+.list-tasks {
     > li {
-      .border-radius(@border-radius-base);
-      padding: 10px;
-      background: @gray-light;
-      margin-bottom: 3px;
-      border-left: 4px solid @gray-lighter;
-      color: @gray-dark;
-      vertical-align: middle;
-      &:last-of-type {
-        margin-bottom: 0;
-      }
-      // Color varaity
-      &.danger {
-        border-left-color: @red;
-      }
-      &.warning {
-        border-left-color: @yellow;
-      }
-      &.info {
-        border-left-color: @aqua;
-      }
-      &.success {
-        border-left-color: @green;
-      }
-      &.primary {
-        border-left-color: @light-blue;
-      }
+        &.task-done {
+            color: #999;
+            .text {
+                text-decoration: line-through;
+                font-weight: 500;
+            }
 
-      /*> input[type='checkbox']  {
-        margin: 0 10px 0 5px;
-      }*/
-
-      .text {
-        display: inline-block;
-        margin-left: 5px;
-        font-weight: 600;
-      }
-
-      // Time labels
-      .label {
-        margin-left: 10px;
-        font-size: 9px;
-      }
-
-      // Tools and options box
-      .tools {
-        display: none;
-        float: right;
-        color: @red;
-        // icons
-        > .fa, > .glyphicon {
-          margin-right: 5px;
-          cursor: pointer;
+            .label {
+                background: @gray!important;
+            }
         }
-      }
-
-      &.done {
-        color: #999;
-        .text {
-          text-decoration: line-through;
-          font-weight: 500;
-        }
-
-        .label {
-          background: @gray!important;
-        }
-      }
-    }
-
-    .handle {
-      display: inline-block;
-      cursor: move;
-      margin: 0 5px;
     }
 }
