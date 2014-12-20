@@ -68,10 +68,11 @@
 
                 addButton: function (buttonConfig) {
                     var button = {
-                        icon  : buttonConfig.icon   ? buttonConfig.icon   : null,
-                        label : buttonConfig.label  ? buttonConfig.label  : '',
-                        url   : buttonConfig.url    ? buttonConfig.url    : '',
-                        action: buttonConfig.action ? buttonConfig.action : function () {}
+                        icon    : buttonConfig.icon     ? buttonConfig.icon     : null,
+                        iconOnly: buttonConfig.iconOnly ? buttonConfig.iconOnly : false,
+                        label   : buttonConfig.label    ? buttonConfig.label    : '',
+                        url     : buttonConfig.url      ? buttonConfig.url      : '',
+                        action  : buttonConfig.action   ? buttonConfig.action   : function () {}
                     };
 
                     if (buttonConfig.action) {
