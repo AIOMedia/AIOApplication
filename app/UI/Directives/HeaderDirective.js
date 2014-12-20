@@ -25,7 +25,6 @@
                                 button.action.func();
                             }
                         }
-                        button.action();
                     }
                 }
             };

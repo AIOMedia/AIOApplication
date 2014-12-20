@@ -12,7 +12,7 @@
     </ol>
 
     <div class="header-btns" data-ng-if="buttons && buttons.length !== 0">
-        <a data-ng-repeat="button in buttons" href="{{ button.url }}" data-ng-click="buttonClick(button)" class="btn btn-default" role="button">
+        <a data-ng-repeat="button in buttons" data-ng-href="{{ button.url }}" data-ng-click="buttonClick(button)" class="btn btn-default" role="button">
             <span class="fa fa-fw fa-{{ button.icon }}" data-ng-if="button.icon"></span>
             <span data-ng-class="{ 'sr-only': button.iconOnly }" data-ng-if="button.label">{{ button.label }}</span>
         </a>
