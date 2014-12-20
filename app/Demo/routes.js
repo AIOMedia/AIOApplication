@@ -20,7 +20,7 @@
                 name: 'demo.widgets',
                 url: '#/demo/ui/widgets',
                 parent: demo,
-                templateUrl: 'app/Demo/Partials/widgets.html',
+                templateUrl: '../app/Demo/Partials/widgets.html',
 
                 pageInfo: {
                     icon:   'th',
@@ -46,7 +46,7 @@
                 name: 'demo.ui.general',
                 url: '#/demo/ui/general',
                 parent: demoUI,
-                templateUrl: 'app/Demo/Partials/general.html',
+                templateUrl: '../app/Demo/Partials/general.html',
 
                 pageInfo: {
                     title:  'General',
@@ -60,7 +60,7 @@
                 name: 'demo.ui.buttons',
                 url: '#/demo/ui/buttons',
                 parent: demoUI,
-                templateUrl: 'app/Demo/Partials/buttons.html',
+                templateUrl: '../app/Demo/Partials/buttons.html',
 
                 pageInfo: {
                     title:  'Buttons',
@@ -74,7 +74,7 @@
                 name: 'demo.ui.tables',
                 url: '#/demo/ui/tables',
                 parent: demoUI,
-                templateUrl: 'app/Demo/Partials/tables.html',
+                templateUrl: '../app/Demo/Partials/tables.html',
 
                 pageInfo: {
                     title:  'Tables',
@@ -88,7 +88,7 @@
                 name: 'demo.ui.forms',
                 url: '#/demo/ui/forms',
                 parent: demoUI,
-                templateUrl: 'app/Demo/Partials/forms.html',
+                templateUrl: '../app/Demo/Partials/forms.html',
 
                 pageInfo: {
                     title:  'Forms',
@@ -102,7 +102,7 @@
                 name: 'demo.ui.timeline',
                 url: '#/demo/ui/timeline',
                 parent: demoUI,
-                templateUrl: 'app/Demo/Partials/timeline.html',
+                templateUrl: '../app/Demo/Partials/timeline.html',
 
                 pageInfo: {
                     title:  'Timeline',
@@ -116,7 +116,7 @@
                 name: 'demo.blank',
                 url: '#/demo/blank',
                 parent: demo,
-                templateUrl: 'app/Demo/Partials/blank.html',
+                templateUrl: '../app/Demo/Partials/blank.html',
 
                 pageInfo: {
                     icon:  'folder',
