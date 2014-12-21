@@ -1,18 +1,9 @@
 /* 
-    Dropdown menus
+    Component: Dropdown
 ----------------------------
 */
-
-/*Dropdowns in general*/
 .dropdown-menu {
-    -webkit-box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
-    -moz-box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
-    box-shadow: 0px 3px 6px rgba(0,0,0,0.1);
-    z-index: 2300;
-    > li > a > .glyphicon,
-    > li > a > .fa {
-        margin-right: 10px;
-    }
+    .box-shadow(@dropdown-box-shadow);
 }
 
 /* Add fade animation to dropdown menus */
@@ -38,20 +29,16 @@
 @keyframes fadeAnimation {
     from {
         opacity: 0;
-        top: 120%;
     }
     to {
         opacity: 1;
-        top: 100%
     }
 }
 @-webkit-keyframes fadeAnimation {
     from {
         opacity: 0;
-        top: 120%;
     }
     to {
         opacity: 1;
-        top: 100%;
     }
 }
