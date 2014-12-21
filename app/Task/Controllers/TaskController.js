@@ -5,7 +5,7 @@
         'HeaderService',
         'tasks',
         function (HeaderService, tasks) {
-            /*this.tasks = tasks;*/
+            this.tasks = tasks;
 
             this.tasks = [
                 {id: 1, name: 'Ma premiere tache', done: false },
