@@ -4,40 +4,7 @@
  */
 .sidebar-search {
     > form {
-        padding: 10px;
-    }
-
-    .input-group {
-        input[type="text"], .btn {
-            box-shadow: none;
-            background-color: @input-bg;
-            border: @sidebar-dark-border;
-            height: 35px;
-            color: @sidebar-light-font;
-        }
-
-        input[type="text"]{
-            border-right: none !important;
-
-            &:focus {
-                border: @sidebar-dark-border;
-            }
-
-            &:focus, &:focus + .input-group-btn .btn {
-                background-color: @input-bg-focus;
-                color: @sidebar-dark-font;
-            }
-        }
-
-        input:focus {
-            -webkit-box-shadow: none;
-            -moz-box-shadow: none;
-            box-shadow: none;
-        }
-
-        .btn {
-            border-left: none !important;
-        }
+        padding: 0 15px;
     }
 }
 
@@ -46,18 +13,11 @@
  * Collapsed mode
  */
 .sidebar-search.collapsed {
-    background: @sidebar-light-hover-bg;
+    background: @sidebar-light-bg;
     text-align: center;
-    margin-bottom: 5px;
 
     .btn {
-      padding: 10px;
-      display: block;
-      width: 100%;
-      color: @sidebar-light-font;
-
-      &:hover, &:focus {
-        color: @sidebar-dark-font;
-      }
+        display: block;
+        width: 100%;
     }
 }

@@ -1,15 +1,51 @@
 .list-tasks {
     > li {
-        &.task-done {
-            color: #999;
-            .text {
-                text-decoration: line-through;
-                font-weight: 500;
+        vertical-align: middle;
+
+        .btn-done {
+            padding: 0;
+            margin-right: 5px;
+            color: darken(@gray-dark, 50%);
+            vertical-align: middle;
+            border: none;
+
+            &:hover {
+                color: lighten(@gray, 50%);
             }
 
-            .label {
-                background: @gray!important;
+            &:focus {
+                color: @gray-dark;
             }
+        }
+
+        .btn-group {
+            position: absolute;
+            top: 0;
+            right: 0;
+            height: 100%;
+            vertical-align: middle;
+
+            border-left: 1px solid @brand-default;
+
+            > .btn {
+                height: 100%;
+                vertical-align: middle;
+                border: none;
+                padding: @padding-large-vertical @padding-large-horizontal;
+            }
+        }
+
+        &.task-done {
+            text-decoration: line-through;
+            color: darken(@gray-dark, 50%) !important;
+
+          .btn-done {
+            color: @brand-primary;
+
+            &:hover, &:focus {
+              color: @brand-primary;
+            }
+          }
         }
     }
 }

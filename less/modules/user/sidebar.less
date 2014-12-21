@@ -5,20 +5,17 @@
     bottom: 0;
     width: 100%;
     padding: 5px 0;
-    background: @sidebar-light-hover-bg;
-    box-shadow: @sidebar-box-shadow;
-    border-top: @sidebar-dark-border;
+    background: @sidebar-light-bg;
 
     .user-profile {
         text-align: left;
         vertical-align: top;
         display: inline-block;
         padding: 5px;
-        color: @sidebar-light-font;
+        color: @sidebar-color;
 
         &:hover, &:focus {
-            color: @sidebar-dark-font;
-
+            color: @sidebar-hover-color;
         }
 
         > .image {
@@ -48,9 +45,6 @@
             border-radius: 20px 20px;
             padding: 10px;
             margin: 5px;
-            border: none;
-            color: @sidebar-light-font;
-            background-color: @sidebar-light-bg;
         }
     }
 }

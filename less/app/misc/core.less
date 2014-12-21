@@ -10,12 +10,22 @@ html, body {
     height: 100%;
 }
 
+body {
+    background: @body-bg;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    text-shadow: @text-shadow-base;
+}
+
 a:focus,
 button:focus,
 input[type=submit]:focus,
 input[type=button]:focus,
-input[type=reset]:focus {
-  outline: none;
+input[type=reset]:focus,
+.btn:focus{
+  outline: none !important;
 }
 
 /* Layouts */
@@ -33,11 +43,9 @@ body > .header {
     z-index: 1030;
 }
 
-
 /* Content */
 .content {
-    padding: 15px;
-    padding-top: 5px;
+    padding: 0 floor(@grid-gutter-width / 2);
     overflow: auto;
 }
 
@@ -49,7 +57,7 @@ body > .header {
     font-size: 22px;
   
     > small {
-        color: @light-font;
+        color: @gray-dark;
         font-weight: 100;
         margin-top: 5px;
     }
@@ -64,14 +72,6 @@ img {
     background: #f4f4f4;
     border: 1px dashed #ddd;
     margin-bottom: 10px;
-}
-
-/* 10px padding and margins */
-.pad {
-    padding: 10px;
-}
-.margin {
-    margin: 10px;
 }
 
 /* Display inline */
@@ -105,22 +105,22 @@ img {
     background-color: @black!important;
 }
 .bg-red {
-    background-color: @red !important;
+    background-color: @brand-danger !important;
 }
 .bg-yellow {
-    background-color: @yellow !important;
+    background-color: @brand-warning !important;
 }
 .bg-aqua {
-    background-color: @aqua !important;
+    background-color: @brand-info !important;
 }
 .bg-blue {
-    background-color: @blue !important;
+    background-color: @brand-primary !important;
 }
 .bg-light-blue {
     background-color: @light-blue !important;
 }
 .bg-green {
-    background-color: @green !important;
+    background-color: @brand-success !important;
 }
 .bg-navy {
     background-color: @navy !important;
@@ -130,9 +130,6 @@ img {
 }
 .bg-olive {
     background-color: @olive !important;
-}
-.bg-lime {
-    background-color: @lime !important;
 }
 .bg-orange {
     background-color: @orange !important;
@@ -177,9 +174,6 @@ img {
 }
 .text-olive {
     color: @olive !important;
-}
-.text-lime {
-    color: @lime !important;
 }
 .text-orange {
     color: @orange !important;

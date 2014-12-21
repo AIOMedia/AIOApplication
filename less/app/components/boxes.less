@@ -7,26 +7,26 @@
     position: relative;
     background: @box-bg;
     border-top: 2px solid darken(@box-border-color, 20%);
-    margin-bottom: 20px;
+    margin-bottom: floor(@grid-gutter-width / 2);
     .border-radius(@box-border-radius);
     width: 100%;
     .box-shadow(@box-box-shadow);
 
     // Box color variations
     &.box-primary {
-        border-top-color: @light-blue;
+        border-top-color: @brand-primary;
     }
     &.box-info {
-        border-top-color: @aqua;
+        border-top-color: @brand-info;
     }
     &.box-danger {
-        border-top-color: @red;
+        border-top-color: @brand-danger;
     }
     &.box-warning {
-        border-top-color: @yellow;
+        border-top-color: @brand-warning;
     }
     &.box-success {
-        border-top-color: @green;
+        border-top-color: @brand-success;
     }
 
     // fixed height to 300px
@@ -43,7 +43,7 @@
         .clearfix();
         //Add top left and top right border radius
         .border-radius(@box-border-radius, @box-border-radius, 0, 0);
-        border-bottom: 0px solid @box-border-color;
+        border-bottom: 1px solid @box-border-color;
         color: @box-header-font;
         // Icons and box title
         > .fa, > .glyphicon,
@@ -71,7 +71,6 @@
     // Box body
     .box-body {
         padding: 10px;
-        .border-radius(0, 0, @box-border-radius, @box-border-radius);
         // Tables within the box body
         > table, > .table {
             margin-bottom: 0;
@@ -79,7 +78,6 @@
 
         &.chart-responsive {
             width: 100%;
-
             overflow: hidden;
         }
 
@@ -157,7 +155,6 @@
     //
 
     &.box-solid {
-
         border-top: 0px;
         > .box-header {
             padding-bottom: 0px!important;
@@ -168,19 +165,19 @@
 
         // Box color variations
         &.box-primary {
-            .box-solid-variant(@light-blue);
+            .box-solid-variant(@brand-primary);
         }
         &.box-info {
-            .box-solid-variant(@aqua);
+            .box-solid-variant(@brand-info);
         }
         &.box-danger {
-            .box-solid-variant(@red);
+            .box-solid-variant(@brand-danger);
         }
         &.box-warning {
-            .box-solid-variant(@yellow);
+            .box-solid-variant(@brand-warning);
         }
         &.box-success {
-            .box-solid-variant(@green);
+            .box-solid-variant(@brand-success);
         }
 
         > .box-header > .box-tools .btn {

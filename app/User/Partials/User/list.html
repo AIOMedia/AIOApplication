@@ -1,12 +1,6 @@
-<a href="#/user/create" class="btn btn-default">
-    <span class="fa fa-plus"></span>
-    Add User
-</a>
-
-<br/><br/>
-
-<table class="table">
-    <thead>
+<div class="panel panel-default">
+    <table class="table">
+        <thead>
         <tr>
             <th scope="col">
                 <span class="sr-only">Select User</span>
@@ -19,26 +13,27 @@
                 <span class="sr-only">Actions</span>
             </th>
         </tr>
-    </thead>
-    <tr data-ng-repeat="user in userCtrl.users" data-ng-if="userCtrl.users.length !== 0">
-        <td>
-            <input type="checkbox" />
-        </td>
-        <td></td>
-        <td>{{ user.lastName }}</td>
-        <td>{{ user.firstName }}</td>
-        <td>{{ user.login }}</td>
-        <td>
-            <a href="#/user/edit/{{ user._id }}" class="btn btn-link">
-                <span class="fa fa-pencil"></span>
-            </a>
-            <button type="button" class="btn btn-link">
-                <span class="fa fa-trash-o"></span>
-            </button>
-        </td>
-    </tr>
+        </thead>
+        <tr data-ng-repeat="user in userCtrl.users" data-ng-if="userCtrl.users.length !== 0">
+            <td>
+                <input type="checkbox" />
+            </td>
+            <td></td>
+            <td>{{ user.lastName }}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.login }}</td>
+            <td>
+                <a href="#/user/edit/{{ user._id }}" class="btn btn-link">
+                    <span class="fa fa-pencil"></span>
+                </a>
+                <button type="button" class="btn btn-link">
+                    <span class="fa fa-trash-o"></span>
+                </button>
+            </td>
+        </tr>
 
-    <tr data-ng-if="userCtrl.users.length === 0">
-        <td colspan="6" class="text-center">No User found</td>
-    </tr>
-</table>
+        <tr data-ng-if="userCtrl.users.length === 0">
+            <td colspan="6" class="text-center">No User found</td>
+        </tr>
+    </table>
+</div>

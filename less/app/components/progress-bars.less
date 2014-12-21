@@ -3,11 +3,6 @@
 --------------------------------
 */
 
-.progress {
-    .border-radius(@progress-border-radius);
-    .box-shadow(@progress-box-shadow);
-}
-
 /* size variation */
 .progress.sm {
     height: 10px;
@@ -43,25 +38,4 @@
     tr > td .progress {
         margin: 0;
     }
-}
-
-// Variations
-// -------------------------
-.progress-bar-light-blue, .progress-bar-primary {
-    .progress-bar-variant(@light-blue);
-}
-.progress-bar-green, .progress-bar-success {
-    .progress-bar-variant(@green);
-}
-
-.progress-bar-aqua, .progress-bar-info {
-    .progress-bar-variant(@aqua);
-}
-
-.progress-bar-yellow, .progress-bar-warning {
-    .progress-bar-variant(@yellow);
-}
-
-.progress-bar-red, .progress-bar-danger {
-    .progress-bar-variant(@red);
 }
