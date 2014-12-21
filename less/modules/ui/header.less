@@ -3,16 +3,17 @@
 -------------------------------------------------
 */
 .content-header {
-    z-index: 100;
-    color: @gray-darker;
     position: fixed;
     top: 0;
     left: @left-side-width;
     right: 0;
+    z-index: 100;
+    height: @header-height;
+    color: @gray-darker;
     padding: floor(@grid-gutter-width / 2);
     padding-top: 5px;
-    height: @header-height;
     vertical-align: middle;
+    white-space: nowrap;
 
     .header-btns {
         position: absolute;
@@ -68,28 +69,14 @@
     }
 }
 
-
 //Control navbar scaffolding on x-small screens
 @media (max-width: @screen-sm) {
     .content-header {
-      left: 0;
-    }
+        left: 0;
 
-    .navbar .navbar-nav > li {
-        float: left;
-    }
-    //Dont't let links get full width
-    .navbar-nav {
-        margin: 0;
-        float: left;
-    }
-
-    .navbar-nav > li > a {
-        padding-top: 15px;
-        padding-bottom: 15px;
-        line-height: 20px;
-    }
-    .navbar .navbar-right {
-        float: right;
+        .breadcrumb {
+            padding-left: 0;
+            padding-right: 0;
+        }
     }
 }

@@ -2,14 +2,12 @@
     Component: alert
 ------------------------
 */
-
 .alert {
     position: relative;
     border: none;
     border-left: 5px solid #eee;
     padding-left: 65px;
-    /*font-size: 16px;*/
-    .border-radius(0);
+    .box-shadow(@box-shadow-base);
 
     .close {
         position: absolute;
@@ -27,49 +25,36 @@
         position: absolute;
         top: 15px;
         left: 12px;
+        text-shadow: none;
     }
 
     .alert-heading {
         font-weight: 600;
     }
+}
 
-    &.alert-success {
-      color: lighten(@green, 35%);
-      background-color: @brand-success;
-      border-color: @brand-success;
+.alert-variant(@color; @background; @border) {
+    color: @color;
+    background-color: @background;
+    border-color: @border;
 
-        > .fa {
-            color: @brand-success;
-        }
+    > .fa {
+        color: @background;
     }
+}
 
-    &.alert-info {
-      color: lighten(@aqua, 35%);
-      background-color: @brand-info;
-      border-color: @brand-info;
+.alert-success {
+    .alert-variant(@alert-success-text, @alert-success-bg, @alert-success-border);
+}
 
-        > .fa {
-            color: @brand-info;
-        }
-    }
+.alert-info {
+    .alert-variant(@alert-info-text, @alert-info-bg, @alert-info-border);
+}
 
-    &.alert-warning {
-      color: lighten(@yellow, 35%);
-      background-color: @brand-warning;
-      border-color: @brand-warning;
+.alert-warning {
+    .alert-variant(@alert-warning-text, @alert-warning-bg, @alert-warning-border);
+}
 
-        > .fa {
-            color: @brand-warning;
-        }
-    }
-
-    &.alert-danger {
-        color: lighten(@red, 35%);
-        background-color: @brand-danger;
-        border-color: @brand-danger;
-
-        > .fa {
-            color: @brand-danger;
-        }
-    }
+.alert-danger {
+    .alert-variant(@alert-danger-text, @alert-danger-bg, @alert-danger-border);
 }

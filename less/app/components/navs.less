@@ -2,52 +2,6 @@
     Component: Navs
 ----------------------------
 */
-
-/* NAV PILLS */
-.nav.nav-pills {
-    > li > a {
-        border-top: 3px solid transparent;
-        .border-radius(0);
-        color: #444;
-        > .fa, > .glyphicon {
-            margin-right: 5px;
-        }
-    }
-    > li.active > a, > li.active > a:hover {
-        background-color: #f6f6f6;
-        border-top-color: @light-blue;
-        color: #444;
-    }
-    > li.active > a {
-        font-weight: 600;
-    }
-    > li > a:hover {
-        background-color: #f6f6f6;
-    }
-
-    &.nav-stacked {
-        > li > a {
-            border-top: 0;
-            border-left: 3px solid transparent;
-            .border-radius(0);
-            color: #444;
-        }
-        > li.active > a, > li.active > a:hover {
-            background-color: #f6f6f6;
-            border-left-color: @light-blue;
-            color: #444;
-        }
-
-        > li.header {
-            border-bottom: 1px solid #ddd;
-            color: #777;
-            margin-bottom: 10px;
-            padding: 5px 10px;
-            text-transform: uppercase;
-        }
-    }
-}
-
 /* NAV TABS */
 .nav-tabs-custom {
     margin-bottom: floor(@grid-gutter-width / 2);

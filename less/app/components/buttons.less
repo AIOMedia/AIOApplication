@@ -2,62 +2,49 @@
     Component: Buttons
 -------------------------
 */
+.btn {
+    .box-shadow(@btn-box-shadow);
+}
 
 .btn-variant(@color; @background; @border) {
-  color: @color;
-  background-color: @background;
-  border: 1px solid transparent;
-
-  &:hover,
-  &:focus,
-  &.focus,
-  &:active,
-  &.active,
-  .open > .dropdown-toggle& {
-    color: @gray-darker;
-    background-color: fadein(@background, 20%);
+    color: @color;
+    background-color: @background;
     border: 1px solid transparent;
-  }
-}
 
-.btn-default {
-  .btn-variant(@btn-default-color; @btn-default-bg; @btn-default-border);
-}
-.btn-primary {
-  .btn-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
-}
-// Success appears as green
-.btn-success {
-  .btn-variant(@btn-success-color; @btn-success-bg; @btn-success-border);
-}
-// Info appears as blue-green
-.btn-info {
-  .btn-variant(@btn-info-color; @btn-info-bg; @btn-info-border);
-}
-// Warning appears as orange
-.btn-warning {
-  .btn-variant(@btn-warning-color; @btn-warning-bg; @btn-warning-border);
-}
-// Danger and error appear as red
-.btn-danger {
-  .btn-variant(@btn-danger-color; @btn-danger-bg; @btn-danger-border);
-}
-
-.btn {
-    // input file btn 
-    &.btn-file {
-        position: relative;
-        width: 120px;
-        height: 35px;
-        overflow: hidden;
-        > input[type='file'] {
-            display: block !important;
-            width: 100% !important;
-            height: 35px !important;
-            opacity: 0 !important;
-            position: absolute;
-            top: -10px;
-            cursor: pointer;
-        }
+    &:hover,
+    &:focus,
+    &.focus,
+    &:active,
+    &.active,
+    .open > .dropdown-toggle& {
+        color: @gray-darker;
+        background-color: fadein(@background, 20%);
+        border: 1px solid transparent;
     }
+}
+
+// Default button
+.btn-default {
+    .btn-variant(@btn-default-color; @btn-default-bg; @btn-default-border);
+}
+
+// Primary button
+.btn-primary {
+    .btn-variant(@btn-primary-color; @btn-primary-bg; @btn-primary-border);
+}
+// Success button
+.btn-success {
+    .btn-variant(@btn-success-color; @btn-success-bg; @btn-success-border);
+}
+// Info button
+.btn-info {
+    .btn-variant(@btn-info-color; @btn-info-bg; @btn-info-border);
+}
+// Warning button
+.btn-warning {
+    .btn-variant(@btn-warning-color; @btn-warning-bg; @btn-warning-border);
+}
+// Danger button
+.btn-danger {
+    .btn-variant(@btn-danger-color; @btn-danger-bg; @btn-danger-border);
 }

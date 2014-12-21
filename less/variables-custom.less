@@ -32,7 +32,7 @@
 
 @text-shadow-base: 0 0 3px rgba(0, 0, 0, 0.6);
 
-@box-shadow-base: 0px 0px 5px rgba(0, 0, 0, 0.4);
+@box-shadow-base: none;
 
 // Sidebar
 @sidebar-bg:          @brand-default;
@@ -41,13 +41,10 @@
 @sidebar-hover-color: @gray-darker;
 
 @sidebar-light-bg: rgba(0, 0, 0, 0.5);
-@sidebar-box-shadow: none;
-
-//When the logo should go to the top of the screen
-@screen-header-collapse: 560px; 
+@sidebar-box-shadow: @box-shadow-base;
 
 // BOXES
-@box-box-shadow: none;
+@box-box-shadow: @box-shadow-base;
 @box-border-color: transparent;
 @box-border-radius: 0px;
 @box-header-bg: transparent;
@@ -58,7 +55,12 @@
 @box-footer-font: #808b9c;
 
 // SMALL BOXES
-@small-box-border-radius: 0px;
+@small-box-border-radius: @border-radius-base;
+@small-box-box-shadow: @box-shadow-base;
 
 // CHAT widget
-@attachment-border-radius: 0px;
+@attachment-border-radius: @border-radius-base;
+
+@alert-box-shadow: @box-shadow-base;
+
+@btn-box-shadow: @box-shadow-base;
