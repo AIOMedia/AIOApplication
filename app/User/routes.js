@@ -9,7 +9,7 @@
         function ($routeProvider) {
             var profile = {
                 name: 'profile',
-                url: '#/profile',
+                url: '#/user/profile',
                 templateUrl: '../app/User/Partials/profile.html',
 
                 pageInfo: {
@@ -87,7 +87,7 @@
 
             // Register states
             $routeProvider
-                .when('/profile',           profile)
+                .when('/user/profile',           profile)
                 .when('/user',              user)
                 .when('/user/create',       userCreate)
                 .when('/user/edit/:userId', userEdit);
