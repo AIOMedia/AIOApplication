@@ -11,6 +11,8 @@
                 name: 'profile',
                 url: '#/user/profile',
                 templateUrl: '../app/User/Partials/profile.html',
+                controller: 'ProfileController',
+                controllerAs: 'profileCtrl',
 
                 pageInfo: {
                     icon:  'user',
