@@ -20,11 +20,11 @@
 
                     $http
                         .get('http://localhost:3000/user')
-                        .success(function (users) {
-                            deferred.resolve(users.data);
+                        .success(function (reponse) {
+                            deferred.resolve(reponse.data);
                         })
-                        .error(function (err) {
-                            deferred.reject(err);
+                        .error(function (response) {
+                            deferred.reject(response);
                         });
 
                     return deferred.promise;
@@ -35,11 +35,11 @@
 
                     $http
                         .get('http://localhost:3000/user/' + userId)
-                        .success(function (user) {
-                            deferred.resolve(user.data);
+                        .success(function (reponse) {
+                            deferred.resolve(reponse.data);
                         })
-                        .error(function (err) {
-                            deferred.reject(err);
+                        .error(function (reponse) {
+                            deferred.reject(reponse);
                         });
 
                     return deferred.promise;
@@ -57,11 +57,11 @@
                     }
 
                     request
-                        .success(function (user) {
-                            deferred.resolve(user.data);
+                        .success(function (reponse) {
+                            deferred.resolve(reponse.data);
                         })
-                        .error(function (err) {
-                            deferred.reject(err);
+                        .error(function (reponse) {
+                            deferred.reject(reponse);
                         });
 
                     return deferred.promise;
