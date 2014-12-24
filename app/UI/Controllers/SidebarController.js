@@ -8,7 +8,7 @@
         function () {
             this.toggle     = true;
             this.collapsed  = false;
-            this.searchForm = true;
+            this.searchForm = false;
 
             this.toggleSidebar = function () {
                 this.collapsed = !this.collapsed;
