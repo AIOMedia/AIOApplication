@@ -1,10 +1,6 @@
 /**
  * Administration Module
  */
-(function () {
-    'use strict';
-
-    angular.module('AdministrationModule', [
-        'ngRoute'
-    ]);
-})();
+angular.module('AdministrationModule', [
+    'ngRoute'
+]);

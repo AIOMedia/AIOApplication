@@ -1,9 +1,5 @@
-(function () {
-    'use strict';
+angular.module('NotificationModule').directive('notificationConfig', [
+    function () {
 
-    angular.module('NotificationModule').directive('notificationConfig', [
-        function () {
-
-        }
-    ]);
-})();
+    }
+]);

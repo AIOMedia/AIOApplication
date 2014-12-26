@@ -27,6 +27,11 @@ module.exports = function(grunt) {
 
             // Concatenate app
             app: {
+                // Wrap all application into an anonymous auto-callable function using 'use strict' env ( as recommended for angular app)
+                options: {
+                    banner: '(function() {\n',
+                    footer: '\n})();'
+                },
                 src: [
                     'app/Administration/module.js',
                     'app/Administration/**/*.js',

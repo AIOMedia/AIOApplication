@@ -1,8 +1,4 @@
 /**
  * Search Module
  */
-(function () {
-    'use strict';
-
-    angular.module('SearchModule', []);
-})();
+angular.module('SearchModule', []);

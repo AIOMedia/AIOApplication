@@ -1,8 +1,4 @@
 /**
  * Notification Module
  */
-(function () {
-    'use strict';
-
-    angular.module('NotificationModule', []);
-})();
+angular.module('NotificationModule', []);

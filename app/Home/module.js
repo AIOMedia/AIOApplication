@@ -1,7 +1,7 @@
-(function () {
-    'use strict';
-
-    angular.module('HomeModule', [
-        'DashboardModule'
-    ]);
-})();
+/**
+ * Home Module
+ */
+angular.module('HomeModule', [
+    'ngRoute',
+    'DashboardModule'
+]);
