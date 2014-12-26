@@ -1,12 +1,15 @@
 /**
  * AIOApplication styles
  */
+// Bootstrap
+@import "../bower_components/bootstrap/less/bootstrap.less";
 
-//google fonts
-@import url(//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic);
+// Font Awesome
+@import "../bower_components/font-awesome/less/font-awesome.less";
 
-// Bootstrap v3.3.1
-@import "../node_modules/bootstrap/less/bootstrap.less";
+// Override font path for FontAwesome
+@lib-path: "../../bower_components";
+@fa-font-path: '@{lib-path}/font-awesome/fonts';
 
 // Variables (override bootstrap default and add custom)
 @import "variables-bootstrap";

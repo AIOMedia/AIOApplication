@@ -1,0 +1,21 @@
+{
+  "name": "aiomedia-web",
+  "version": "0.0.1",
+  "homepage": "https://github.com/AIOMedia/AIOApplication-web",
+  "authors": [
+    "Axel Penin"
+  ],
+  "description": "Web Application built on AngularJS to access the AIOMedia API",
+  "main": "./public/index.html",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "jquery": "latest",
+    "jquery-ui": "latest",
+    "bootstrap": "latest",
+    "font-awesome": "latest",
+    "angular": "latest",
+    "angular-route": "latest",
+    "angular-ui-sortable": "latest"
+  }
+}

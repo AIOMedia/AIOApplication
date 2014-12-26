@@ -16,11 +16,12 @@ module.exports = function(grunt) {
             // Concatenate libraries
             lib: {
                 src: [
-                    'node_modules/jquery/dist/jquery.min.js',
-                    'node_modules/bootstrap/dist/js/bootstrap.min.js',
-                    'node_modules/angular/angular.min.js',
-                    'node_modules/angular-route/angular-route.min.js',
-                    'node_modules/angular-ui-sortable/src/sortable.js'
+                    'bower_components/jquery/dist/jquery.min.js',
+                    'bower_components/jquery-ui/jquery-ui.min.js',
+                    'bower_components/bootstrap/dist/js/bootstrap.min.js',
+                    'bower_components/angular/angular.min.js',
+                    'bower_components/angular-route/angular-route.min.js',
+                    'bower_components/angular-ui-sortable/src/sortable.min.js'
                 ],
                 dest: '<%= distFolder %>/lib.min.js'
             },
@@ -70,7 +71,6 @@ module.exports = function(grunt) {
             }
         }
     });
-
 
     // Load Grunt task runners
     grunt.loadNpmTasks('grunt-contrib-concat');
