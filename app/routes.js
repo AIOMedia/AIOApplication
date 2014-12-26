@@ -8,7 +8,7 @@
         '$routeProvider',
         function ($routeProvider) {
             var home = {
-                redirectTo: '/dashboard'
+                redirectTo: '/home'
             };
 
             var error = {
@@ -42,7 +42,7 @@
             }
 
             $routeProvider
-                .when('',           home)
+                .when('/',          home)
                 .when('/error/404', error404)
                 .when('/error/500', error500)
                 .otherwise({ redirectTo: '/error/404' });
