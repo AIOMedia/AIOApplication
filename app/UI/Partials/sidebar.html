@@ -2,8 +2,8 @@
     <header class="sidebar-header">
         <a href="#/" data-ng-if="!sidebar.collapsed || !sidebar.toggle">
             <img data-ng-if="!sidebar.collapsed" data-ng-src="images/logo-low.png" alt="AIOMedia" />
-
             <img data-ng-if="sidebar.collapsed" data-ng-src="images/logo-low-min.png" alt="AIOMedia" />
+            <span class="sr-only">Home</span>
         </a>
 
         <a href="" class="sidebar-toggle" data-ng-if="sidebar.toggle" data-ng-click="sidebar.toggleSidebar()" role="button">
