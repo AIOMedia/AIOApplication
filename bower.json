@@ -16,6 +16,7 @@
     "font-awesome": "latest",
     "angular": "latest",
     "angular-route": "latest",
+    "angular-bootstrap": "latest",
     "angular-ui-sortable": "latest"
   }
 }
