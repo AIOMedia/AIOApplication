@@ -2,9 +2,9 @@ module.exports = function(grunt) {
 
     // All upfront config goes in a massive nested object.
     grunt.initConfig({
-        distFolder: 'public/js',
+        distFolder: 'public',
 
-        // Concatenate task
+        // Concatenate JS task
         concat: {
             // Common options for all concatenate task
             options: {
@@ -24,7 +24,7 @@ module.exports = function(grunt) {
                     'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
                     'bower_components/angular-ui-sortable/sortable.min.js'
                 ],
-                dest: '<%= distFolder %>/lib.min.js'
+                dest: '<%= distFolder %>/js/lib.min.js'
             },
 
             // Concatenate app
@@ -57,18 +57,33 @@ module.exports = function(grunt) {
                     'app/**/*.js',
                     'app/app.js'
                 ],
-                dest: '<%= distFolder %>/app.js'
+                dest: '<%= distFolder %>/js/app.js'
             }
         },
 
-        // Uglify task
+        // Uglify JS task
         uglify: {
             // Uglify app
             app: {
                 src: [
-                    '<%= distFolder %>/app.js'
+                    '<%= distFolder %>/js/app.js'
                 ],
-                dest: '<%= distFolder %>/app.min.js'
+                dest: '<%= distFolder %>/js/app.min.js'
+            }
+        },
+
+        // Compile LESS files task
+        less: {
+            options: {
+                compress: true,
+                yuicompress: true,
+                optimization: 2
+            },
+            app: {
+                src: [
+                    'less/bootstrap-app.less'
+                ],
+                dest: '<%= distFolder %>/css/app.min.css'
             }
         }
     });
@@ -76,7 +91,8 @@ module.exports = function(grunt) {
     // Load Grunt task runners
     grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-uglify');
+    grunt.loadNpmTasks('grunt-contrib-less');
 
     // Register our own custom task alias.
-    grunt.registerTask('build', ['concat', 'uglify']);
+    grunt.registerTask('build', ['concat', 'uglify', 'less']);
 };
