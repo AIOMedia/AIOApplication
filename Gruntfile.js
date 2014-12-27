@@ -21,7 +21,8 @@ module.exports = function(grunt) {
                     'bower_components/bootstrap/dist/js/bootstrap.min.js',
                     'bower_components/angular/angular.min.js',
                     'bower_components/angular-route/angular-route.min.js',
-                    'bower_components/angular-ui-sortable/src/sortable.min.js'
+                    'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
+                    'bower_components/angular-ui-sortable/sortable.min.js'
                 ],
                 dest: '<%= distFolder %>/lib.min.js'
             },
