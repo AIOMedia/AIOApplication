@@ -50,9 +50,12 @@ angular.module('UserModule').config([
             controllerAs: 'userEditCtrl',
 
             resolve: {
-                user: function (UserService) {
-                    return UserService.new();
-                }
+                user: [
+                    'UserService',
+                    function (UserService) {
+                        return UserService.new();
+                    }
+                ]
             },
 
             pageInfo: {

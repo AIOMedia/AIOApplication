@@ -15,7 +15,7 @@ angular.module('UIModule').directive('uiHeader', [
                 scope.buttons = HeaderService.getButtons();
 
                 scope.buttonClick = function (button) {
-                    if (button.action && button.action.func) {
+                    if (button.action && typeof button.action.func === 'function') {
                         if (button.action.params) {
                             button.action.func.apply(null, button.action.params);
                         } else {

@@ -1,5 +1,8 @@
+/**
+ * Task Edit Controller
+ */
 angular.module('TaskModule').controller('TaskEditController', [
-    function () {
-
+    function (task) {
+        this.task = task;
     }
 ]);

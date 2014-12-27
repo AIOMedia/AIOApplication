@@ -1,7 +1,8 @@
 angular.module('TaskModule').controller('TaskController', [
+    '$modal',
     'HeaderService',
     'tasks',
-    function (HeaderService, tasks) {
+    function ($modal, HeaderService, tasks) {
         this.tasks = tasks;
 
         this.tasks = [
@@ -15,16 +16,24 @@ angular.module('TaskModule').controller('TaskController', [
             task.done = !task.done;
         };
 
+        this.openForm = function (task) {
+            var modalInstance = $modal.open({
+                templateUrl: '../app/Task/Partials/edit.html',
+                controller: 'TaskEditController',
+                controllerAs: 'taskEditCtrl',
+                size: 'lg',
+                resolve: {
+                    task: function () { return task; }
+                 }
+            });
+        };
+
         // Add create button
         HeaderService.addButton({
             icon: 'plus',
             iconOnly: true,
             label: 'Create Task',
-            action: {
-                func: function () {
-                    console.log('create task');
-                }
-            }
+            url: '#/task/create'
         });
     }
 ]);

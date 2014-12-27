@@ -6,7 +6,7 @@
             <span data-ng-if="!collapsed">{{ item.title }}</span>
 
             <!-- Notifications -->
-            <small class="menu-notification label bg-{{ item.notification.color }}" data-ng-if="item.notification">{{ item.notification.value }}</small>
+            <span class="menu-notification label bg-{{ item.notification.color }}" data-ng-if="item.notification">{{ item.notification.value }}</span>
 
             <!-- Submenu indicator -->
             <i class="treeview-indicator fa" data-ng-class="{ 'fa-caret-left': !item.opened, 'fa-caret-right': collapsed && item.opened, 'fa-caret-down': !collapsed && item.opened }" data-ng-if="0 !== item.children.length"></i>

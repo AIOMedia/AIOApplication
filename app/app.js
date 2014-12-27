@@ -4,6 +4,7 @@
 angular
     .module('App', [
         'ngRoute',
+        'ui.bootstrap',
         'UIModule',
         'AdministrationModule',
         'DashboardModule',

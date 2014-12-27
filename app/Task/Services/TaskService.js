@@ -5,7 +5,8 @@ angular.module('TaskModule').factory('TaskService', [
         return {
             new: function () {
                 return {
-                    _id: null
+                    _id: null,
+                    name: null
                 };
             },
 
