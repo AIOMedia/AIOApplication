@@ -1,31 +1,24 @@
 angular.module('TaskModule').controller('TaskController', [
     '$modal',
     'HeaderService',
+    'TaskService',
     'tasks',
-    function ($modal, HeaderService, tasks) {
+    function ($modal, HeaderService, TaskService, tasks) {
         this.tasks = tasks;
-
-        this.tasks = [
-            {id: 1, name: 'Ma premiere tache', done: false },
-            {id: 2, name: 'Ma premiere tache', done: false },
-            {id: 3, name: 'Ma premiere tache', done: false },
-            {id: 4, name: 'Ma premiere tache terminée', done: true }
-        ];
 
         this.toggleDownStatus = function (task) {
             task.done = !task.done;
-        };
+            TaskService.save(task).then(
+                function success(task) {
 
-        this.openForm = function (task) {
-            var modalInstance = $modal.open({
-                templateUrl: '../app/Task/Partials/edit.html',
-                controller: 'TaskEditController',
-                controllerAs: 'taskEditCtrl',
-                size: 'lg',
-                resolve: {
-                    task: function () { return task; }
-                 }
-            });
+                },
+                function error(err) {
+                    // Revert down status to original
+                    task.done = !task.done;
+
+                    // Display error message
+                }
+            );
         };
 
         // Add create button

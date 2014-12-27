@@ -9,12 +9,14 @@
 
         <!-- General tools such as edit or delete-->
         <div class="btn-group">
-            <a href="" class="btn btn-default">
+            <a href="#/task/edit/{{ task._id }}" class="btn btn-default">
                 <span class="fa fa-pencil"></span>
+                <span class="sr-only">Edit task</span>
             </a>
 
-            <a href="" class="btn btn-default">
+            <a href="#/task/delete/{{ task._id }}" class="btn btn-default">
                 <span class="fa fa-trash-o"></span>
+                <span class="sr-only">Delete task</span>
             </a>
         </div>
     </li>

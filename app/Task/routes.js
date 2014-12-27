@@ -31,7 +31,7 @@ angular.module('TaskModule').config([
             name: 'user.create',
             url: '#/user/create',
             parent: task,
-            templateUrl:  '../app/User/Partials/User/edit.html',
+            templateUrl:  '../app/Task/Partials/edit.html',
             controller:   'TaskEditController',
             controllerAs: 'taskEditCtrl',
 
@@ -54,7 +54,7 @@ angular.module('TaskModule').config([
             name: 'task.edit',
             url: '#/task/edit',
             parent: task,
-            templateUrl:  '../app/Task/Partials/Task/edit.html',
+            templateUrl:  '../app/Task/Partials/edit.html',
             controller:   'TaskEditController',
             controllerAs: 'taskEditCtrl',
 

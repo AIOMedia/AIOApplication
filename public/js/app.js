@@ -1450,31 +1450,24 @@ angular
 angular.module('TaskModule').controller('TaskController', [
     '$modal',
     'HeaderService',
+    'TaskService',
     'tasks',
-    function ($modal, HeaderService, tasks) {
+    function ($modal, HeaderService, TaskService, tasks) {
         this.tasks = tasks;
-
-        this.tasks = [
-            {id: 1, name: 'Ma premiere tache', done: false },
-            {id: 2, name: 'Ma premiere tache', done: false },
-            {id: 3, name: 'Ma premiere tache', done: false },
-            {id: 4, name: 'Ma premiere tache terminée', done: true }
-        ];
 
         this.toggleDownStatus = function (task) {
             task.done = !task.done;
-        };
+            TaskService.save(task).then(
+                function success(task) {
 
-        this.openForm = function (task) {
-            var modalInstance = $modal.open({
-                templateUrl: '../app/Task/Partials/edit.html',
-                controller: 'TaskEditController',
-                controllerAs: 'taskEditCtrl',
-                size: 'lg',
-                resolve: {
-                    task: function () { return task; }
-                 }
-            });
+                },
+                function error(err) {
+                    // Revert down status to original
+                    task.done = !task.done;
+
+                    // Display error message
+                }
+            );
         };
 
         // Add create button
@@ -1491,8 +1484,40 @@ angular.module('TaskModule').controller('TaskController', [
  * Task Edit Controller
  */
 angular.module('TaskModule').controller('TaskEditController', [
-    function (task) {
+    '$location',
+    'TaskService',
+    'task',
+    function ($location, TaskService, task) {
+        /**
+         * Task which will be edited
+         * @type {object}
+         */
         this.task = task;
+
+        /**
+         * Save the Task
+         */
+        this.save = function () {
+            TaskService.save(this.task).then(
+                // Save success
+                function (task) {
+                    // Redirect to users list
+                    $location.path('/task');
+                },
+                // Save failed
+                function (errors) {
+
+                }
+            );
+        };
+
+        /**
+         * Abort edition
+         */
+        this.cancel = function () {
+            // Redirect to users list
+            $location.path('/task');
+        };
     }
 ]);
 // File : app/Task/Services/TaskService.js
@@ -1504,7 +1529,8 @@ angular.module('TaskModule').factory('TaskService', [
             new: function () {
                 return {
                     _id: null,
-                    name: null
+                    name: null,
+                    done: false
                 };
             },
 
@@ -1596,7 +1622,7 @@ angular.module('TaskModule').config([
             name: 'user.create',
             url: '#/user/create',
             parent: task,
-            templateUrl:  '../app/User/Partials/User/edit.html',
+            templateUrl:  '../app/Task/Partials/edit.html',
             controller:   'TaskEditController',
             controllerAs: 'taskEditCtrl',
 
@@ -1619,7 +1645,7 @@ angular.module('TaskModule').config([
             name: 'task.edit',
             url: '#/task/edit',
             parent: task,
-            templateUrl:  '../app/Task/Partials/Task/edit.html',
+            templateUrl:  '../app/Task/Partials/edit.html',
             controller:   'TaskEditController',
             controllerAs: 'taskEditCtrl',
 
@@ -1830,9 +1856,14 @@ angular
     ])
     .config([
         '$httpProvider',
-        function ($httpProvider) {
-            $httpProvider.defaults.useXDomain = true;
-            delete $httpProvider.defaults.headers.common['X-Requested-With'];
+        '$sceDelegateProvider',
+        function ($httpProvider, $sceDelegateProvider) {
+            /*$httpProvider.defaults.useXDomain = true;
+            delete $httpProvider.defaults.headers.common['X-Requested-With'];*/
+            $httpProvider.defaults.headers.common["Accept"] = "application/json";
+            $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
+
+            /*$sceDelegateProvider.resourceUrlWhitelist(['self', 'http://localhost:3000*//**']);*/
         }
     ])
     .run([
