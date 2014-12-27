@@ -19,6 +19,16 @@ body {
     text-shadow: @text-shadow-base;
 }
 
+::selection {
+  background: @gray;
+  color: @gray-dark;
+}
+
+::-moz-selection {
+  background: @gray;
+  color: @gray-dark;
+}
+
 a:focus,
 button:focus,
 input[type=submit]:focus,
