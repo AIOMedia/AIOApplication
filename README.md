@@ -2,6 +2,7 @@
 
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 [![Dependencies Status](https://img.shields.io/david/AIOMedia/AIOApplication-web.svg?style=flat-square)](https://david-dm.org/AIOMedia/AIOApplication-web)
+[![devDependencies Status](https://img.shields.io/david/dev/AIOMedia/AIOApplication-web.svg?style=flat-square)](https://david-dm.org/AIOMedia/AIOApplication-web)
 
 Web Application built on AngularJS to access the [AIOMedia API](https://github.com/AIOMedia/AIOApplication-api).
 
