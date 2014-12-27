@@ -461,9 +461,12 @@ angular.module('UserModule').config([
             controllerAs: 'userEditCtrl',
 
             resolve: {
-                user: function (UserService) {
-                    return UserService.new();
-                }
+                user: [
+                    'UserService',
+                    function (UserService) {
+                        return UserService.new();
+                    }
+                ]
             },
 
             pageInfo: {
@@ -544,7 +547,7 @@ angular.module('UIModule').directive('uiHeader', [
                 scope.buttons = HeaderService.getButtons();
 
                 scope.buttonClick = function (button) {
-                    if (button.action && button.action.func) {
+                    if (button.action && typeof button.action.func === 'function') {
                         if (button.action.params) {
                             button.action.func.apply(null, button.action.params);
                         } else {
@@ -1445,9 +1448,10 @@ angular
     ]);
 // File : app/Task/Controllers/TaskController.js
 angular.module('TaskModule').controller('TaskController', [
+    '$modal',
     'HeaderService',
     'tasks',
-    function (HeaderService, tasks) {
+    function ($modal, HeaderService, tasks) {
         this.tasks = tasks;
 
         this.tasks = [
@@ -1461,23 +1465,34 @@ angular.module('TaskModule').controller('TaskController', [
             task.done = !task.done;
         };
 
+        this.openForm = function (task) {
+            var modalInstance = $modal.open({
+                templateUrl: '../app/Task/Partials/edit.html',
+                controller: 'TaskEditController',
+                controllerAs: 'taskEditCtrl',
+                size: 'lg',
+                resolve: {
+                    task: function () { return task; }
+                 }
+            });
+        };
+
         // Add create button
         HeaderService.addButton({
             icon: 'plus',
             iconOnly: true,
             label: 'Create Task',
-            action: {
-                func: function () {
-                    console.log('create task');
-                }
-            }
+            url: '#/task/create'
         });
     }
 ]);
 // File : app/Task/Controllers/TaskEditController.js
+/**
+ * Task Edit Controller
+ */
 angular.module('TaskModule').controller('TaskEditController', [
-    function () {
-
+    function (task) {
+        this.task = task;
     }
 ]);
 // File : app/Task/Services/TaskService.js
@@ -1488,7 +1503,8 @@ angular.module('TaskModule').factory('TaskService', [
         return {
             new: function () {
                 return {
-                    _id: null
+                    _id: null,
+                    name: null
                 };
             },
 
@@ -1553,6 +1569,7 @@ angular.module('TaskModule').factory('TaskService', [
 angular.module('TaskModule').config([
     '$routeProvider',
     function ($routeProvider) {
+        // List Tasks
         var task = {
             name: 'task',
             url: '#/task',
@@ -1574,9 +1591,58 @@ angular.module('TaskModule').config([
             }
         };
 
+        // Create new Task
+        var taskCreate = {
+            name: 'user.create',
+            url: '#/user/create',
+            parent: task,
+            templateUrl:  '../app/User/Partials/User/edit.html',
+            controller:   'TaskEditController',
+            controllerAs: 'taskEditCtrl',
+
+            resolve: {
+                task: [
+                    'TaskService',
+                    function (TaskService) {
+                        return TaskService.new();
+                    }
+                ]
+            },
+
+            pageInfo: {
+                title: 'Create'
+            }
+        };
+
+        // Edit an existing Task
+        var taskEdit = {
+            name: 'task.edit',
+            url: '#/task/edit',
+            parent: task,
+            templateUrl:  '../app/Task/Partials/Task/edit.html',
+            controller:   'TaskEditController',
+            controllerAs: 'taskEditCtrl',
+
+            resolve: {
+                task: [
+                    '$route',
+                    'TaskService',
+                    function ($route, TaskService) {
+                        return TaskService.get($route.current.params.taskId);
+                    }
+                ]
+            },
+
+            pageInfo: {
+                title: 'Edit'
+            }
+        };
+
         // Register states
         $routeProvider
-            .when('/task', task);
+            .when('/task',              task)
+            .when('/task/create',       taskCreate)
+            .when('/task/edit/:taskId', taskEdit);
     }]
 );
 // File : app/Demo/module.js
@@ -1755,6 +1821,7 @@ angular.module('DemoModule').config([
 angular
     .module('App', [
         'ngRoute',
+        'ui.bootstrap',
         'UIModule',
         'AdministrationModule',
         'DashboardModule',
