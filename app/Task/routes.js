@@ -26,57 +26,7 @@ angular.module('TaskModule').config([
             }
         };
 
-        // Create new Task
-        var taskCreate = {
-            name: 'user.create',
-            url: '#/user/create',
-            parent: task,
-            templateUrl:  '../app/Task/Partials/edit.html',
-            controller:   'TaskEditController',
-            controllerAs: 'taskEditCtrl',
-
-            resolve: {
-                task: [
-                    'TaskService',
-                    function (TaskService) {
-                        return TaskService.new();
-                    }
-                ]
-            },
-
-            pageInfo: {
-                title: 'Create'
-            }
-        };
-
-        // Edit an existing Task
-        var taskEdit = {
-            name: 'task.edit',
-            url: '#/task/edit',
-            parent: task,
-            templateUrl:  '../app/Task/Partials/edit.html',
-            controller:   'TaskEditController',
-            controllerAs: 'taskEditCtrl',
-
-            resolve: {
-                task: [
-                    '$route',
-                    'TaskService',
-                    function ($route, TaskService) {
-                        return TaskService.get($route.current.params.taskId);
-                    }
-                ]
-            },
-
-            pageInfo: {
-                title: 'Edit'
-            }
-        };
-
         // Register states
-        $routeProvider
-            .when('/task',              task)
-            .when('/task/create',       taskCreate)
-            .when('/task/edit/:taskId', taskEdit);
+        $routeProvider.when('/task', task);
     }]
 );

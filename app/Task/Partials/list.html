@@ -1,23 +1,9 @@
-<ul class="list-tasks" data-ui-sortable="{placeholder: 'ui-sortable-placeholder'}" data-ng-model="taskCtrl.tasks">
+<ul class="list-tasks" data-ui-sortable="taskCtrl.sortableOptions" data-ng-model="taskCtrl.tasks">
     <li data-ng-repeat="task in taskCtrl.tasks" data-ng-class="{ 'task-done': task.done }">
-        <button type="button" class="btn btn-link btn-done" data-ng-click="taskCtrl.toggleDownStatus(task)">
-            <span class="fa fa-lg fa-check"></span>
-            <span class="sr-only">Mark as down</span>
-        </button>
+        <!-- Show task info -->
+        <div data-ng-include="'../app/Task/Partials/show.html'" data-ng-if="task._id != taskCtrl.editTask._id"></div>
 
-        {{ task.name }}
-
-        <!-- General tools such as edit or delete-->
-        <div class="btn-group">
-            <a href="#/task/edit/{{ task._id }}" class="btn btn-default">
-                <span class="fa fa-pencil"></span>
-                <span class="sr-only">Edit task</span>
-            </a>
-
-            <a href="#/task/delete/{{ task._id }}" class="btn btn-default">
-                <span class="fa fa-trash-o"></span>
-                <span class="sr-only">Delete task</span>
-            </a>
-        </div>
+        <!-- Edit task info -->
+        <div data-ng-include="'../app/Task/Partials/edit.html'" data-ng-if="task._id == taskCtrl.editTask._id"></div>
     </li>
 </ul>

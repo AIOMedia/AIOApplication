@@ -9,7 +9,8 @@ ul.ui-sortable {
         vertical-align: middle;
         position: relative;
         color: @gray-dark;
-        padding: @padding-large-vertical @padding-large-horizontal;
+        padding: 4px;
+        padding-left: @padding-large-horizontal;
         margin: 3px 0;
         .border-radius(@border-radius-base);
 
@@ -43,10 +44,12 @@ ul.ui-sortable {
             color: fadeout(@gray-darker, 30%);
             opacity: 0.2;
             position: absolute;
-            left: 0;
+            top: 50%;
+            left: 5px;
+            margin-top: -8px;
+            line-height: 16px;
             text-shadow: inset 0 0 1px rgba(0, 0, 0, 0.4);
             vertical-align: middle;
-            padding: 2px 5px;
             font-weight: bold;
         }
 

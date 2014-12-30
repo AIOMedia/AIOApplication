@@ -1,7 +1,14 @@
+.form-task {
+  padding: 4px;
+}
+
 .list-tasks {
     > li {
         vertical-align: middle;
-
+        .info {
+          padding-top: @padding-base-vertical;
+          padding-bottom: @padding-base-vertical;
+        }
         .btn-done {
             padding: 0;
             margin-right: 5px;
@@ -18,34 +25,19 @@
             }
         }
 
-        .btn-group {
-            position: absolute;
-            top: 0;
-            right: 0;
-            height: 100%;
-            vertical-align: middle;
-
-            border-left: 1px solid @brand-default;
-
-            > .btn {
-                height: 100%;
-                vertical-align: middle;
-                border: none;
-                padding: @padding-large-vertical @padding-large-horizontal;
-            }
-        }
-
         &.task-done {
-            text-decoration: line-through;
-            color: darken(@gray-dark, 50%) !important;
-
-          .btn-done {
-            color: @brand-primary;
-
-            &:hover, &:focus {
-              color: @brand-primary;
+            .info {
+              text-decoration: line-through;
+              color: darken(@gray-dark, 50%) !important;
             }
-          }
+
+            .btn-done {
+              color: @brand-primary;
+
+              &:hover, &:focus {
+                color: @brand-primary;
+              }
+            }
         }
     }
 }
