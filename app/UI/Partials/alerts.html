@@ -1,0 +1,6 @@
+<div class="content-alerts" data-ng-show="alerts[0]">
+    <div class="alert alert-{{ alertTypes[alerts[0].type].class }}" data-ng-click="getNext()">
+        <span class="fa fa-fw fa-2x fa-{{ alertTypes[alerts[0].type].icon }}"></span>
+        {{ alerts[0].text }}
+    </div>
+</div>
