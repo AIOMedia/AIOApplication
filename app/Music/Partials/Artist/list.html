@@ -1,0 +1,24 @@
+<div data-ng-if="artistCtrl.artists.length == 0" class="list-no-result text-center">
+    <em>No artist found.</em>
+</div>
+
+<ul data-ng-if="artistCtrl.artists.length != 0" class="list-group">
+    <li class="list-group-item" data-ng-repeat="artist in artistCtrl.artists">
+        <div class="row">
+            <div class="col-md-10">
+                {{ artist.data.name }}
+            </div>
+            <div class="text-right col-md-2">
+                <a href="#/music/artist/edit/{{ artist.data._id }}" class="btn btn-default">
+                    <span class="fa fa-pencil"></span>
+                    <span class="sr-only">Edit Artist</span>
+                </a>
+
+                <button class="btn btn-default">
+                    <span class="fa fa-trash"></span>
+                    <span class="sr-only">Delete Artist</span>
+                </button>
+            </div>
+        </div>
+    </li>
+</ul>

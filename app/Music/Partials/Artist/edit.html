@@ -1,0 +1,21 @@
+<form role="form">
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div class="form-group">
+                <label for="artistName">Artist Name</label>
+                <input type="text" class="form-control" id="artistName" placeholder="Artist Name" data-ng-model="artistEditCtrl.artist.data.name" />
+            </div>
+        </div>
+    </div>
+
+    <div class="pull-right">
+        <button type="submit" class="btn btn-primary" data-ng-click="artistEditCtrl.save()">
+            <span class="fa fa-check-circle-o"></span>
+            {{ artistEditCtrl.isNew ? 'Create' : 'Edit' }}
+        </button>
+        <button type="button" class="btn btn-default" data-ng-click="artistEditCtrl.cancel()">
+            <span class="fa fa-times-circle-o"></span>
+            Cancel
+        </button>
+    </div>
+</form>
