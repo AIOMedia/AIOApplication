@@ -16,6 +16,19 @@ module.exports = function(grunt) {
             // Concatenate libraries
             lib: {
                 src: [
+                    'bower_components/jquery/dist/jquery.js',
+                    'bower_components/jquery-ui/jquery-ui.js',
+                    'bower_components/bootstrap/dist/js/bootstrap.js',
+                    'bower_components/angular/angular.min.js',
+                    'bower_components/angular-route/angular-route.js',
+                    'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
+                    'bower_components/angular-ui-sortable/sortable.js'
+                ],
+                dest: '<%= distFolder %>/js/lib.js'
+            },
+
+            lib_min: {
+                src: [
                     'bower_components/jquery/dist/jquery.min.js',
                     'bower_components/jquery-ui/jquery-ui.min.js',
                     'bower_components/bootstrap/dist/js/bootstrap.min.js',
@@ -35,6 +48,8 @@ module.exports = function(grunt) {
                     footer: '\n})();'
                 },
                 src: [
+                    'app/Core/module.js',
+                    'app/Core/**/*.js',
                     'app/Administration/module.js',
                     'app/Administration/**/*.js',
                     'app/Dashboard/module.js',
@@ -51,6 +66,8 @@ module.exports = function(grunt) {
                     'app/UI/**/*.js',
                     'app/Task/module.js',
                     'app/Task/**/*.js',
+                    'app/Music/module.js',
+                    'app/Music/**/*.js',
                     'app/Demo/module.js',
                     'app/Demo/**/*.js',
 

@@ -1,4 +1,262 @@
 (function() {
+// File : app/Core/module.js
+/**
+ * Core Module
+ */
+angular
+    .module('CoreModule', []);
+// File : app/Core/Resources/ApiResource.js
+/**
+ * API Resource Provider
+ */
+angular.module('CoreModule').provider('ApiResource', [
+    function () {
+        var provider = this;
+
+        // Set default config for the provider
+        this.defaults = {
+            // Server to call
+            server: {
+                protocol: 'http',
+                host:     'localhost',
+                port:     3000
+            },
+
+            // Configure API communication
+            actions: {
+                get: {
+                    method: 'GET',
+                    isCollection: false,
+                    requireIdentifier: true,
+                    alert: [ 'onError' ]
+                },
+                query: {
+                    method: 'GET',
+                    isCollection: true,
+                    requireIdentifier: false,
+                    alert: [ 'onError' ]
+                },
+                update: {
+                    method: 'PUT',
+                    isCollection: false,
+                    requireIdentifier: true,
+                    alert: [ 'onSuccess', 'onError' ]
+                },
+                create: {
+                    method: 'POST',
+                    isCollection: false,
+                    requireIdentifier: false,
+                    alert: [ 'onSuccess', 'onError' ]
+                },
+                delete: {
+                    method: 'DELETE',
+                    isCollection: false,
+                    requireIdentifier: true,
+                    alert: [ 'onSuccess', 'onError' ]
+                }
+            }
+        };
+
+        /**
+         * Build the Server path string from server information
+         * @returns {string} - the path to the server API
+         */
+        this.getServerPath = function () {
+            var protocol = this.defaults.server.protocol ? this.defaults.server.protocol   : 'http';
+            var host     = this.defaults.server.host     ? this.defaults.server.host       : 'localhost';
+            var port     = this.defaults.server.port     ? ':' + this.defaults.server.port : '';
+
+            // Remove trailing slashes from host
+            host = host.replace(/\/+$/, '');
+
+            // Remove trailing slashes from port if it's provided as a string
+            if (typeof port !== 'number') {
+                port = port.replace(/\/+$/, '');
+            }
+
+            return protocol + '://' + host + port;
+        };
+
+        this.$get = ['$http', '$q', 'AlertService', function ($http, $q, AlertService) {
+            function resourceFactory (url, idField) {
+                function Resource (data) {
+                    this.url = url;
+                    this.status = {};
+
+                    this.data = data || {};
+                    this.isNew = this.data[idField] ? false : true;
+                };
+
+                angular.forEach(provider.defaults.actions, function (action, actionName) {
+                    // Append Action to Resource object, so they can be called without instantiated resource
+                    Resource[actionName] = function (urlParams, data) {
+                        console.log(actionName + ' is called.');
+                        if (this instanceof Resource) {
+                            var resource = this;
+                        } else {
+                            var resource = new Resource(action.isCollection ? [] : {});
+                        }
+
+                        if (!urlParams) {
+                            var urlParams = {};
+                        }
+
+                        // Build URL to resource (add base server path, resource sub path and optional identifier)
+                        var requestUrl = provider.getServerPath() + '/' + url;
+                        if (action.requireIdentifier) {
+                            if (urlParams[idField]) {
+                                requestUrl += '/' + urlParams[idField];
+
+                                delete urlParams[idField];
+                            } else if (resource.data[idField]) {
+                                requestUrl += '/' + resource.data[idField];
+                            } else {
+                                console.error('Resource : action "' + actionName + '" require @id field to be populated');
+                            }
+                        }
+
+                        // Post data if needed
+                        var dataSend = {};
+                        if ('POST' === action.method || 'PUT' === action.method) {
+                            if (data) {
+                                dataSend = data;
+                            } else if (resource.data) {
+                                dataSend = resource.data;
+                            }
+                        }
+
+                        // Call the server
+                        var deferred = $q.defer();
+                        $http({
+                            method : action.method,
+                            url    : requestUrl,
+                            params : urlParams,
+                            data   : dataSend
+                        }).then(
+                            function success(response) {
+                                // Grab the api body response
+                                var apiResponse = response.data;
+
+                                // Update resource status
+                                resource.populate(resource.status, apiResponse.status);
+
+                                // We need to display a success alert for this request
+                                if (-1 !== action.alert.indexOf('onSuccess')) {
+                                    AlertService.add({ type: 'success', text: apiResponse.status.message });
+                                }
+
+                                // Add data to resource
+                                if (apiResponse.data instanceof Array) {
+                                    resource.data.length = 0;
+
+                                    for (var i = 0; i < apiResponse.data.length; i++) {
+                                        resource.data.push(new Resource(apiResponse.data[i]));
+                                    }
+                                } else if (typeof apiResponse.data === 'object') {
+                                    resource.populate(resource.data, apiResponse.data);
+
+                                    resource.isNew = resource.data[idField] ? false : true;
+                                }
+
+                                // Return server data
+                                deferred.resolve(resource);
+                            },
+                            function error(response) {
+                                if (typeof response.data === 'string') {
+                                    // Not the format we attempt to
+                                    var apiResponse = {
+                                        status: {
+                                            code: response.status,
+                                            message: response.data
+                                        }
+                                    }
+                                } else {
+                                    // Grab the api body response
+                                    var apiResponse = response.data;
+                                }
+
+                                resource.populate(resource.status, apiResponse.status);
+
+                                // We need to display an error alert for this request
+                                if (-1 !== action.alert.indexOf('onError')) {
+                                    AlertService.add({ type: 'error', text: apiResponse.status.message });
+                                }
+
+                                // Return status code, message and errors
+                                deferred.reject(resource);
+                            }
+                        );
+
+                        return deferred.promise;
+                    };
+
+                    // Append Action to Resource prototype, so they can be called for an instantiated resource
+                    Resource.prototype['$' + actionName] = function (urlParams, data) {
+                        console.log('$' + actionName + 'is called.');
+
+                        return Resource[actionName].call(this, urlParams, data);
+                    };
+                });
+
+                /**
+                 * Populate resource property without destroy array and object reference
+                 * It will empty the destination before fill it
+                 *
+                 * @param   {array|object} dst - the object to fill
+                 * @param   {array|object} src - the object to fill with
+                 *
+                 * @returns {array|object}     - the populated object
+                 */
+                Resource.prototype.populate = function (dst, src) {
+                    var dst = dst || {};
+
+                    // Empty destination
+                    if (dst instanceof Array) {
+                        dst.length = 0; // Reset array
+                    } else {
+                        // Reset object
+                        angular.forEach(dst, function (value, key) {
+                            delete dst[key];
+                        });
+                    }
+
+                    // Fill destination with src
+                    for (var key in src) {
+                        if (src.hasOwnProperty(key)) {
+                            if (dst instanceof Array) {
+                                dst.push(src[key]);
+                            } else {
+                                dst[key] = src[key];
+                            }
+                        }
+                    }
+                };
+
+                /**
+                 * Save the resource
+                 * It will automatically check if it needs to perform an UPDATE or a CREATE regarding the @id field
+                 *
+                 * @param   {object} [urlParams] - some additional params to bind to server URL
+                 * @param   {object} [data]      - data object to be saved
+                 *
+                 * @returns {Resource}           - the updated Resource
+                 */
+                Resource.prototype.$save = function (urlParams, data) {
+                    var actionName = 'create';
+                    if (this.data[idField]) {
+                        actionName = 'update';
+                    }
+
+                    return Resource[actionName].call(this, urlParams, data);
+                };
+
+                return Resource;
+            }
+
+            return resourceFactory;
+        }];
+    }
+]);
 // File : app/Administration/module.js
 /**
  * Administration Module
@@ -529,6 +787,31 @@ angular.module('UIModule').controller('SidebarController', [
         };
     }
 ]);
+// File : app/UI/Directives/AlertsDirective.js
+angular.module('UIModule').directive('uiAlerts', [
+    'AlertService',
+    function (AlertService) {
+        var types = {
+            success : { icon: 'check',   class: 'success' },
+            error   : { icon: 'times',   class: 'danger' },
+            warning : { icon: 'warning', class: 'warning' },
+            info    : { icon: 'info',    class: 'info' }
+        };
+
+        return {
+            restrict: 'E',
+            replace: true,
+            templateUrl: '../app/UI/Partials/alerts.html',
+            scope: {},
+            link: function (scope, element, attrs) {
+                scope.alertTypes = types;
+                scope.alerts = AlertService.all();
+
+                scope.getNext = AlertService.getNext;
+            }
+        }
+    }
+]);
 // File : app/UI/Directives/HeaderDirective.js
 /**
  * Header Directive
@@ -1013,21 +1296,35 @@ angular.module('UIModule').directive('uiSidebar', [
 ]);
 // File : app/UI/Services/AlertService.js
 /**
- * Alert service
+ * Alert Service
  */
 angular.module('UIModule').factory('AlertService', [
     function () {
         var alerts = [];
 
         return {
+            all: function () {
+                return alerts;
+            },
+
             add: function (alert) {
-                alerts.push();
+                if (alert.text) {
+                    if (!alert.type) {
+                        alert.type = 'info';
+                    }
+
+                    alerts.push(alert);
+                } else {
+                    console.warn('Alert needs a text message to displayed.');
+                }
 
                 return this;
             },
 
             getNext: function () {
-
+                if (alerts.length > 0) {
+                    alerts.shift();
+                }
             }
         };
     }
@@ -1720,6 +2017,233 @@ angular.module('TaskModule').config([
         $routeProvider.when('/task', task);
     }]
 );
+// File : app/Music/module.js
+/**
+ * Music Module
+ */
+angular
+    .module('MusicModule', [
+        'ngRoute',
+        'CoreModule'
+    ])
+    .run([
+        'MenuService',
+        function (MenuService) {
+            MenuService.addItem({
+                id: 'music',
+                position: 4,
+                icon: 'music',
+                title: 'Music',
+                children: [
+                    { id: 'artists', icon: 'microphone', title: 'Artists', url: '#/music/artist' },
+                    { id: 'albums',  icon: 'circle', title: 'Albums', url: '#/music/album' },
+                    { id: 'songs',   icon: 'music',     title: 'Songs',  url: '#/music/song' }
+                ]
+            });
+        }
+    ]);
+// File : app/Music/Controllers/AlbumController.js
+/**
+ * Album Controller
+ */
+angular.module('MusicModule').controller('AlbumController', [
+    function () {
+
+    }
+]);
+// File : app/Music/Controllers/Artist/ArtistEditController.js
+/**
+ * Artist Edit Controller
+ */
+angular.module('MusicModule').controller('ArtistEditController', [
+    '$location',
+    'artist',
+    function ($location, artist) {
+        this.artist = artist;
+
+        console.log(this.artist);
+
+        this.save = function () {
+            this.artist.$save().then(
+                function success(data) {
+                    console.log('success');
+                    console.log(data);
+
+                    $location.path('/music/artist');
+                },
+                function error(response) {
+                    console.log('error');
+                    console.log(response);
+                }
+            );
+        };
+
+        this.cancel = function () {
+            // Redirect to users list
+            $location.path('/music/artist');
+        };
+    }
+]);
+// File : app/Music/Controllers/ArtistController.js
+/**
+ * Artist Controller
+ */
+angular.module('MusicModule').controller('ArtistController', [
+    'HeaderService',
+    'artists',
+    function (HeaderService, artists) {
+        // Add create button
+        HeaderService.addButton({
+            icon: 'plus',
+            iconOnly: true,
+            label: 'Create Artist',
+            url: '#/music/artist/create'
+        });
+
+        this.artists = artists.data;
+
+        console.log(artists);
+    }
+]);
+// File : app/Music/Controllers/SongController.js
+/**
+ * Song Controller
+ */
+angular.module('MusicModule').controller('SongController', [
+    function () {
+
+    }
+]);
+// File : app/Music/Resources/ArtistResource.js
+/**
+ * Artist Resource
+ */
+angular.module('MusicModule').factory('ArtistResource', [
+    'ApiResource',
+    function (ApiResource) {
+        return ApiResource('music/artist', '_id');
+    }
+]);
+// File : app/Music/routes.js
+/**
+ * Music routes
+ */
+angular.module('MusicModule').config([
+    '$routeProvider',
+    function ($routeProvider) {
+        var music = {
+            name: 'music',
+            abstract: true,
+
+            pageInfo: {
+                title: 'Music'
+            }
+        };
+
+        // Artists
+        var musicArtist = {
+            name: 'music.artist',
+            url: '#/music/artist',
+            parent: music,
+            templateUrl: '../app/Music/Partials/Artist/list.html',
+            controller: 'ArtistController',
+            controllerAs: 'artistCtrl',
+
+            resolve: {
+                artists: [
+                    'ArtistResource',
+                    function (ArtistResource) {
+                        return ArtistResource.query();
+                    }
+                ]
+            },
+
+            pageInfo: {
+                icon:   'microphone',
+                title:  'Artists'
+            }
+        };
+
+        var musicArtistCreate = {
+            name: 'music.artist.create',
+            url: '#/music/artist/create',
+            parent: musicArtist,
+            templateUrl: '../app/Music/Partials/Artist/edit.html',
+            controller: 'ArtistEditController',
+            controllerAs: 'artistEditCtrl',
+
+            resolve: {
+                artist: [
+                    'ArtistResource',
+                    function (ArtistResource) {
+                        return new ArtistResource();
+                    }
+                ]
+            },
+            pageInfo: {
+                icon:   'microphone',
+                title:  'Create'
+            }
+        };
+
+        var musicArtistEdit = {
+            name: 'music.artist.edit',
+            url: '#/music/artist/edit',
+            parent: musicArtist,
+            templateUrl: '../app/Music/Partials/Artist/edit.html',
+            controller: 'ArtistEditController',
+            controllerAs: 'artistEditCtrl',
+
+            resolve: {
+                artist: [
+                    '$route',
+                    'ArtistResource',
+                    function ($route, ArtistResource) {
+                        return ArtistResource.get({ _id: $route.current.params.artistId });
+                    }
+                ]
+            },
+            pageInfo: {
+                icon:   'microphone',
+                title:  'Edit'
+            }
+        };
+
+        // Albums
+        var musicAlbums = {
+            name: 'music.album',
+            url: '#/music/album',
+            parent: music,
+            templateUrl: '../app/Music/Partials/Album/list.html',
+
+            pageInfo: {
+                icon:   'circle',
+                title:  'Albums'
+            }
+        };
+
+        // Songs
+        var musicSongs = {
+            name: 'music.song',
+            url: '#/music/song',
+            parent: music,
+            templateUrl: '../app/Music/Partials/Song/list.html',
+
+            pageInfo: {
+                icon:   'music',
+                title:  'Songs'
+            }
+        };
+
+        // Register states
+        $routeProvider
+            .when('/music/artist',                musicArtist)
+            .when('/music/artist/create',         musicArtistCreate)
+            .when('/music/artist/edit/:artistId', musicArtistEdit)
+            .when('/music/album',  musicAlbums)
+            .when('/music/song',   musicSongs);
+    }]
+);
 // File : app/Demo/module.js
 /**
  * Demo Module
@@ -1901,18 +2425,14 @@ angular
         'AdministrationModule',
         'DashboardModule',
         'TaskModule',
+        'MusicModule',
         'DemoModule'
     ])
     .config([
         '$httpProvider',
-        '$sceDelegateProvider',
-        function ($httpProvider, $sceDelegateProvider) {
-            /*$httpProvider.defaults.useXDomain = true;
-            delete $httpProvider.defaults.headers.common['X-Requested-With'];*/
+        function ($httpProvider) {
             $httpProvider.defaults.headers.common["Accept"] = "application/json";
             $httpProvider.defaults.headers.common["Content-Type"] = "application/json";
-
-            /*$sceDelegateProvider.resourceUrlWhitelist(['self', 'http://localhost:3000*//**']);*/
         }
     ])
     .run([

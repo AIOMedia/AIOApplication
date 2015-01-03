@@ -12,10 +12,12 @@
         <link type="text/css" rel="stylesheet" href="css/app.min.css" />
 
         <!-- Libraries (see Gruntfile.js to know what's included in js/lib.js) -->
-        <script type="text/javascript" src="js/lib.min.js"></script>
+        <script type="text/javascript" src="js/lib.js"></script>
+        <!--<script type="text/javascript" src="js/lib.min.js"></script>-->
 
         <!-- AngularJS App -->
-        <script type="text/javascript" src="js/app.min.js"></script>
+        <script type="text/javascript" src="js/app.js"></script>
+        <!--<script type="text/javascript" src="js/app.min.js"></script>-->
     </head>
 
     <body>
@@ -27,6 +29,9 @@
             <div class="right-side">
                 <!-- Content Header -->
                 <ui-header></ui-header>
+
+                <!-- Alerts -->
+                <ui-alerts></ui-alerts>
 
                 <!-- Main content -->
                 <section class="content" data-ui-scrollbar="auto" data-ng-view=""></section>
