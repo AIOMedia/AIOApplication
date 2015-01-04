@@ -90,7 +90,6 @@ angular.module('CoreModule').provider('ApiResource', [
                 angular.forEach(provider.defaults.actions, function (action, actionName) {
                     // Append Action to Resource object, so they can be called without instantiated resource
                     Resource[actionName] = function (urlParams, data) {
-                        console.log(actionName + ' is called.');
                         if (this instanceof Resource) {
                             var resource = this;
                         } else {
@@ -192,8 +191,6 @@ angular.module('CoreModule').provider('ApiResource', [
 
                     // Append Action to Resource prototype, so they can be called for an instantiated resource
                     Resource.prototype['$' + actionName] = function (urlParams, data) {
-                        console.log('$' + actionName + 'is called.');
-
                         return Resource[actionName].call(this, urlParams, data);
                     };
                 });
@@ -808,6 +805,54 @@ angular.module('UIModule').directive('uiAlerts', [
                 scope.alerts = AlertService.all();
 
                 scope.getNext = AlertService.getNext;
+            }
+        }
+    }
+]);
+// File : app/UI/Directives/Buttons/ButtonConfirm.js
+/**
+ * Button Confirm
+ * A button which will display a confirm message to user and execute a callback on validation
+ */
+angular.module('UIModule').directive('uiButtonConfirm', [
+    function () {
+        return {
+            restrict: 'E',
+            transclude: true,
+            replace: true,
+            templateUrl: '../app/UI/Partials/Buttons/button-confirm.html',
+            scope: {
+                confirmMessage  : '@',
+                callbackConfirm : '@',
+                callbackCancel  : '@'
+            },
+            link: function (scope, element, attrs) {
+                scope.confirmMessage = scope.confirmMessage ||'Are you sure ?';
+                scope.confirmDisplayed = false;
+
+                scope.confirm = function () {
+                    if (scope.confirmDisplayed) {
+                        // Call confirm callback
+                        if (typeof (scope.callbackConfirm) === 'function') {
+                            scope.callbackConfirm.call();
+                        }
+                    } else {
+                        scope.confirmDisplayed = true;
+                    }
+                };
+
+                scope.cancel = function () {
+                    scope.confirmDisplayed = false;
+
+                    if (typeof (scope.callbackCancel) === 'function') {
+                        scope.callbackCancel.call();
+                    }
+                };
+
+                // Destroy events
+                scope.$on('$destroy', function() {
+
+                });
             }
         }
     }
@@ -2024,6 +2069,7 @@ angular.module('TaskModule').config([
 angular
     .module('MusicModule', [
         'ngRoute',
+        'angularFileUpload',
         'CoreModule'
     ])
     .run([
@@ -2057,21 +2103,53 @@ angular.module('MusicModule').controller('AlbumController', [
  */
 angular.module('MusicModule').controller('ArtistEditController', [
     '$location',
+    '$upload',
     'artist',
-    function ($location, artist) {
+    function ($location, $upload, artist) {
         this.artist = artist;
 
-        console.log(this.artist);
+        this.onFileSelect = function ($files) {
+            //$files: an array of files selected, each file has name, size, and type.
+            for (var i = 0; i < $files.length; i++) {
+                var file = $files[i];
+                this.upload = $upload.upload({
+                    url: 'server/upload/url', //upload.php script, node.js route, or servlet url
+                    //method: 'POST' or 'PUT',
+                    //headers: {'header-key': 'header-value'},
+                    //withCredentials: true,
+                    data: { image: this.artist.data.image },
+                    file: file, // or list of files ($files) for html5 only
+                    //fileName: 'doc.jpg' or ['1.jpg', '2.jpg', ...] // to modify the name of the file(s)
+                    // customize file formData name ('Content-Desposition'), server side file variable name.
+                    //fileFormDataName: myFile, //or a list of names for multiple files (html5). Default is 'file'
+                    // customize how data is added to formData. See #40#issuecomment-28612000 for sample code
+                    //formDataAppender: function(formData, key, val){}
+                }).progress(function (evt) {
+                    console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
+                }).success(function (data, status, headers, config) {
+                    // file is uploaded successfully
+                    console.log(data);
+                });
+                //.error(...)
+                //.then(success, error, progress);
+                // access or attach event listeners to the underlying XMLHttpRequest.
+                //.xhr(function(xhr){xhr.upload.addEventListener(...)})
+            }
+            /* alternative way of uploading, send the file binary with the file's content-type.
+             Could be used to upload files to CouchDB, imgur, etc... html5 FileReader is needed.
+             It could also be used to monitor the progress of a normal http post/put request with large data*/
+            // $scope.upload = $upload.http({...})  see 88#issuecomment-31366487 for sample code.
+        };
 
         this.save = function () {
             this.artist.$save().then(
-                function success(data) {
+                function success (data) {
                     console.log('success');
                     console.log(data);
 
                     $location.path('/music/artist');
                 },
-                function error(response) {
+                function error (response) {
                     console.log('error');
                     console.log(response);
                 }
@@ -2102,7 +2180,9 @@ angular.module('MusicModule').controller('ArtistController', [
 
         this.artists = artists.data;
 
-        console.log(artists);
+        this.delete = function (artist) {
+            artist.$delete();
+        };
     }
 ]);
 // File : app/Music/Controllers/SongController.js

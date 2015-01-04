@@ -15,6 +15,8 @@ angular.module('MusicModule').controller('ArtistController', [
 
         this.artists = artists.data;
 
-        console.log(artists);
+        this.delete = function (artist) {
+            artist.$delete();
+        };
     }
 ]);

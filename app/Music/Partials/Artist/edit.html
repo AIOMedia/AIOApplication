@@ -1,9 +1,35 @@
 <form role="form">
     <div class="panel panel-default">
         <div class="panel-body">
+            <!-- Images field -->
             <div class="form-group">
-                <label for="artistName">Artist Name</label>
+                <label class="control-label">Images</label>
+                <div class="form-file-upload-box" data-ng-file-drop="artistEditCtrl.onFileSelect($files)" data-ng-show="dropSupported">
+                    <div class="row">
+                        <div class="form-file-upload-icon col-md-2 col-sm-3">
+                            <span class="fa fa-upload"></span>
+                        </div>
+                        <div class="form-file-upload-label col-md-10 col-sm-9">
+                            Drag & Drop your files here to add them.
+                        </div>
+                    </div>
+                </div>
+
+                <div data-ng-file-drop-available="dropSupported=true" ng-show="!dropSupported">
+                    HTML5 Drop File is not supported!
+                </div>
+                <!--<button ng-click="artistEditCtrl.upload.abort()">Cancel Upload</button>-->
+            </div>
+
+            <!-- Artist Name field -->
+            <div class="form-group" data-ng-class="{'has-error has-feedback': artistEditCtrl.artist.status.errors.name }">
+                <label class="control-label" for="artistName">Artist Name</label>
                 <input type="text" class="form-control" id="artistName" placeholder="Artist Name" data-ng-model="artistEditCtrl.artist.data.name" />
+                <span data-ng-if="artistEditCtrl.artist.status.errors.name" class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true"></span>
+                <p class="help-block" data-ng-if="artistEditCtrl.artist.status.errors.name">
+                    <span class="fa fa-times-circle-o"></span>
+                    {{ artistEditCtrl.artist.status.errors.name.message }}
+                </p>
             </div>
         </div>
     </div>
@@ -11,7 +37,7 @@
     <div class="pull-right">
         <button type="submit" class="btn btn-primary" data-ng-click="artistEditCtrl.save()">
             <span class="fa fa-check-circle-o"></span>
-            {{ artistEditCtrl.isNew ? 'Create' : 'Edit' }}
+            {{ artistEditCtrl.artist.isNew ? 'Create' : 'Edit' }}
         </button>
         <button type="button" class="btn btn-default" data-ng-click="artistEditCtrl.cancel()">
             <span class="fa fa-times-circle-o"></span>

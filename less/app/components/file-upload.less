@@ -1,0 +1,28 @@
+.form-file-upload-box {
+    background: @input-bg;
+    color: @input-color-placeholder;
+    border: 1px solid @input-border;
+
+    text-align: center;
+
+    padding: floor(@grid-gutter-width / 2);
+    vertical-align: middle;
+
+    .border-radius(@input-border-radius);
+
+    &.dragover {
+        color: @input-border-focus;
+        border-color: @input-border-focus;
+    }
+
+  .form-file-upload-icon {
+    font-size: 72px;
+    border-right: 1px dashed @input-color-placeholder;
+    opacity: 0.5;
+  }
+
+  .form-file-upload-label {
+    height: 100%;
+    font-size: 16px;
+  }
+}

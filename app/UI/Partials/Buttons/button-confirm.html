@@ -1,0 +1,4 @@
+<button type="button" role="button" data-ng-click="confirm()">
+    <ng-transclude data-ng-if="!confirmDisplayed"></ng-transclude>
+    <span data-ng-if="confirmDisplayed">{{ confirmMessage }}</span>
+</button>

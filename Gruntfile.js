@@ -19,10 +19,12 @@ module.exports = function(grunt) {
                     'bower_components/jquery/dist/jquery.js',
                     'bower_components/jquery-ui/jquery-ui.js',
                     'bower_components/bootstrap/dist/js/bootstrap.js',
+                    'bower_components/ng-file-upload/angular-file-upload-shim.js',
                     'bower_components/angular/angular.min.js',
                     'bower_components/angular-route/angular-route.js',
                     'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
-                    'bower_components/angular-ui-sortable/sortable.js'
+                    'bower_components/angular-ui-sortable/sortable.js',
+                    'bower_components/ng-file-upload/angular-file-upload.js',
                 ],
                 dest: '<%= distFolder %>/js/lib.js'
             },
@@ -32,10 +34,12 @@ module.exports = function(grunt) {
                     'bower_components/jquery/dist/jquery.min.js',
                     'bower_components/jquery-ui/jquery-ui.min.js',
                     'bower_components/bootstrap/dist/js/bootstrap.min.js',
+                    'bower_components/ng-file-upload/angular-file-upload-shim.min.js',
                     'bower_components/angular/angular.min.js',
                     'bower_components/angular-route/angular-route.min.js',
                     'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
-                    'bower_components/angular-ui-sortable/sortable.min.js'
+                    'bower_components/angular-ui-sortable/sortable.min.js',
+                    'bower_components/ng-file-upload/angular-file-upload.min.js',
                 ],
                 dest: '<%= distFolder %>/js/lib.min.js'
             },

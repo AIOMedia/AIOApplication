@@ -82,7 +82,6 @@ angular.module('CoreModule').provider('ApiResource', [
                 angular.forEach(provider.defaults.actions, function (action, actionName) {
                     // Append Action to Resource object, so they can be called without instantiated resource
                     Resource[actionName] = function (urlParams, data) {
-                        console.log(actionName + ' is called.');
                         if (this instanceof Resource) {
                             var resource = this;
                         } else {
@@ -184,8 +183,6 @@ angular.module('CoreModule').provider('ApiResource', [
 
                     // Append Action to Resource prototype, so they can be called for an instantiated resource
                     Resource.prototype['$' + actionName] = function (urlParams, data) {
-                        console.log('$' + actionName + 'is called.');
-
                         return Resource[actionName].call(this, urlParams, data);
                     };
                 });

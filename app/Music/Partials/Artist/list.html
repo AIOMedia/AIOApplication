@@ -5,19 +5,24 @@
 <ul data-ng-if="artistCtrl.artists.length != 0" class="list-group">
     <li class="list-group-item" data-ng-repeat="artist in artistCtrl.artists">
         <div class="row">
-            <div class="col-md-10">
-                {{ artist.data.name }}
+            <div class="col-md-9 col-sm-9">
+                <a href="#/music/artist/{{ artist.data._id }}">{{ artist.data.name }}</a>
             </div>
-            <div class="text-right col-md-2">
+            <div class="text-right col-md-3 col-sm-3">
                 <a href="#/music/artist/edit/{{ artist.data._id }}" class="btn btn-default">
                     <span class="fa fa-pencil"></span>
                     <span class="sr-only">Edit Artist</span>
                 </a>
 
-                <button class="btn btn-default">
+                <ui-button-confirm class="btn btn-default" data-confirm-message="Are you sure ?" data-callback-confirm="artistCtrl.delete.bind(artist)">
                     <span class="fa fa-trash"></span>
                     <span class="sr-only">Delete Artist</span>
-                </button>
+                </ui-button-confirm>
+
+                <!--<button class="btn btn-default">
+                    <span class="fa fa-trash"></span>
+                    <span class="sr-only">Delete Artist</span>
+                </button>-->
             </div>
         </div>
     </li>
