@@ -4,56 +4,57 @@
 angular.module('MusicModule').controller('ArtistEditController', [
     '$location',
     '$upload',
+    'ApiProvider',
     'artist',
-    function ($location, $upload, artist) {
+    function ($location, $upload, ApiProvider, artist) {
         this.artist = artist;
+
+        if (!this.artist.data.images) {
+            this.artist.data.images = [];
+        }
+
+        this.hexToBase64 = function (str) {
+            if (str) {
+                return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
+            } else {
+                return '';
+            }
+        };
+
+        this.displayImage = function (image) {
+            return 'data:' + image.type + ';base64,' + this.hexToBase64(image.data);
+        };
 
         this.onFileSelect = function ($files) {
             //$files: an array of files selected, each file has name, size, and type.
             for (var i = 0; i < $files.length; i++) {
                 var file = $files[i];
-                this.upload = $upload.upload({
-                    url: 'server/upload/url', //upload.php script, node.js route, or servlet url
-                    //method: 'POST' or 'PUT',
-                    //headers: {'header-key': 'header-value'},
-                    //withCredentials: true,
-                    data: { image: this.artist.data.image },
-                    file: file, // or list of files ($files) for html5 only
-                    //fileName: 'doc.jpg' or ['1.jpg', '2.jpg', ...] // to modify the name of the file(s)
-                    // customize file formData name ('Content-Desposition'), server side file variable name.
-                    //fileFormDataName: myFile, //or a list of names for multiple files (html5). Default is 'file'
-                    // customize how data is added to formData. See #40#issuecomment-28612000 for sample code
-                    //formDataAppender: function(formData, key, val){}
-                }).progress(function (evt) {
-                    console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-                }).success(function (data, status, headers, config) {
-                    // file is uploaded successfully
-                    console.log(data);
+
+                console.log(file);
+
+                file.upload = $upload.upload({
+                    url: ApiProvider.getServerPath() + '/file/upload', //upload.php script, node.js route, or servlet url
+                    method: 'POST',
+                    data: { files: artist.data.images },
+                    file: file // or list of files ($files) for html5 only
                 });
-                //.error(...)
-                //.then(success, error, progress);
-                // access or attach event listeners to the underlying XMLHttpRequest.
-                //.xhr(function(xhr){xhr.upload.addEventListener(...)})
+
+                file.upload.then(function(response) {
+                    file.data = response.data;
+                }, function(response) {
+                    if (response.status > 0)
+                        $scope.errorMsg = response.status + ': ' + response.data;
+                });
+                file.upload.progress(function(evt) {
+                    file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                });
             }
-            /* alternative way of uploading, send the file binary with the file's content-type.
-             Could be used to upload files to CouchDB, imgur, etc... html5 FileReader is needed.
-             It could also be used to monitor the progress of a normal http post/put request with large data*/
-            // $scope.upload = $upload.http({...})  see 88#issuecomment-31366487 for sample code.
         };
 
         this.save = function () {
-            this.artist.$save().then(
-                function success (data) {
-                    console.log('success');
-                    console.log(data);
-
-                    $location.path('/music/artist');
-                },
-                function error (response) {
-                    console.log('error');
-                    console.log(response);
-                }
-            );
+            this.artist.$save().then(function (data) {
+                $location.path('/music/artist');
+            });
         };
 
         this.cancel = function () {
