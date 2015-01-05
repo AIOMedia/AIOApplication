@@ -5,11 +5,11 @@
  */
 angular
     .module('CoreModule', []);
-// File : app/Core/Resources/ApiResource.js
+// File : app/Core/Providers/ApiProvider.js
 /**
- * API Resource Provider
+ * API Provider
  */
-angular.module('CoreModule').provider('ApiResource', [
+angular.module('CoreModule').provider('ApiProvider', [
     function () {
         var provider = this;
 
@@ -20,9 +20,118 @@ angular.module('CoreModule').provider('ApiResource', [
                 protocol: 'http',
                 host:     'localhost',
                 port:     3000
-            },
+            }
+        };
 
-            // Configure API communication
+        this.$get = [
+            '$http',
+            '$q',
+            function ($http, $q) {
+                var calls = {
+                    success   : 0,
+                    inProgress: 0,
+                    error     : 0
+                };
+
+                var server = {};
+
+                return {
+                    setServer: function (host, port, protocol) {
+                        if (host) {
+                            server.host = host.replace(/\/+$/, '');
+                        } else {
+                            delete server.host;
+                        }
+
+                        if (port) {
+                            server.port = parseInt(port);
+                        } else {
+                            delete server.port;
+                        }
+
+                        if (protocol) {
+                            server.protocol = protocol.replace('://', '').replace(/\/+$/, '');
+                        } else {
+                            delete server.protocol;
+                        }
+
+                        return this;
+                    },
+
+                    getServer: function () {
+                        var config = angular.extend({}, provider.defaults.server, server);
+
+                        return config;
+                    },
+
+                    getServerPath: function () {
+                        var config = this.getServer();
+
+                        var port = config.port;
+                        if (port) {
+                            port = ':' + port;
+                        }
+
+                        return config.protocol + '://' + config.host + port;
+                    },
+
+                    callServer: function (method, url, params, data) {
+                        url    = this.getServerPath() + '/' + url.replace(/\/+$/, '');
+                        params = params ? params : {};
+                        data   = data ? data : {};
+
+                        // Call the server
+                        var deferred = $q.defer();
+                        $http({
+                            method : method,
+                            url    : url,
+                            params : params,
+                            data   : data
+                        }).then(
+                            function success(response) {
+                                // Grab the api body response
+                                var apiResponse = response.data;
+
+                                // Return server data
+                                deferred.resolve(apiResponse);
+                            },
+                            function error(response) {
+                                if (typeof response.data === 'string') {
+                                    // Not the format we attempt to
+                                    var apiResponse = {
+                                        status: {
+                                            code: response.status,
+                                            message: response.data
+                                        }
+                                    }
+                                } else {
+                                    // Grab the api body response
+                                    var apiResponse = response.data;
+                                }
+
+                                // Return status code, message and errors
+                                deferred.reject(apiResponse);
+                            }
+                        );
+
+                        return deferred.promise;
+                    }
+                };
+            }
+        ];
+    }
+]);
+// File : app/Core/Resources/ApiResource.js
+/**
+ * API Resource Provider
+ */
+angular.module('CoreModule').provider('ApiResource', [
+    function () {
+        var provider = this;
+
+        // Set default config for the provider
+        this.defaults = {
+            // Configure API Resource communication
             actions: {
                 get: {
                     method: 'GET',
@@ -57,27 +166,7 @@ angular.module('CoreModule').provider('ApiResource', [
             }
         };
 
-        /**
-         * Build the Server path string from server information
-         * @returns {string} - the path to the server API
-         */
-        this.getServerPath = function () {
-            var protocol = this.defaults.server.protocol ? this.defaults.server.protocol   : 'http';
-            var host     = this.defaults.server.host     ? this.defaults.server.host       : 'localhost';
-            var port     = this.defaults.server.port     ? ':' + this.defaults.server.port : '';
-
-            // Remove trailing slashes from host
-            host = host.replace(/\/+$/, '');
-
-            // Remove trailing slashes from port if it's provided as a string
-            if (typeof port !== 'number') {
-                port = port.replace(/\/+$/, '');
-            }
-
-            return protocol + '://' + host + port;
-        };
-
-        this.$get = ['$http', '$q', 'AlertService', function ($http, $q, AlertService) {
+        this.$get = ['$q', 'ApiProvider', 'AlertService', function ($q, ApiProvider, AlertService) {
             function resourceFactory (url, idField) {
                 function Resource (data) {
                     this.url = url;
@@ -101,7 +190,7 @@ angular.module('CoreModule').provider('ApiResource', [
                         }
 
                         // Build URL to resource (add base server path, resource sub path and optional identifier)
-                        var requestUrl = provider.getServerPath() + '/' + url;
+                        var requestUrl = url;
                         if (action.requireIdentifier) {
                             if (urlParams[idField]) {
                                 requestUrl += '/' + urlParams[idField];
@@ -124,35 +213,27 @@ angular.module('CoreModule').provider('ApiResource', [
                             }
                         }
 
-                        // Call the server
+                        // Delegate the AJAX call to the API provider
                         var deferred = $q.defer();
-                        $http({
-                            method : action.method,
-                            url    : requestUrl,
-                            params : urlParams,
-                            data   : dataSend
-                        }).then(
-                            function success(response) {
-                                // Grab the api body response
-                                var apiResponse = response.data;
-
+                        ApiProvider.callServer(action.method, requestUrl, urlParams, dataSend).then(
+                            function success (response) {
                                 // Update resource status
-                                resource.populate(resource.status, apiResponse.status);
+                                resource.populate(resource.status, response.status);
 
                                 // We need to display a success alert for this request
                                 if (-1 !== action.alert.indexOf('onSuccess')) {
-                                    AlertService.add({ type: 'success', text: apiResponse.status.message });
+                                    AlertService.add({ type: 'success', text: response.status.message });
                                 }
 
                                 // Add data to resource
-                                if (apiResponse.data instanceof Array) {
+                                if (response.data instanceof Array) {
                                     resource.data.length = 0;
 
-                                    for (var i = 0; i < apiResponse.data.length; i++) {
-                                        resource.data.push(new Resource(apiResponse.data[i]));
+                                    for (var i = 0; i < response.data.length; i++) {
+                                        resource.data.push(new Resource(response.data[i]));
                                     }
-                                } else if (typeof apiResponse.data === 'object') {
-                                    resource.populate(resource.data, apiResponse.data);
+                                } else if (typeof response.data === 'object') {
+                                    resource.populate(resource.data, response.data);
 
                                     resource.isNew = resource.data[idField] ? false : true;
                                 }
@@ -160,25 +241,12 @@ angular.module('CoreModule').provider('ApiResource', [
                                 // Return server data
                                 deferred.resolve(resource);
                             },
-                            function error(response) {
-                                if (typeof response.data === 'string') {
-                                    // Not the format we attempt to
-                                    var apiResponse = {
-                                        status: {
-                                            code: response.status,
-                                            message: response.data
-                                        }
-                                    }
-                                } else {
-                                    // Grab the api body response
-                                    var apiResponse = response.data;
-                                }
-
-                                resource.populate(resource.status, apiResponse.status);
+                            function error (response) {
+                                resource.populate(resource.status, response.status);
 
                                 // We need to display an error alert for this request
                                 if (-1 !== action.alert.indexOf('onError')) {
-                                    AlertService.add({ type: 'error', text: apiResponse.status.message });
+                                    AlertService.add({ type: 'error', text: response.status.message });
                                 }
 
                                 // Return status code, message and errors
@@ -472,15 +540,6 @@ angular.module('UserModule').controller('ProfileController', [
         });
     }
 ]);
-// File : app/User/Controllers/Sidebar/SidebarPanelController.js
-/**
- * Sidebar panel Controller
- */
-angular.module('UserModule').controller('SidebarPanelController', [
-    function () {
-        this.collapsed = false;
-    }
-]);
 // File : app/User/Controllers/User/UserController.js
 /**
  * User Controller
@@ -530,36 +589,6 @@ angular.module('UserModule').controller('UserEditController', [
         this.cancel = function () {
             // Redirect to users list
             $location.path('/user');
-        };
-    }
-]);
-// File : app/User/Directives/Sidebar/SidebarPanelDirective.js
-/**
- * Sidebar Panel Directive
- * @param boolean collapsed
- */
-angular.module('UserModule').directive('userSidebarPanel', [
-    function () {
-        return {
-            restrict: 'E',
-            replace: true,
-            templateUrl: '../app/User/Partials/Sidebar/user-panel.html',
-            scope: {
-                collapsed: '=?'
-            },
-            controller:   'SidebarPanelController',
-            controllerAs: 'sidebarPanel',
-            link: function (scope, element, attrs, sidebarPanel) {
-                // Define defaults
-                if (typeof scope.collapsed === 'undefined') {
-                    scope.collapsed = sidebarPanel.collapsed;
-                }
-
-                // Watch for attribute changes
-                scope.$watch('collapsed', function (newValue) {
-                    sidebarPanel.collapsed = newValue;
-                });
-            }
         };
     }
 ]);
@@ -769,21 +798,6 @@ angular.module('UIModule', [
     'UserModule',
     'SearchModule'
 ]);
-// File : app/UI/Controllers/SidebarController.js
-/**
- * Sidebar Controller
- */
-angular.module('UIModule').controller('SidebarController', [
-    function () {
-        this.toggle     = true;
-        this.collapsed  = false;
-        this.searchForm = false;
-
-        this.toggleSidebar = function () {
-            this.collapsed = !this.collapsed;
-        };
-    }
-]);
 // File : app/UI/Directives/AlertsDirective.js
 angular.module('UIModule').directive('uiAlerts', [
     'AlertService',
@@ -883,33 +897,6 @@ angular.module('UIModule').directive('uiHeader', [
                         }
                     }
                 }
-            }
-        };
-    }
-]);
-// File : app/UI/Directives/MenuDirective.js
-/**
- * Menu Directive
- * @param boolean collapsed
- */
-angular.module('UIModule').directive('uiMenu', [
-    'MenuService',
-    function (MenuService) {
-        return {
-            restrict: 'E',
-            replace: true,
-            scope: {
-                collapsed: '=?'
-            },
-            templateUrl: '../app/UI/Partials/menu.html',
-            link: function (scope, element, attrs) {
-                scope.items = MenuService.getItems();
-
-                scope.toggleItemMenu = function (event, item) {
-                    if (MenuService.toggleItemMenu(item)) {
-                        event.preventDefault();
-                    }
-                };
             }
         };
     }
@@ -1305,7 +1292,8 @@ angular.module('UIModule').directive('uiScrollbar', [
  * Sidebar Directive
  */
 angular.module('UIModule').directive('uiSidebar', [
-    function () {
+    'MenuService',
+    function (MenuService) {
         return {
             restrict: 'E',
             replace: true,
@@ -1314,27 +1302,17 @@ angular.module('UIModule').directive('uiSidebar', [
                 collapsed: '@collapsed',
                 toggle   : '@toggle'
             },
-            controller:   'SidebarController',
-            controllerAs: 'sidebar',
-            bindToController: true,
-            link: function (scope, element, attrs, sidebar) {
-                // Define defaults
-                if (typeof scope.toggle === 'undefined') {
-                    scope.toggle = sidebar.toggle;
-                }
+            link: function (scope, element, attrs) {
+                scope.menu = MenuService.getItems();
+                scope.toggleSidebar = function () {
+                    scope.collapsed = !scope.collapsed;
+                };
 
-                if (typeof scope.collapsed === 'undefined') {
-                    scope.collapsed = sidebar.collapsed;
-                }
-
-                // Watch for attribute changes
-                scope.$watch('toggle', function (newValue) {
-                    sidebar.toggle = newValue;
-                });
-
-                scope.$watch('collapsed', function (newValue) {
-                    sidebar.collapsed = newValue;
-                });
+                scope.toggleItemMenu = function (event, item) {
+                    if (MenuService.toggleItemMenu(item)) {
+                        event.preventDefault();
+                    }
+                };
             }
         };
     }
@@ -2104,56 +2082,57 @@ angular.module('MusicModule').controller('AlbumController', [
 angular.module('MusicModule').controller('ArtistEditController', [
     '$location',
     '$upload',
+    'ApiProvider',
     'artist',
-    function ($location, $upload, artist) {
+    function ($location, $upload, ApiProvider, artist) {
         this.artist = artist;
+
+        if (!this.artist.data.images) {
+            this.artist.data.images = [];
+        }
+
+        this.hexToBase64 = function (str) {
+            if (str) {
+                return btoa(String.fromCharCode.apply(null, str.replace(/\r|\n/g, "").replace(/([\da-fA-F]{2}) ?/g, "0x$1 ").replace(/ +$/, "").split(" ")));
+            } else {
+                return '';
+            }
+        };
+
+        this.displayImage = function (image) {
+            return 'data:' + image.type + ';base64,' + this.hexToBase64(image.data);
+        };
 
         this.onFileSelect = function ($files) {
             //$files: an array of files selected, each file has name, size, and type.
             for (var i = 0; i < $files.length; i++) {
                 var file = $files[i];
-                this.upload = $upload.upload({
-                    url: 'server/upload/url', //upload.php script, node.js route, or servlet url
-                    //method: 'POST' or 'PUT',
-                    //headers: {'header-key': 'header-value'},
-                    //withCredentials: true,
-                    data: { image: this.artist.data.image },
-                    file: file, // or list of files ($files) for html5 only
-                    //fileName: 'doc.jpg' or ['1.jpg', '2.jpg', ...] // to modify the name of the file(s)
-                    // customize file formData name ('Content-Desposition'), server side file variable name.
-                    //fileFormDataName: myFile, //or a list of names for multiple files (html5). Default is 'file'
-                    // customize how data is added to formData. See #40#issuecomment-28612000 for sample code
-                    //formDataAppender: function(formData, key, val){}
-                }).progress(function (evt) {
-                    console.log('percent: ' + parseInt(100.0 * evt.loaded / evt.total));
-                }).success(function (data, status, headers, config) {
-                    // file is uploaded successfully
-                    console.log(data);
+
+                console.log(file);
+
+                file.upload = $upload.upload({
+                    url: ApiProvider.getServerPath() + '/file/upload', //upload.php script, node.js route, or servlet url
+                    method: 'POST',
+                    data: { files: artist.data.images },
+                    file: file // or list of files ($files) for html5 only
                 });
-                //.error(...)
-                //.then(success, error, progress);
-                // access or attach event listeners to the underlying XMLHttpRequest.
-                //.xhr(function(xhr){xhr.upload.addEventListener(...)})
+
+                file.upload.then(function(response) {
+                    file.data = response.data;
+                }, function(response) {
+                    if (response.status > 0)
+                        $scope.errorMsg = response.status + ': ' + response.data;
+                });
+                file.upload.progress(function(evt) {
+                    file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
+                });
             }
-            /* alternative way of uploading, send the file binary with the file's content-type.
-             Could be used to upload files to CouchDB, imgur, etc... html5 FileReader is needed.
-             It could also be used to monitor the progress of a normal http post/put request with large data*/
-            // $scope.upload = $upload.http({...})  see 88#issuecomment-31366487 for sample code.
         };
 
         this.save = function () {
-            this.artist.$save().then(
-                function success (data) {
-                    console.log('success');
-                    console.log(data);
-
-                    $location.path('/music/artist');
-                },
-                function error (response) {
-                    console.log('error');
-                    console.log(response);
-                }
-            );
+            this.artist.$save().then(function (data) {
+                $location.path('/music/artist');
+            });
         };
 
         this.cancel = function () {
