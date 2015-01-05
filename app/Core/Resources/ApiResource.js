@@ -7,14 +7,7 @@ angular.module('CoreModule').provider('ApiResource', [
 
         // Set default config for the provider
         this.defaults = {
-            // Server to call
-            server: {
-                protocol: 'http',
-                host:     'localhost',
-                port:     3000
-            },
-
-            // Configure API communication
+            // Configure API Resource communication
             actions: {
                 get: {
                     method: 'GET',
@@ -49,27 +42,7 @@ angular.module('CoreModule').provider('ApiResource', [
             }
         };
 
-        /**
-         * Build the Server path string from server information
-         * @returns {string} - the path to the server API
-         */
-        this.getServerPath = function () {
-            var protocol = this.defaults.server.protocol ? this.defaults.server.protocol   : 'http';
-            var host     = this.defaults.server.host     ? this.defaults.server.host       : 'localhost';
-            var port     = this.defaults.server.port     ? ':' + this.defaults.server.port : '';
-
-            // Remove trailing slashes from host
-            host = host.replace(/\/+$/, '');
-
-            // Remove trailing slashes from port if it's provided as a string
-            if (typeof port !== 'number') {
-                port = port.replace(/\/+$/, '');
-            }
-
-            return protocol + '://' + host + port;
-        };
-
-        this.$get = ['$http', '$q', 'AlertService', function ($http, $q, AlertService) {
+        this.$get = ['$q', 'ApiProvider', 'AlertService', function ($q, ApiProvider, AlertService) {
             function resourceFactory (url, idField) {
                 function Resource (data) {
                     this.url = url;
@@ -93,7 +66,7 @@ angular.module('CoreModule').provider('ApiResource', [
                         }
 
                         // Build URL to resource (add base server path, resource sub path and optional identifier)
-                        var requestUrl = provider.getServerPath() + '/' + url;
+                        var requestUrl = url;
                         if (action.requireIdentifier) {
                             if (urlParams[idField]) {
                                 requestUrl += '/' + urlParams[idField];
@@ -116,35 +89,27 @@ angular.module('CoreModule').provider('ApiResource', [
                             }
                         }
 
-                        // Call the server
+                        // Delegate the AJAX call to the API provider
                         var deferred = $q.defer();
-                        $http({
-                            method : action.method,
-                            url    : requestUrl,
-                            params : urlParams,
-                            data   : dataSend
-                        }).then(
-                            function success(response) {
-                                // Grab the api body response
-                                var apiResponse = response.data;
-
+                        ApiProvider.callServer(action.method, requestUrl, urlParams, dataSend).then(
+                            function success (response) {
                                 // Update resource status
-                                resource.populate(resource.status, apiResponse.status);
+                                resource.populate(resource.status, response.status);
 
                                 // We need to display a success alert for this request
                                 if (-1 !== action.alert.indexOf('onSuccess')) {
-                                    AlertService.add({ type: 'success', text: apiResponse.status.message });
+                                    AlertService.add({ type: 'success', text: response.status.message });
                                 }
 
                                 // Add data to resource
-                                if (apiResponse.data instanceof Array) {
+                                if (response.data instanceof Array) {
                                     resource.data.length = 0;
 
-                                    for (var i = 0; i < apiResponse.data.length; i++) {
-                                        resource.data.push(new Resource(apiResponse.data[i]));
+                                    for (var i = 0; i < response.data.length; i++) {
+                                        resource.data.push(new Resource(response.data[i]));
                                     }
-                                } else if (typeof apiResponse.data === 'object') {
-                                    resource.populate(resource.data, apiResponse.data);
+                                } else if (typeof response.data === 'object') {
+                                    resource.populate(resource.data, response.data);
 
                                     resource.isNew = resource.data[idField] ? false : true;
                                 }
@@ -152,25 +117,12 @@ angular.module('CoreModule').provider('ApiResource', [
                                 // Return server data
                                 deferred.resolve(resource);
                             },
-                            function error(response) {
-                                if (typeof response.data === 'string') {
-                                    // Not the format we attempt to
-                                    var apiResponse = {
-                                        status: {
-                                            code: response.status,
-                                            message: response.data
-                                        }
-                                    }
-                                } else {
-                                    // Grab the api body response
-                                    var apiResponse = response.data;
-                                }
-
-                                resource.populate(resource.status, apiResponse.status);
+                            function error (response) {
+                                resource.populate(resource.status, response.status);
 
                                 // We need to display an error alert for this request
                                 if (-1 !== action.alert.indexOf('onError')) {
-                                    AlertService.add({ type: 'error', text: apiResponse.status.message });
+                                    AlertService.add({ type: 'error', text: response.status.message });
                                 }
 
                                 // Return status code, message and errors

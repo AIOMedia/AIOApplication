@@ -1,23 +1,73 @@
-<div class="sidebar" data-ng-class="{ 'collapsed collapse-left stretch': sidebar.collapsed }">
+<div class="sidebar" data-ng-class="{ 'collapsed collapse-left stretch': collapsed }">
     <header class="sidebar-header">
-        <a href="#/" data-ng-if="!sidebar.collapsed || !sidebar.toggle">
-            <img data-ng-if="!sidebar.collapsed" data-ng-src="images/logo-low.png" alt="AIOMedia" />
-            <img data-ng-if="sidebar.collapsed" data-ng-src="images/logo-low-min.png" alt="AIOMedia" />
+        <a href="#/" data-ng-if="!collapsed || !toggle">
+            <img data-ng-if="!collapsed" data-ng-src="images/logo-low.png" alt="AIOMedia" />
+            <img data-ng-if="collapsed" data-ng-src="images/logo-low-min.png" alt="AIOMedia" />
             <span class="sr-only">Home</span>
         </a>
 
-        <a href="" class="sidebar-toggle" data-ng-if="sidebar.toggle" data-ng-click="sidebar.toggleSidebar()" role="button">
+        <a href="" class="sidebar-toggle" data-ng-if="toggle" data-ng-click="toggleSidebar()" role="button">
             <i class="fa fa-bars"></i>
             <span class="sr-only">Toggle sidebar</span>
         </a>
     </header>
 
-    <!-- search form -->
-    <search-sidebar-panel data-collapsed="sidebar.collapsed" data-ng-if="sidebar.searchForm"></search-sidebar-panel>
-
     <!-- sidebar menu: : style can be found in sidebar.less -->
-    <ui-menu data-collapsed="sidebar.collapsed"></ui-menu>
+    <menu class="sidebar-menu" data-ng-class="{ 'collapsed': collapsed }">
+        <li data-ng-repeat="item in menu | orderBy : 'position'" data-ng-class="{ 'active-menu': item.active, 'treeview': 0 < item.children.length, 'opened': item.opened }">
+            <a href="{{ item.url }}" data-ng-click="toggleItemMenu($event, item)">
+                <!-- Title and Icon -->
+                <i class="fa fa-fw fa-{{ item.icon }}" data-ng-if="item.icon" data-ng-class="{ 'fa-2x': collapsed }"></i>
+                <span data-ng-if="!collapsed">{{ item.title }}</span>
+
+                <!-- Notifications -->
+                <span class="menu-notification label bg-{{ item.notification.color }}" data-ng-if="item.notification">{{ item.notification.value }}</span>
+
+                <!-- Submenu indicator -->
+                <i class="treeview-indicator fa" data-ng-class="{ 'fa-caret-left': !item.opened, 'fa-caret-right': collapsed && item.opened, 'fa-caret-down': !collapsed && item.opened }" data-ng-if="0 !== item.children.length"></i>
+            </a>
+
+            <!-- Submenu -->
+            <div class="treeview-menu" data-ng-if="item.children && 0 < item.children.length" data-ng-show="item.opened">
+                <span class="treeview-header" data-ng-if="collapsed">{{ item.title }}</span>
+                <ul>
+                    <li data-ng-repeat="subItem in item.children" data-ng-class="{ 'active-menu': subItem.active }">
+                        <a href="{{ subItem.url }}">
+                            <i class="fa fa-fw fa-{{ subItem.icon }}"></i>
+                            {{ subItem.title }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </menu>
 
     <!-- user block -->
-    <user-sidebar-panel data-collapsed="sidebar.collapsed"></user-sidebar-panel>
+    <div class="sidebar-user" data-ng-class="{ 'collapsed': collapsed }">
+        <a class="user-profile" href="#/user/profile">
+            <img src="images/avatar3.png" class="image img-circle" alt="User Image" />
+
+            <div class="info" data-ng-if="!collapsed">
+                <p>Elorfin</p>
+                <em>Administrator</em>
+            </div>
+        </a>
+
+        <div class="user-options">
+            <button type="button" class="btn btn-default">
+                <i class="fa fa-fw fa-bell"></i>
+                <span class="sr-only">Notifications</span>
+            </button>
+
+            <a class="btn btn-default" href="#/admin">
+                <i class="fa fa-fw fa-wrench"></i>
+                <span class="sr-only">Options</span>
+            </a>
+
+            <button type="button" class="btn btn-default">
+                <i class="fa fa-fw fa-sign-out"></i>
+                <span class="sr-only">Sign out</span>
+            </button>
+        </div>
+    </div>
 </div>
