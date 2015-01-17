@@ -24,7 +24,7 @@ angular.module('UIModule').factory('HeaderService', [
          */
         var path = [];
 
-        var addHomeToPath = true;
+        var addHomeToPath = false;
 
         /**
          * Current state

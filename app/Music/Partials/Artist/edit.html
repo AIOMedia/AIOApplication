@@ -4,7 +4,53 @@
             <!-- Images field -->
             <div class="form-group">
                 <label class="control-label">Images</label>
-                <div class="form-file-upload-box" data-ng-file-drop="artistEditCtrl.onFileSelect($files)" data-ng-show="dropSupported" data-ng-model="artistCtrl.artist.data.images">
+
+                <!-- File Upload Result -->
+                <div class="row">
+                    <div class="col-sm-5 col-md-3" data-ng-repeat="file in artistCtrl.artist.data.images">
+                        <div class="thumbnail" data-ng-class="{'loading': file.upload != null && file.progress < 100 }">
+                            <img data-ng-src="{{ artistEditCtrl.displayImage(file) }}" alt="{{ file.name }}"  data-ng-show="file.upload == null || file.progress == 100" />
+
+                            <div class="loader text-center" data-ng-show="file.upload != null && file.progress < 100">
+                                <span class="icon fa fa-upload"></span>
+                                Upload in progress
+                            </div>
+
+                            <div class="caption">
+                                <div class="clearfix">
+                                    <div class="pull-left">
+                                        <span class="sr-only">file size :</span> <strong>{{ file.size }} B</strong>
+                                    </div>
+
+                                    <div class="pull-right" data-ng-show="file.upload == null || file.progress == 100">
+                                        <button class="btn btn-default">
+                                            <span class="fa fa-fw fa-upload"></span>
+                                            <span class="sr-only">Re-upload</span>
+                                        </button>
+                                        <button class="btn btn-danger">
+                                            <span class="fa fa-fw fa-trash-o"></span>
+                                            <span class="sr-only">Delete</span>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div data-ng-show="file.upload != null && file.progress < 100">
+                                    <progressbar max="100" value="file.progress">
+                                        <span>{{file.progress}} %</span>
+                                    </progressbar>
+
+                                    <button class="btn btn-block btn-danger" data-ng-click="file.upload.abort()">
+                                        <span class="fa fa-times-circle-o"></span>
+                                        Abort upload
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Upload box -->
+                <div class="form-file-upload-box" data-ng-file-drop="artistEditCtrl.onFileSelect($files)" data-ng-multiple="true" data-ng-show="dropSupported" data-ng-model="artistCtrl.artist.data.images">
                     <div class="row">
                         <div class="form-file-upload-icon col-md-2 col-sm-3">
                             <span class="fa fa-upload"></span>
@@ -18,39 +64,6 @@
                 <div data-ng-file-drop-available="dropSupported=true" ng-show="!dropSupported">
                     HTML5 Drop File is not supported!
                 </div>
-                <div>
-                    <ul>
-                        <li data-ng-repeat="f in artistCtrl.artist.data.images">
-                            <img ng-show="f.url" ng-src="{{ artistEditCtrl.displayImage(f) }}" class="thumb">
-
-                            <progressbar max="100" value="f.progress">
-                                <span>{{f.progress}} %</span>
-                            </progressbar>
-
-                            <button class="btn btn-default" ng-click="f.upload.abort()" ng-show="f.upload != null && f.progress < 100">
-                                Abort
-                            </button>
-
-                            {{f.name}} - size: {{f.size}}B - type: {{f.type}}
-
-                            <a ng-show="f.result" href="javascript:void(0)" ng-click="f.showDetail = !f.showDetail">details</a>
-                            <div ng-show="f.showDetail">
-                                <br/>
-                                <div data-ng-show="f.result.result == null">{{f.result}}</div>
-                                <ul>
-                                    <li ng-repeat="item in f.result.result">
-                                        <div data-ng-show="item.name">file name: {{item.name}}</div>
-                                        <div data-ng-show="item.fieldName">name: {{item.fieldName}}</div>
-                                        <div data-ng-show="item.size">size on the serve: {{item.size}}</div>
-                                        <div data-ng-show="item.value">value: {{item.value}}</div>
-                                    </li>
-                                </ul>
-                                <div data-ng-show="f.result.requestHeaders" class="reqh">request headers: {{f.result.requestHeaders}}</div>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-                <!--<button ng-click="artistEditCtrl.upload.abort()">Cancel Upload</button>-->
             </div>
 
             <!-- Artist Name field -->

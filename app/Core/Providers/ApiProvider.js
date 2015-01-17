@@ -88,7 +88,15 @@ angular.module('CoreModule').provider('ApiProvider', [
                                 deferred.resolve(apiResponse);
                             },
                             function error(response) {
-                                if (typeof response.data === 'string') {
+                                if (typeof response === 'undefined' || null === response || response.length === 0 || response.status == 0) {
+                                    // If no response we assume the server is down
+                                    var apiResponse = {
+                                        status: {
+                                            code: 503,
+                                            message: 'Service Unavailable'
+                                        }
+                                    };
+                                } else if (typeof response.data === 'string') {
                                     // Not the format we attempt to
                                     var apiResponse = {
                                         status: {
