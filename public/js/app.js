@@ -1,10 +1,173 @@
 (function() {
+// File : app/Administration/module.js
+/**
+ * Administration Module
+ */
+angular.module('AdministrationModule', [
+    'ngRoute'
+]);
 // File : app/Core/module.js
 /**
  * Core Module
  */
 angular
     .module('CoreModule', []);
+// File : app/Dashboard/module.js
+/**
+ * Dashboard Module
+ */
+angular
+    .module('DashboardModule', [
+        'ngRoute'
+    ])
+    .run([
+        'MenuService',
+        function (MenuService) {
+            MenuService.addItem({
+                id: 'dashboard',
+                position: 1,
+                icon: 'dashboard',
+                title: 'Dashboard',
+                url: '#/dashboard'
+            });
+        }
+    ]);
+// File : app/Demo/module.js
+/**
+ * Demo Module
+ */
+angular
+    .module('DemoModule', [
+        'ngRoute',
+        'UIModule'
+    ])
+    .run([
+        'MenuService',
+        function (MenuService) {
+            MenuService.addItem({
+                id: 'demo',
+                icon: 'laptop',
+                title: 'UI Demo',
+                notification: {
+                    color: 'green',
+                    value: 'new'
+                },
+                children: [
+                    { id: 'general',  icon: 'adjust',    title: 'General',    url: '#/demo/ui/general' },
+                    { id: 'buttons',  icon: 'hand-o-up', title: 'Buttons',    url: '#/demo/ui/buttons' },
+                    { id: 'tables',   icon: 'table',     title: 'Tables',     url: '#/demo/ui/tables' },
+                    { id: 'forms',    icon: 'font',      title: 'Forms',      url: '#/demo/ui/forms' },
+                    { id: 'widgets',  icon: 'th',        title: 'Widgets',    url: '#/demo/ui/widgets' },
+                    { id: 'timeline', icon: 'clock-o',   title: 'Timeline',   url: '#/demo/ui/timeline' },
+                    { id: '404error', icon: 'warning',   title: '404 Error',  url: '#/error/404' },
+                    { id: '500error', icon: 'warning',   title: '500 Error',  url: '#/error/500' },
+                    { id: 'blank',    icon: 'square-o',  title: 'Blank Page', url: '#/demo/blank' }
+                ]
+            });
+        }
+    ]);
+// File : app/Home/module.js
+/**
+ * Home Module
+ */
+angular.module('HomeModule', [
+    'ngRoute',
+    'DashboardModule'
+]);
+// File : app/Music/module.js
+/**
+ * Music Module
+ */
+angular
+    .module('MusicModule', [
+        'ngRoute',
+        'CoreModule'
+    ])
+    .run([
+        'MenuService',
+        function (MenuService) {
+            MenuService.addItem({
+                id: 'music',
+                position: 4,
+                icon: 'music',
+                title: 'Music',
+                children: [
+                    { id: 'artists', icon: 'microphone', title: 'Artists', url: '#/music/artist' },
+                    { id: 'albums',  icon: 'circle', title: 'Albums', url: '#/music/album' },
+                    { id: 'songs',   icon: 'music',     title: 'Songs',  url: '#/music/song' }
+                ]
+            });
+        }
+    ]);
+// File : app/Notification/module.js
+/**
+ * Notification Module
+ */
+angular.module('NotificationModule', []);
+// File : app/Search/module.js
+/**
+ * Search Module
+ */
+angular.module('SearchModule', []);
+// File : app/Task/module.js
+/**
+ * Task Module
+ */
+angular
+    .module('TaskModule', [
+        'ngRoute',
+        'ui.sortable'
+    ])
+    .run([
+        'MenuService',
+        function (MenuService) {
+            MenuService.addItem({
+                id: 'task',
+                position: 5,
+                icon: 'tasks',
+                title: 'Tasks',
+                url: '#/task'
+            });
+        }
+    ]);
+// File : app/UI/module.js
+/**
+ * UI Module
+ */
+angular.module('UIModule', [
+    'angularFileUpload',
+    'UserModule',
+    'SearchModule'
+]);
+// File : app/User/module.js
+/**
+ * User Module
+ */
+angular.module('UserModule', [
+    'ngRoute',
+    'NotificationModule'
+]);
+// File : app/Administration/routes.js
+/**
+ * Administration routes
+ */
+angular.module('AdministrationModule').config([
+    '$routeProvider',
+    function ($routeProvider) {
+        var admin = {
+            name: 'admin',
+            templateUrl: '../app/Administration/Partials/index.html',
+
+            pageInfo: {
+                icon:  'wrench',
+                title: 'Parameters',
+                help:  true
+            }
+        };
+
+        $routeProvider.when('/admin', admin);
+    }]
+);
 // File : app/Core/Providers/ApiProvider.js
 /**
  * API Provider
@@ -330,54 +493,6 @@ angular.module('CoreModule').provider('ApiResource', [
         }];
     }
 ]);
-// File : app/Administration/module.js
-/**
- * Administration Module
- */
-angular.module('AdministrationModule', [
-    'ngRoute'
-]);
-// File : app/Administration/routes.js
-/**
- * Administration routes
- */
-angular.module('AdministrationModule').config([
-    '$routeProvider',
-    function ($routeProvider) {
-        var admin = {
-            name: 'admin',
-            templateUrl: '../app/Administration/Partials/index.html',
-
-            pageInfo: {
-                icon:  'wrench',
-                title: 'Parameters',
-                help:  true
-            }
-        };
-
-        $routeProvider.when('/admin', admin);
-    }]
-);
-// File : app/Dashboard/module.js
-/**
- * Dashboard Module
- */
-angular
-    .module('DashboardModule', [
-        'ngRoute'
-    ])
-    .run([
-        'MenuService',
-        function (MenuService) {
-            MenuService.addItem({
-                id: 'dashboard',
-                position: 1,
-                icon: 'dashboard',
-                title: 'Dashboard',
-                url: '#/dashboard'
-            });
-        }
-    ]);
 // File : app/Dashboard/Controllers/DashboardController.js
 /**
  * Dashboard controller
@@ -413,11 +528,369 @@ angular.module('DashboardModule').config([
         $routeProvider.when('/dashboard', dashboard);
     }]
 );
-// File : app/Search/module.js
+// File : app/Demo/routes.js
 /**
- * Search Module
+ * Demo routes
  */
-angular.module('SearchModule', []);
+angular.module('DemoModule').config([
+    '$routeProvider',
+    function ($routeProvider) {
+        var demo = {
+            name: 'demo',
+            abstract: true,
+
+            pageInfo: {
+                title: 'Demo'
+            }
+        };
+
+        var demoWidgets = {
+            name: 'demo.widgets',
+            url: '#/demo/ui/widgets',
+            parent: demo,
+            templateUrl: '../app/Demo/Partials/widgets.html',
+
+            pageInfo: {
+                icon:   'th',
+                title:  'Widgets',
+                help:   true,
+                config: true
+            }
+        };
+
+        var demoUI = {
+            name: 'demo.ui',
+            abstract: true,
+            parent: demo,
+
+            pageInfo: {
+                icon:   'laptop',
+                title:  'UI Elements'
+            }
+        };
+
+        // UI - General
+        var demoUIGeneral = {
+            name: 'demo.ui.general',
+            url: '#/demo/ui/general',
+            parent: demoUI,
+            templateUrl: '../app/Demo/Partials/general.html',
+
+            pageInfo: {
+                title:  'General',
+                help:   true,
+                config: true
+            }
+        };
+
+        // UI - Buttons
+        var demoUIButtons = {
+            name: 'demo.ui.buttons',
+            url: '#/demo/ui/buttons',
+            parent: demoUI,
+            templateUrl: '../app/Demo/Partials/buttons.html',
+
+            pageInfo: {
+                title:  'Buttons',
+                help:   true,
+                config: true
+            }
+        };
+
+        // UI - Tables
+        var demoUITables = {
+            name: 'demo.ui.tables',
+            url: '#/demo/ui/tables',
+            parent: demoUI,
+            templateUrl: '../app/Demo/Partials/tables.html',
+
+            pageInfo: {
+                title:  'Tables',
+                help:   true,
+                config: true
+            }
+        };
+
+        // UI - Forms
+        var demoUIForms = {
+            name: 'demo.ui.forms',
+            url: '#/demo/ui/forms',
+            parent: demoUI,
+            templateUrl: '../app/Demo/Partials/forms.html',
+
+            pageInfo: {
+                title:  'Forms',
+                help:   true,
+                config: true
+            }
+        };
+
+        // UI - Timeline
+        var demoUITimeline = {
+            name: 'demo.ui.timeline',
+            url: '#/demo/ui/timeline',
+            parent: demoUI,
+            templateUrl: '../app/Demo/Partials/timeline.html',
+
+            pageInfo: {
+                title:  'Timeline',
+                help:   true,
+                config: true
+            }
+        };
+
+        // Blank page
+        var demoBlank = {
+            name: 'demo.blank',
+            url: '#/demo/blank',
+            parent: demo,
+            templateUrl: '../app/Demo/Partials/blank.html',
+
+            pageInfo: {
+                icon:  'folder',
+                title: 'Blank page'
+            }
+        };
+
+        // Register states
+        $routeProvider
+            .when('/demo/ui/widgets',  demoWidgets)
+            .when('/demo/ui/general',  demoUIGeneral)
+            .when('/demo/ui/buttons',  demoUIButtons)
+            .when('/demo/ui/tables',   demoUITables)
+            .when('/demo/ui/forms',    demoUIForms)
+            .when('/demo/ui/timeline', demoUITimeline)
+            .when('/demo/blank',       demoBlank);
+    }]
+);
+// File : app/Home/routes.js
+/**
+ * Home routes
+ */
+angular.module('HomeModule').config([
+    '$routeProvider',
+    function ($routeProvider) {
+        var home = {
+            name: 'home',
+            url: '/home',
+            templateUrl: '../app/Home/Partials/index.html',
+
+            pageInfo: {
+                icon: 'dashboard',
+                title: 'Dashboard',
+                description: 'Control panel'
+            }
+        };
+
+        $routeProvider.when('/home', home);
+    }]
+);
+// File : app/Music/Controllers/AlbumController.js
+/**
+ * Album Controller
+ */
+angular.module('MusicModule').controller('AlbumController', [
+    function () {
+
+    }
+]);
+// File : app/Music/Controllers/Artist/ArtistEditController.js
+/**
+ * Artist Edit Controller
+ */
+angular.module('MusicModule').controller('ArtistEditController', [
+    '$location',
+    'artist',
+    function ($location, artist) {
+        this.artist = artist;
+
+        if (!this.artist.data.images) {
+            this.artist.data.images = [];
+        }
+
+        this.save = function () {
+            this.artist.$save().then(function (data) {
+                $location.path('/music/artist');
+            });
+        };
+
+        this.cancel = function () {
+            // Redirect to users list
+            $location.path('/music/artist');
+        };
+    }
+]);
+// File : app/Music/Controllers/ArtistController.js
+/**
+ * Artist Controller
+ */
+angular.module('MusicModule').controller('ArtistController', [
+    'HeaderService',
+    'artists',
+    function (HeaderService, artists) {
+        // Add create button
+        HeaderService.addButton({
+            icon: 'plus',
+            iconOnly: true,
+            label: 'Create Artist',
+            url: '#/music/artist/create'
+        });
+
+        this.artists = artists.data;
+
+        this.delete = function (artist) {
+            artist.$delete();
+        };
+    }
+]);
+// File : app/Music/Controllers/SongController.js
+/**
+ * Song Controller
+ */
+angular.module('MusicModule').controller('SongController', [
+    function () {
+
+    }
+]);
+// File : app/Music/Resources/ArtistResource.js
+/**
+ * Artist Resource
+ */
+angular.module('MusicModule').factory('ArtistResource', [
+    'ApiResource',
+    function (ApiResource) {
+        return ApiResource('music/artist', '_id');
+    }
+]);
+// File : app/Music/routes.js
+/**
+ * Music routes
+ */
+angular.module('MusicModule').config([
+    '$routeProvider',
+    function ($routeProvider) {
+        var music = {
+            name: 'music',
+            abstract: true,
+
+            pageInfo: {
+                title: 'Music'
+            }
+        };
+
+        // Artists
+        var musicArtist = {
+            name: 'music.artist',
+            url: '#/music/artist',
+            parent: music,
+            templateUrl: '../app/Music/Partials/Artist/list.html',
+            controller: 'ArtistController',
+            controllerAs: 'artistCtrl',
+
+            resolve: {
+                artists: [
+                    'ArtistResource',
+                    function (ArtistResource) {
+                        return ArtistResource.query();
+                    }
+                ]
+            },
+
+            pageInfo: {
+                icon:   'microphone',
+                title:  'Artists'
+            }
+        };
+
+        var musicArtistCreate = {
+            name: 'music.artist.create',
+            url: '#/music/artist/create',
+            parent: musicArtist,
+            templateUrl: '../app/Music/Partials/Artist/edit.html',
+            controller: 'ArtistEditController',
+            controllerAs: 'artistEditCtrl',
+
+            resolve: {
+                artist: [
+                    'ArtistResource',
+                    function (ArtistResource) {
+                        return new ArtistResource();
+                    }
+                ]
+            },
+            pageInfo: {
+                icon:   'microphone',
+                title:  'Create'
+            }
+        };
+
+        var musicArtistEdit = {
+            name: 'music.artist.edit',
+            url: '#/music/artist/edit',
+            parent: musicArtist,
+            templateUrl: '../app/Music/Partials/Artist/edit.html',
+            controller: 'ArtistEditController',
+            controllerAs: 'artistEditCtrl',
+
+            resolve: {
+                artist: [
+                    '$route',
+                    'ArtistResource',
+                    function ($route, ArtistResource) {
+                        return ArtistResource.get({ _id: $route.current.params.artistId });
+                    }
+                ]
+            },
+            pageInfo: {
+                icon:   'microphone',
+                title:  'Edit'
+            }
+        };
+
+        // Albums
+        var musicAlbums = {
+            name: 'music.album',
+            url: '#/music/album',
+            parent: music,
+            templateUrl: '../app/Music/Partials/Album/list.html',
+
+            pageInfo: {
+                icon:   'circle',
+                title:  'Albums'
+            }
+        };
+
+        // Songs
+        var musicSongs = {
+            name: 'music.song',
+            url: '#/music/song',
+            parent: music,
+            templateUrl: '../app/Music/Partials/Song/list.html',
+
+            pageInfo: {
+                icon:   'music',
+                title:  'Songs'
+            }
+        };
+
+        // Register states
+        $routeProvider
+            .when('/music/artist',                musicArtist)
+            .when('/music/artist/create',         musicArtistCreate)
+            .when('/music/artist/edit/:artistId', musicArtistEdit)
+            .when('/music/album',  musicAlbums)
+            .when('/music/song',   musicSongs);
+    }]
+);
+// File : app/Notification/Controllers/ConfigController.js
+
+
+// File : app/Notification/Directives/ConfigDirective.js
+angular.module('NotificationModule').directive('notificationConfig', [
+    function () {
+
+    }
+]);
 // File : app/Search/Controllers/SidebarPanelController.js
 /**
  * Sidebar panel Controller
@@ -457,136 +930,105 @@ angular.module('SearchModule').directive('searchSidebarPanel', [
         };
     }
 ]);
-// File : app/Notification/module.js
-/**
- * Notification Module
- */
-angular.module('NotificationModule', []);
-// File : app/Notification/Controllers/ConfigController.js
-
-
-// File : app/Notification/Directives/ConfigDirective.js
-angular.module('NotificationModule').directive('notificationConfig', [
-    function () {
-
-    }
-]);
-// File : app/Home/module.js
-/**
- * Home Module
- */
-angular.module('HomeModule', [
-    'ngRoute',
-    'DashboardModule'
-]);
-// File : app/Home/routes.js
-/**
- * Home routes
- */
-angular.module('HomeModule').config([
-    '$routeProvider',
-    function ($routeProvider) {
-        var home = {
-            name: 'home',
-            url: '/home',
-            templateUrl: '../app/Home/Partials/index.html',
-
-            pageInfo: {
-                icon: 'dashboard',
-                title: 'Dashboard',
-                description: 'Control panel'
-            }
-        };
-
-        $routeProvider.when('/home', home);
-    }]
-);
-// File : app/User/module.js
-/**
- * User Module
- */
-angular.module('UserModule', [
-    'ngRoute',
-    'NotificationModule'
-]);
-// File : app/User/Controllers/AuthenticationController.js
-angular.module('UserModule').controller('AuthenticationController', [
-    'AuthenticationService',
-    function (AuthenticationService) {
-        this.logIn = function (username, password) {
-            if (username && password) {
-                AuthenticationService
-                    .logIn(username, password)
-                    .success(function (response) {
-
-                    })
-                    .error(function (response) {
-
-                    });
-            }
-        };
-
-        this.logOut = function () {
-
-        };
-    }
-]);
-// File : app/User/Controllers/ProfileController.js
-angular.module('UserModule').controller('ProfileController', [
+// File : app/Task/Controllers/TaskController.js
+angular.module('TaskModule').controller('TaskController', [
+    '$modal',
     'HeaderService',
-    function (HeaderService) {
-        // Add create button
-        HeaderService.addButton({
-            icon: 'pencil',
-            iconOnly: true,
-            label: 'Edit profile',
-            action: {
-                func: function () {
-                    console.log('profile edit');
+    'TaskService',
+    'tasks',
+    function ($modal, HeaderService, TaskService, tasks) {
+        /**
+         * List of tasks
+         * @type {array}
+         */
+        this.tasks = tasks;
+
+        /**
+         * Current editing task
+         * @type {null}
+         */
+        this.editTask = null;
+
+        /**
+         * Current editing task is a new task
+         * @type {boolean}
+         */
+        this.editTaskIsNew = false;
+
+        this.sortableOptions = {
+            update: function(e, ui) {
+                console.log('coucou');
+            },
+            axis: 'y',
+            placeholder: 'ui-sortable-placeholder'
+        };
+
+        this.toggleDownStatus = function (task) {
+            task.done = !task.done;
+            TaskService.save(task).then(
+                function success(task) {
+
+                },
+                function error(err) {
+                    // Revert down status to original
+                    task.done = !task.done;
+
+                    // Display error message
                 }
+            );
+        };
+
+        this.create = function () {
+            console.log('create task');
+            // Only start creating a new task if we aren't creating one
+            if (!this.editTaskIsNew) {
+                // Cancel current editing if needed
+                if (this.editTask) {
+                    this.cancel();
+                }
+
+                // Initialize a new task
+                this.editTask = TaskService.new();
+                this.editTaskIsNew = true;
+
+                this.tasks.unshift(this.editTask);
             }
-        });
-    }
-]);
-// File : app/User/Controllers/User/UserController.js
-/**
- * User Controller
- */
-angular.module('UserModule').controller('UserController', [
-    'HeaderService',
-    'users',
-    function (HeaderService, users) {
-        this.users = users;
+        };
 
-        this.selectedUsers = [];
+        this.edit = function (task) {
+            console.log('edit task');
+            if (this.editTask) {
+                this.cancel();
+            }
 
-        // Add create button
-        HeaderService.addButton({
-            icon: 'plus',
-            iconOnly: true,
-            label: 'Create User',
-            url: '#/user/create'
-        });
-    }
-]);
-// File : app/User/Controllers/User/UserEditController.js
-/**
- * User Edit Controller
- */
-angular.module('UserModule').controller('UserEditController', [
-    '$location',
-    'UserService',
-    'user',
-    function ($location, UserService, user) {
-        this.user = user;
+            this.editTask = angular.extend({}, task);
+        };
+
+        this.delete = function (task) {
+            console.log('delete task');
+            TaskService.delete(task).then(
+                // Delete success
+                function (task) {
+                    // Remove task from list
+                    var pos = this.tasks.indexOf(task);
+                    if (-1 !== pos) {
+                        this.tasks.splice(pos, 1);
+                    }
+                },
+                // Delete failed
+                function (errors) {
+
+                }
+            );
+        };
 
         this.save = function () {
-            UserService.save(this.user).then(
+            console.log('save');
+            TaskService.save(this.editTask).then(
                 // Save success
-                function (user) {
-                    // Redirect to users list
-                    $location.path('/user');
-                },
+                function (task) {
+                    this.editTask = null;
+                }.bind(this),
                 // Save failed
                 function (errors) {
 
@@ -595,44 +1037,74 @@ angular.module('UserModule').controller('UserEditController', [
         };
 
         this.cancel = function () {
-            // Redirect to users list
-            $location.path('/user');
-        };
-    }
-]);
-// File : app/User/Services/AuthenticationService.js
-angular.module('UserModule').factory('AuthenticationService', [
-    function () {
-        var auth = {
-            isLogged: false
-        };
-
-        return {
-            isLogged: function () {
-                return auth.isLogged;
-            },
-
-            setLogged: function (loggedStatus) {
-                auth.isLogged = loggedStatus;
-
-                return this;
-            },
-
-            logIn: function (username, password) {
-                return $http.post('http://localhost:3000/user/login', {
-                    username: username,
-                    password: password
-                });
-            },
-
-            logOut: function () {
-
+            console.log('cancel edit/create');
+            if (this.editTaskIsNew) {
+                var pos = this.tasks.indexOf(this.editTask);
+                if (-1 !== pos) {
+                    this.tasks.splice(pos, 1);
+                }
             }
-        }
+
+            this.editTask = null;
+            this.editTaskIsNew = false;
+        };
+
+        // Add create button
+        HeaderService.addButton({
+            icon: 'plus',
+            iconOnly: true,
+            label: 'Create Task',
+            action: {
+                func: function () {
+                    this.create();
+                }.bind(this)
+            }
+        });
     }
 ]);
-// File : app/User/Services/UserService.js
-angular.module('UserModule').factory('UserService', [
+// File : app/Task/Controllers/TaskEditController.js
+/**
+ * Task Edit Controller
+ */
+angular.module('TaskModule').controller('TaskEditController', [
+    '$location',
+    'TaskService',
+    'task',
+    function ($location, TaskService, task) {
+        /**
+         * Task which will be edited
+         * @type {object}
+         */
+        this.task = task;
+
+        /**
+         * Save the Task
+         */
+        this.save = function () {
+            TaskService.save(this.task).then(
+                // Save success
+                function (task) {
+                    // Redirect to users list
+                    $location.path('/task');
+                },
+                // Save failed
+                function (errors) {
+
+                }
+            );
+        };
+
+        /**
+         * Abort edition
+         */
+        this.cancel = function () {
+            // Redirect to users list
+            $location.path('/task');
+        };
+    }
+]);
+// File : app/Task/Services/TaskService.js
+angular.module('TaskModule').factory('TaskService', [
     '$http',
     '$q',
     function ($http, $q) {
@@ -640,9 +1112,8 @@ angular.module('UserModule').factory('UserService', [
             new: function () {
                 return {
                     _id: null,
-                    firstName: null,
-                    lastName: null,
-                    login: null
+                    name: null,
+                    done: false
                 };
             },
 
@@ -650,49 +1121,49 @@ angular.module('UserModule').factory('UserService', [
                 var deferred = $q.defer();
 
                 $http
-                    .get('http://localhost:3000/user')
-                    .success(function (reponse) {
-                        deferred.resolve(reponse.data);
+                    .get('http://localhost:3000/task')
+                    .success(function (tasks) {
+                        deferred.resolve(tasks.data);
                     })
-                    .error(function (response) {
-                        deferred.reject(response);
+                    .error(function (err) {
+                        deferred.reject(err);
                     });
 
                 return deferred.promise;
             },
 
-            get: function (userId) {
+            get: function (taskId) {
                 var deferred = $q.defer();
 
                 $http
-                    .get('http://localhost:3000/user/' + userId)
-                    .success(function (reponse) {
-                        deferred.resolve(reponse.data);
+                    .get('http://localhost:3000/task/' + taskId)
+                    .success(function (task) {
+                        deferred.resolve(task.data);
                     })
-                    .error(function (reponse) {
-                        deferred.reject(reponse);
+                    .error(function (err) {
+                        deferred.reject(err);
                     });
 
                 return deferred.promise;
             },
 
-            save: function (user) {
+            save: function (task) {
                 var deferred = $q.defer();
 
-                if (user._id) {
+                if (task._id) {
                     // Edit mode
-                    var request = $http.put('http://localhost:3000/user/' + user._id, user);
+                    var request = $http.put('http://localhost:3000/task/' + task._id, task);
                 } else {
                     // Create mode
-                    var request = $http.post('http://localhost:3000/user/', user);
+                    var request = $http.post('http://localhost:3000/task/', task);
                 }
 
                 request
-                    .success(function (reponse) {
-                        deferred.resolve(reponse.data);
+                    .success(function (task) {
+                        deferred.resolve(task.data);
                     })
-                    .error(function (reponse) {
-                        deferred.reject(reponse);
+                    .error(function (err) {
+                        deferred.reject(err);
                     });
 
                 return deferred.promise;
@@ -700,112 +1171,39 @@ angular.module('UserModule').factory('UserService', [
         };
     }
 ]);
-// File : app/User/routes.js
+// File : app/Task/routes.js
 /**
- * User routes
+ * Task routes
  */
-angular.module('UserModule').config([
+angular.module('TaskModule').config([
     '$routeProvider',
     function ($routeProvider) {
-        var profile = {
-            name: 'profile',
-            url: '#/user/profile',
-            templateUrl: '../app/User/Partials/profile.html',
-            controller: 'ProfileController',
-            controllerAs: 'profileCtrl',
-
-            pageInfo: {
-                icon:  'user',
-                title: 'My profile'
-            }
-        };
-
-        // List Users
-        var user = {
-            name: 'user',
-            url: '#/user',
-            templateUrl: '../app/User/Partials/User/list.html',
-            controller: 'UserController',
-            controllerAs: 'userCtrl',
+        // List Tasks
+        var task = {
+            name: 'task',
+            url: '#/task',
+            templateUrl: '../app/Task/Partials/list.html',
+            controller: 'TaskController',
+            controllerAs: 'taskCtrl',
 
             resolve: {
-                users: [
-                    'UserService',
-                    function (UserService) {
-                        return UserService.list();
+                tasks: [
+                    'TaskService',
+                    function (TaskService) {
+                        return TaskService.list();
                     }
                 ]
             },
-
             pageInfo: {
-                icon:  'users',
-                title: 'Users'
-            }
-        };
-
-        // Create new User
-        var userCreate = {
-            name: 'user.create',
-            url: '#/user/create',
-            parent: user,
-            templateUrl:  '../app/User/Partials/User/edit.html',
-            controller:   'UserEditController',
-            controllerAs: 'userEditCtrl',
-
-            resolve: {
-                user: [
-                    'UserService',
-                    function (UserService) {
-                        return UserService.new();
-                    }
-                ]
-            },
-
-            pageInfo: {
-                title: 'Create'
-            }
-        };
-
-        // Edit an existing User
-        var userEdit = {
-            name: 'user.edit',
-            url: '#/user/edit',
-            parent: user,
-            templateUrl:  '../app/User/Partials/User/edit.html',
-            controller:   'UserEditController',
-            controllerAs: 'userEditCtrl',
-
-            resolve: {
-                user: [
-                    '$route',
-                    'UserService',
-                    function ($route, UserService) {
-                        return UserService.get($route.current.params.userId);
-                    }
-                ]
-            },
-
-            pageInfo: {
-                title: 'Edit'
+                icon:  'tasks',
+                title: 'My tasks'
             }
         };
 
         // Register states
-        $routeProvider
-            .when('/user/profile',           profile)
-            .when('/user',              user)
-            .when('/user/create',       userCreate)
-            .when('/user/edit/:userId', userEdit);
+        $routeProvider.when('/task', task);
     }]
 );
-// File : app/UI/module.js
-/**
- * UI Module
- */
-angular.module('UIModule', [
-    'UserModule',
-    'SearchModule'
-]);
 // File : app/UI/Directives/AlertsDirective.js
 angular.module('UIModule').directive('uiAlerts', [
     'AlertService',
@@ -877,6 +1275,55 @@ angular.module('UIModule').directive('uiButtonConfirm', [
                 });
             }
         }
+    }
+]);
+// File : app/UI/Directives/Forms/FileUploadDirective.js
+angular.module('UIModule').directive('uiFormFileUpload', [
+    '$upload',
+    'ApiProvider',
+    function ($upload, ApiProvider) {
+        return {
+            restrict: 'E',
+            replace: true,
+            scope: {
+                multiple: '=',
+                files: '=',
+                accept: '='
+            },
+            templateUrl: '../app/UI/Partials/Forms/file-upload.html',
+            link: function (scope, element, attrs) {
+                scope.displayImage = function (image) {
+                    return 'data:' + image.type + ';base64,' + image.data;
+                };
+
+                scope.onFileSelect = function ($files) {
+                    //$files: an array of files selected, each file has name, size, and type.
+                    for (var i = 0; i < $files.length; i++) {
+                        this.upload($files[i]);
+                    }
+                };
+
+                scope.upload = function (file) {
+                    file.upload = $upload.upload({
+                        url: ApiProvider.getServerPath() + '/file/upload', //upload.php script, node.js route, or servlet url
+                        method: 'POST',
+                        data: { files: scope.files },
+                        file: file // or list of files ($files) for html5 only
+                    });
+
+                    file.upload.progress(function (event) {
+                        file.progress = Math.min(100, parseInt(100.0 * event.loaded / event.total));
+                    });
+
+                    file.upload.then(function (response) {
+                        file.data = response.data;
+                    }, function(response) {
+                        /*if (response.status > 0)
+                         $scope.errorMsg = response.status + ': ' + response.data;*/
+                    });
+                };
+            }
+        };
     }
 ]);
 // File : app/UI/Directives/HeaderDirective.js
@@ -1753,183 +2200,83 @@ angular.module('UIModule').factory('MenuService', [
         };
     }
 ]);
-// File : app/Task/module.js
-/**
- * Task Module
- */
-angular
-    .module('TaskModule', [
-        'ngRoute',
-        'ui.sortable'
-    ])
-    .run([
-        'MenuService',
-        function (MenuService) {
-            MenuService.addItem({
-                id: 'task',
-                position: 5,
-                icon: 'tasks',
-                title: 'Tasks',
-                url: '#/task'
-            });
-        }
-    ]);
-// File : app/Task/Controllers/TaskController.js
-angular.module('TaskModule').controller('TaskController', [
-    '$modal',
+// File : app/User/Controllers/AuthenticationController.js
+angular.module('UserModule').controller('AuthenticationController', [
+    'AuthenticationService',
+    function (AuthenticationService) {
+        this.logIn = function (username, password) {
+            if (username && password) {
+                AuthenticationService
+                    .logIn(username, password)
+                    .success(function (response) {
+
+                    })
+                    .error(function (response) {
+
+                    });
+            }
+        };
+
+        this.logOut = function () {
+
+        };
+    }
+]);
+// File : app/User/Controllers/ProfileController.js
+angular.module('UserModule').controller('ProfileController', [
     'HeaderService',
-    'TaskService',
-    'tasks',
-    function ($modal, HeaderService, TaskService, tasks) {
-        /**
-         * List of tasks
-         * @type {array}
-         */
-        this.tasks = tasks;
-
-        /**
-         * Current editing task
-         * @type {null}
-         */
-        this.editTask = null;
-
-        /**
-         * Current editing task is a new task
-         * @type {boolean}
-         */
-        this.editTaskIsNew = false;
-
-        this.sortableOptions = {
-            update: function(e, ui) {
-                console.log('coucou');
-            },
-            axis: 'y',
-            placeholder: 'ui-sortable-placeholder'
-        };
-
-        this.toggleDownStatus = function (task) {
-            task.done = !task.done;
-            TaskService.save(task).then(
-                function success(task) {
-
-                },
-                function error(err) {
-                    // Revert down status to original
-                    task.done = !task.done;
-
-                    // Display error message
-                }
-            );
-        };
-
-        this.create = function () {
-            console.log('create task');
-            // Only start creating a new task if we aren't creating one
-            if (!this.editTaskIsNew) {
-                // Cancel current editing if needed
-                if (this.editTask) {
-                    this.cancel();
-                }
-
-                // Initialize a new task
-                this.editTask = TaskService.new();
-                this.editTaskIsNew = true;
-
-                this.tasks.unshift(this.editTask);
-            }
-        };
-
-        this.edit = function (task) {
-            console.log('edit task');
-            if (this.editTask) {
-                this.cancel();
-            }
-
-            this.editTask = angular.extend({}, task);
-        };
-
-        this.delete = function (task) {
-            console.log('delete task');
-            TaskService.delete(task).then(
-                // Delete success
-                function (task) {
-                    // Remove task from list
-                    var pos = this.tasks.indexOf(task);
-                    if (-1 !== pos) {
-                        this.tasks.splice(pos, 1);
-                    }
-                },
-                // Delete failed
-                function (errors) {
-
-                }
-            );
-        };
-
-        this.save = function () {
-            console.log('save');
-            TaskService.save(this.editTask).then(
-                // Save success
-                function (task) {
-                    this.editTask = null;
-                }.bind(this),
-                // Save failed
-                function (errors) {
-
-                }
-            );
-        };
-
-        this.cancel = function () {
-            console.log('cancel edit/create');
-            if (this.editTaskIsNew) {
-                var pos = this.tasks.indexOf(this.editTask);
-                if (-1 !== pos) {
-                    this.tasks.splice(pos, 1);
+    function (HeaderService) {
+        // Add create button
+        HeaderService.addButton({
+            icon: 'pencil',
+            iconOnly: true,
+            label: 'Edit profile',
+            action: {
+                func: function () {
+                    console.log('profile edit');
                 }
             }
+        });
+    }
+]);
+// File : app/User/Controllers/User/UserController.js
+/**
+ * User Controller
+ */
+angular.module('UserModule').controller('UserController', [
+    'HeaderService',
+    'users',
+    function (HeaderService, users) {
+        this.users = users;
 
-            this.editTask = null;
-            this.editTaskIsNew = false;
-        };
+        this.selectedUsers = [];
 
         // Add create button
         HeaderService.addButton({
             icon: 'plus',
             iconOnly: true,
-            label: 'Create Task',
-            action: {
-                func: function () {
-                    this.create();
-                }.bind(this)
-            }
+            label: 'Create User',
+            url: '#/user/create'
         });
     }
 ]);
-// File : app/Task/Controllers/TaskEditController.js
+// File : app/User/Controllers/User/UserEditController.js
 /**
- * Task Edit Controller
+ * User Edit Controller
  */
-angular.module('TaskModule').controller('TaskEditController', [
+angular.module('UserModule').controller('UserEditController', [
     '$location',
-    'TaskService',
-    'task',
-    function ($location, TaskService, task) {
-        /**
-         * Task which will be edited
-         * @type {object}
-         */
-        this.task = task;
+    'UserService',
+    'user',
+    function ($location, UserService, user) {
+        this.user = user;
 
-        /**
-         * Save the Task
-         */
         this.save = function () {
-            TaskService.save(this.task).then(
+            UserService.save(this.user).then(
                 // Save success
-                function (task) {
+                function (user) {
                     // Redirect to users list
-                    $location.path('/task');
+                    $location.path('/user');
                 },
                 // Save failed
                 function (errors) {
@@ -1938,17 +2285,45 @@ angular.module('TaskModule').controller('TaskEditController', [
             );
         };
 
-        /**
-         * Abort edition
-         */
         this.cancel = function () {
             // Redirect to users list
-            $location.path('/task');
+            $location.path('/user');
         };
     }
 ]);
-// File : app/Task/Services/TaskService.js
-angular.module('TaskModule').factory('TaskService', [
+// File : app/User/Services/AuthenticationService.js
+angular.module('UserModule').factory('AuthenticationService', [
+    function () {
+        var auth = {
+            isLogged: false
+        };
+
+        return {
+            isLogged: function () {
+                return auth.isLogged;
+            },
+
+            setLogged: function (loggedStatus) {
+                auth.isLogged = loggedStatus;
+
+                return this;
+            },
+
+            logIn: function (username, password) {
+                return $http.post('http://localhost:3000/user/login', {
+                    username: username,
+                    password: password
+                });
+            },
+
+            logOut: function () {
+
+            }
+        }
+    }
+]);
+// File : app/User/Services/UserService.js
+angular.module('UserModule').factory('UserService', [
     '$http',
     '$q',
     function ($http, $q) {
@@ -1956,8 +2331,9 @@ angular.module('TaskModule').factory('TaskService', [
             new: function () {
                 return {
                     _id: null,
-                    name: null,
-                    done: false
+                    firstName: null,
+                    lastName: null,
+                    login: null
                 };
             },
 
@@ -1965,49 +2341,49 @@ angular.module('TaskModule').factory('TaskService', [
                 var deferred = $q.defer();
 
                 $http
-                    .get('http://localhost:3000/task')
-                    .success(function (tasks) {
-                        deferred.resolve(tasks.data);
+                    .get('http://localhost:3000/user')
+                    .success(function (reponse) {
+                        deferred.resolve(reponse.data);
                     })
-                    .error(function (err) {
-                        deferred.reject(err);
+                    .error(function (response) {
+                        deferred.reject(response);
                     });
 
                 return deferred.promise;
             },
 
-            get: function (taskId) {
+            get: function (userId) {
                 var deferred = $q.defer();
 
                 $http
-                    .get('http://localhost:3000/task/' + taskId)
-                    .success(function (task) {
-                        deferred.resolve(task.data);
+                    .get('http://localhost:3000/user/' + userId)
+                    .success(function (reponse) {
+                        deferred.resolve(reponse.data);
                     })
-                    .error(function (err) {
-                        deferred.reject(err);
+                    .error(function (reponse) {
+                        deferred.reject(reponse);
                     });
 
                 return deferred.promise;
             },
 
-            save: function (task) {
+            save: function (user) {
                 var deferred = $q.defer();
 
-                if (task._id) {
+                if (user._id) {
                     // Edit mode
-                    var request = $http.put('http://localhost:3000/task/' + task._id, task);
+                    var request = $http.put('http://localhost:3000/user/' + user._id, user);
                 } else {
                     // Create mode
-                    var request = $http.post('http://localhost:3000/task/', task);
+                    var request = $http.post('http://localhost:3000/user/', user);
                 }
 
                 request
-                    .success(function (task) {
-                        deferred.resolve(task.data);
+                    .success(function (reponse) {
+                        deferred.resolve(reponse.data);
                     })
-                    .error(function (err) {
-                        deferred.reject(err);
+                    .error(function (reponse) {
+                        deferred.reject(reponse);
                     });
 
                 return deferred.promise;
@@ -2015,462 +2391,102 @@ angular.module('TaskModule').factory('TaskService', [
         };
     }
 ]);
-// File : app/Task/routes.js
+// File : app/User/routes.js
 /**
- * Task routes
+ * User routes
  */
-angular.module('TaskModule').config([
+angular.module('UserModule').config([
     '$routeProvider',
     function ($routeProvider) {
-        // List Tasks
-        var task = {
-            name: 'task',
-            url: '#/task',
-            templateUrl: '../app/Task/Partials/list.html',
-            controller: 'TaskController',
-            controllerAs: 'taskCtrl',
-
-            resolve: {
-                tasks: [
-                    'TaskService',
-                    function (TaskService) {
-                        return TaskService.list();
-                    }
-                ]
-            },
-            pageInfo: {
-                icon:  'tasks',
-                title: 'My tasks'
-            }
-        };
-
-        // Register states
-        $routeProvider.when('/task', task);
-    }]
-);
-// File : app/Music/module.js
-/**
- * Music Module
- */
-angular
-    .module('MusicModule', [
-        'ngRoute',
-        'angularFileUpload',
-        'CoreModule'
-    ])
-    .run([
-        'MenuService',
-        function (MenuService) {
-            MenuService.addItem({
-                id: 'music',
-                position: 4,
-                icon: 'music',
-                title: 'Music',
-                children: [
-                    { id: 'artists', icon: 'microphone', title: 'Artists', url: '#/music/artist' },
-                    { id: 'albums',  icon: 'circle', title: 'Albums', url: '#/music/album' },
-                    { id: 'songs',   icon: 'music',     title: 'Songs',  url: '#/music/song' }
-                ]
-            });
-        }
-    ]);
-// File : app/Music/Controllers/AlbumController.js
-/**
- * Album Controller
- */
-angular.module('MusicModule').controller('AlbumController', [
-    function () {
-
-    }
-]);
-// File : app/Music/Controllers/Artist/ArtistEditController.js
-/**
- * Artist Edit Controller
- */
-angular.module('MusicModule').controller('ArtistEditController', [
-    '$location',
-    '$upload',
-    'ApiProvider',
-    'artist',
-    function ($location, $upload, ApiProvider, artist) {
-        this.artist = artist;
-
-        if (!this.artist.data.images) {
-            this.artist.data.images = [];
-        }
-
-        this.displayImage = function (image) {
-            return 'data:' + image.type + ';base64,' + image.data;
-        };
-
-        this.onFileSelect = function ($files) {
-            //$files: an array of files selected, each file has name, size, and type.
-            for (var i = 0; i < $files.length; i++) {
-                this.upload($files[i]);
-            }
-        };
-
-        this.upload = function (file) {
-            file.upload = $upload.upload({
-                url: ApiProvider.getServerPath() + '/file/upload', //upload.php script, node.js route, or servlet url
-                method: 'POST',
-                data: { files: artist.data.images },
-                file: file // or list of files ($files) for html5 only
-            });
-
-            file.upload.progress(function (evt) {
-                file.progress = Math.min(100, parseInt(100.0 * evt.loaded / evt.total));
-            });
-
-            file.upload.then(function (response) {
-                file.data = response.data;
-            }, function(response) {
-                /*if (response.status > 0)
-                 $scope.errorMsg = response.status + ': ' + response.data;*/
-            });
-        };
-
-        this.save = function () {
-            this.artist.$save().then(function (data) {
-                $location.path('/music/artist');
-            });
-        };
-
-        this.cancel = function () {
-            // Redirect to users list
-            $location.path('/music/artist');
-        };
-    }
-]);
-// File : app/Music/Controllers/ArtistController.js
-/**
- * Artist Controller
- */
-angular.module('MusicModule').controller('ArtistController', [
-    'HeaderService',
-    'artists',
-    function (HeaderService, artists) {
-        // Add create button
-        HeaderService.addButton({
-            icon: 'plus',
-            iconOnly: true,
-            label: 'Create Artist',
-            url: '#/music/artist/create'
-        });
-
-        this.artists = artists.data;
-
-        this.delete = function (artist) {
-            artist.$delete();
-        };
-    }
-]);
-// File : app/Music/Controllers/SongController.js
-/**
- * Song Controller
- */
-angular.module('MusicModule').controller('SongController', [
-    function () {
-
-    }
-]);
-// File : app/Music/Resources/ArtistResource.js
-/**
- * Artist Resource
- */
-angular.module('MusicModule').factory('ArtistResource', [
-    'ApiResource',
-    function (ApiResource) {
-        return ApiResource('music/artist', '_id');
-    }
-]);
-// File : app/Music/routes.js
-/**
- * Music routes
- */
-angular.module('MusicModule').config([
-    '$routeProvider',
-    function ($routeProvider) {
-        var music = {
-            name: 'music',
-            abstract: true,
+        var profile = {
+            name: 'profile',
+            url: '#/user/profile',
+            templateUrl: '../app/User/Partials/profile.html',
+            controller: 'ProfileController',
+            controllerAs: 'profileCtrl',
 
             pageInfo: {
-                title: 'Music'
+                icon:  'user',
+                title: 'My profile'
             }
         };
 
-        // Artists
-        var musicArtist = {
-            name: 'music.artist',
-            url: '#/music/artist',
-            parent: music,
-            templateUrl: '../app/Music/Partials/Artist/list.html',
-            controller: 'ArtistController',
-            controllerAs: 'artistCtrl',
+        // List Users
+        var user = {
+            name: 'user',
+            url: '#/user',
+            templateUrl: '../app/User/Partials/User/list.html',
+            controller: 'UserController',
+            controllerAs: 'userCtrl',
 
             resolve: {
-                artists: [
-                    'ArtistResource',
-                    function (ArtistResource) {
-                        return ArtistResource.query();
+                users: [
+                    'UserService',
+                    function (UserService) {
+                        return UserService.list();
                     }
                 ]
             },
 
             pageInfo: {
-                icon:   'microphone',
-                title:  'Artists'
+                icon:  'users',
+                title: 'Users'
             }
         };
 
-        var musicArtistCreate = {
-            name: 'music.artist.create',
-            url: '#/music/artist/create',
-            parent: musicArtist,
-            templateUrl: '../app/Music/Partials/Artist/edit.html',
-            controller: 'ArtistEditController',
-            controllerAs: 'artistEditCtrl',
+        // Create new User
+        var userCreate = {
+            name: 'user.create',
+            url: '#/user/create',
+            parent: user,
+            templateUrl:  '../app/User/Partials/User/edit.html',
+            controller:   'UserEditController',
+            controllerAs: 'userEditCtrl',
 
             resolve: {
-                artist: [
-                    'ArtistResource',
-                    function (ArtistResource) {
-                        return new ArtistResource();
+                user: [
+                    'UserService',
+                    function (UserService) {
+                        return UserService.new();
                     }
                 ]
             },
+
             pageInfo: {
-                icon:   'microphone',
-                title:  'Create'
+                title: 'Create'
             }
         };
 
-        var musicArtistEdit = {
-            name: 'music.artist.edit',
-            url: '#/music/artist/edit',
-            parent: musicArtist,
-            templateUrl: '../app/Music/Partials/Artist/edit.html',
-            controller: 'ArtistEditController',
-            controllerAs: 'artistEditCtrl',
+        // Edit an existing User
+        var userEdit = {
+            name: 'user.edit',
+            url: '#/user/edit',
+            parent: user,
+            templateUrl:  '../app/User/Partials/User/edit.html',
+            controller:   'UserEditController',
+            controllerAs: 'userEditCtrl',
 
             resolve: {
-                artist: [
+                user: [
                     '$route',
-                    'ArtistResource',
-                    function ($route, ArtistResource) {
-                        return ArtistResource.get({ _id: $route.current.params.artistId });
+                    'UserService',
+                    function ($route, UserService) {
+                        return UserService.get($route.current.params.userId);
                     }
                 ]
             },
-            pageInfo: {
-                icon:   'microphone',
-                title:  'Edit'
-            }
-        };
-
-        // Albums
-        var musicAlbums = {
-            name: 'music.album',
-            url: '#/music/album',
-            parent: music,
-            templateUrl: '../app/Music/Partials/Album/list.html',
 
             pageInfo: {
-                icon:   'circle',
-                title:  'Albums'
-            }
-        };
-
-        // Songs
-        var musicSongs = {
-            name: 'music.song',
-            url: '#/music/song',
-            parent: music,
-            templateUrl: '../app/Music/Partials/Song/list.html',
-
-            pageInfo: {
-                icon:   'music',
-                title:  'Songs'
+                title: 'Edit'
             }
         };
 
         // Register states
         $routeProvider
-            .when('/music/artist',                musicArtist)
-            .when('/music/artist/create',         musicArtistCreate)
-            .when('/music/artist/edit/:artistId', musicArtistEdit)
-            .when('/music/album',  musicAlbums)
-            .when('/music/song',   musicSongs);
-    }]
-);
-// File : app/Demo/module.js
-/**
- * Demo Module
- */
-angular
-    .module('DemoModule', [
-        'ngRoute',
-        'UIModule'
-    ])
-    .run([
-        'MenuService',
-        function (MenuService) {
-            MenuService.addItem({
-                id: 'demo',
-                icon: 'laptop',
-                title: 'UI Demo',
-                notification: {
-                    color: 'green',
-                    value: 'new'
-                },
-                children: [
-                    { id: 'general',  icon: 'adjust',    title: 'General',    url: '#/demo/ui/general' },
-                    { id: 'buttons',  icon: 'hand-o-up', title: 'Buttons',    url: '#/demo/ui/buttons' },
-                    { id: 'tables',   icon: 'table',     title: 'Tables',     url: '#/demo/ui/tables' },
-                    { id: 'forms',    icon: 'font',      title: 'Forms',      url: '#/demo/ui/forms' },
-                    { id: 'widgets',  icon: 'th',        title: 'Widgets',    url: '#/demo/ui/widgets' },
-                    { id: 'timeline', icon: 'clock-o',   title: 'Timeline',   url: '#/demo/ui/timeline' },
-                    { id: '404error', icon: 'warning',   title: '404 Error',  url: '#/error/404' },
-                    { id: '500error', icon: 'warning',   title: '500 Error',  url: '#/error/500' },
-                    { id: 'blank',    icon: 'square-o',  title: 'Blank Page', url: '#/demo/blank' }
-                ]
-            });
-        }
-    ]);
-// File : app/Demo/routes.js
-/**
- * Demo routes
- */
-angular.module('DemoModule').config([
-    '$routeProvider',
-    function ($routeProvider) {
-        var demo = {
-            name: 'demo',
-            abstract: true,
-
-            pageInfo: {
-                title: 'Demo'
-            }
-        };
-
-        var demoWidgets = {
-            name: 'demo.widgets',
-            url: '#/demo/ui/widgets',
-            parent: demo,
-            templateUrl: '../app/Demo/Partials/widgets.html',
-
-            pageInfo: {
-                icon:   'th',
-                title:  'Widgets',
-                help:   true,
-                config: true
-            }
-        };
-
-        var demoUI = {
-            name: 'demo.ui',
-            abstract: true,
-            parent: demo,
-
-            pageInfo: {
-                icon:   'laptop',
-                title:  'UI Elements'
-            }
-        };
-
-        // UI - General
-        var demoUIGeneral = {
-            name: 'demo.ui.general',
-            url: '#/demo/ui/general',
-            parent: demoUI,
-            templateUrl: '../app/Demo/Partials/general.html',
-
-            pageInfo: {
-                title:  'General',
-                help:   true,
-                config: true
-            }
-        };
-
-        // UI - Buttons
-        var demoUIButtons = {
-            name: 'demo.ui.buttons',
-            url: '#/demo/ui/buttons',
-            parent: demoUI,
-            templateUrl: '../app/Demo/Partials/buttons.html',
-
-            pageInfo: {
-                title:  'Buttons',
-                help:   true,
-                config: true
-            }
-        };
-
-        // UI - Tables
-        var demoUITables = {
-            name: 'demo.ui.tables',
-            url: '#/demo/ui/tables',
-            parent: demoUI,
-            templateUrl: '../app/Demo/Partials/tables.html',
-
-            pageInfo: {
-                title:  'Tables',
-                help:   true,
-                config: true
-            }
-        };
-
-        // UI - Forms
-        var demoUIForms = {
-            name: 'demo.ui.forms',
-            url: '#/demo/ui/forms',
-            parent: demoUI,
-            templateUrl: '../app/Demo/Partials/forms.html',
-
-            pageInfo: {
-                title:  'Forms',
-                help:   true,
-                config: true
-            }
-        };
-
-        // UI - Timeline
-        var demoUITimeline = {
-            name: 'demo.ui.timeline',
-            url: '#/demo/ui/timeline',
-            parent: demoUI,
-            templateUrl: '../app/Demo/Partials/timeline.html',
-
-            pageInfo: {
-                title:  'Timeline',
-                help:   true,
-                config: true
-            }
-        };
-
-        // Blank page
-        var demoBlank = {
-            name: 'demo.blank',
-            url: '#/demo/blank',
-            parent: demo,
-            templateUrl: '../app/Demo/Partials/blank.html',
-
-            pageInfo: {
-                icon:  'folder',
-                title: 'Blank page'
-            }
-        };
-
-        // Register states
-        $routeProvider
-            .when('/demo/ui/widgets',  demoWidgets)
-            .when('/demo/ui/general',  demoUIGeneral)
-            .when('/demo/ui/buttons',  demoUIButtons)
-            .when('/demo/ui/tables',   demoUITables)
-            .when('/demo/ui/forms',    demoUIForms)
-            .when('/demo/ui/timeline', demoUITimeline)
-            .when('/demo/blank',       demoBlank);
+            .when('/user/profile',           profile)
+            .when('/user',              user)
+            .when('/user/create',       userCreate)
+            .when('/user/edit/:userId', userEdit);
     }]
 );
 // File : app/app.js

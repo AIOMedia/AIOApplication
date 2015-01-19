@@ -4,7 +4,6 @@
 angular
     .module('MusicModule', [
         'ngRoute',
-        'angularFileUpload',
         'CoreModule'
     ])
     .run([
