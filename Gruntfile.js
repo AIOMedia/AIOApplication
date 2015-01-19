@@ -52,29 +52,7 @@ module.exports = function(grunt) {
                     footer: '\n})();'
                 },
                 src: [
-                    'app/Core/module.js',
-                    'app/Core/**/*.js',
-                    'app/Administration/module.js',
-                    'app/Administration/**/*.js',
-                    'app/Dashboard/module.js',
-                    'app/Dashboard/**/*.js',
-                    'app/Search/module.js',
-                    'app/Search/**/*.js',
-                    'app/Notification/module.js',
-                    'app/Notification/**/*.js',
-                    'app/Home/module.js',
-                    'app/Home/**/*.js',
-                    'app/User/module.js',
-                    'app/User/**/*.js',
-                    'app/UI/module.js',
-                    'app/UI/**/*.js',
-                    'app/Task/module.js',
-                    'app/Task/**/*.js',
-                    'app/Music/module.js',
-                    'app/Music/**/*.js',
-                    'app/Demo/module.js',
-                    'app/Demo/**/*.js',
-
+                    'app/**/module.js', // Load module declaration first
                     'app/**/*.js',
                     'app/app.js'
                 ],
