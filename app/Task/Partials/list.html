@@ -1,9 +1,0 @@
-<ul class="list-tasks" data-ui-sortable="taskCtrl.sortableOptions" data-ng-model="taskCtrl.tasks">
-    <li data-ng-repeat="task in taskCtrl.tasks" data-ng-class="{ 'task-done': task.done }">
-        <!-- Show task info -->
-        <div data-ng-include="'../app/Task/Partials/show.html'" data-ng-if="task._id != taskCtrl.editTask._id"></div>
-
-        <!-- Edit task info -->
-        <div data-ng-include="'../app/Task/Partials/edit.html'" data-ng-if="task._id == taskCtrl.editTask._id"></div>
-    </li>
-</ul>

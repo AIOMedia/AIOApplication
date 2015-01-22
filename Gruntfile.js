@@ -1,4 +1,4 @@
-module.exports = function(grunt) {
+module.exports = function (grunt) {
 
     // All upfront config goes in a massive nested object.
     grunt.initConfig({
@@ -24,7 +24,7 @@ module.exports = function(grunt) {
                     'bower_components/angular-route/angular-route.js',
                     'bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
                     'bower_components/angular-ui-sortable/sortable.js',
-                    'bower_components/ng-file-upload/angular-file-upload.js',
+                    'bower_components/ng-file-upload/angular-file-upload.js'
                 ],
                 dest: '<%= distFolder %>/js/lib.js'
             },
@@ -39,7 +39,7 @@ module.exports = function(grunt) {
                     'bower_components/angular-route/angular-route.min.js',
                     'bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js',
                     'bower_components/angular-ui-sortable/sortable.min.js',
-                    'bower_components/ng-file-upload/angular-file-upload.min.js',
+                    'bower_components/ng-file-upload/angular-file-upload.min.js'
                 ],
                 dest: '<%= distFolder %>/js/lib.min.js'
             },
@@ -52,8 +52,19 @@ module.exports = function(grunt) {
                     footer: '\n})();'
                 },
                 src: [
-                    'app/**/module.js', // Load module declaration first
-                    'app/**/*.js',
+                    // Load module files
+                    'app/core/**/module.js',
+                    'app/modules/**/module.js',
+
+                    // Load src code
+                    'app/core/**/*.js',
+                    'app/modules/**/*.js',
+
+                    // Load routes
+                    'app/core/**/routes.js',
+                    'app/modules/**/routes.js',
+
+                    // Load app root file when all others are loaded
                     'app/app.js'
                 ],
                 dest: '<%= distFolder %>/js/app.js'

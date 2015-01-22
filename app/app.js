@@ -2,15 +2,18 @@
  * Application
  */
 angular
-    .module('App', [
+    .module('AioApp', [
         'ngRoute',
         'ui.bootstrap',
+        'AioConfiguration',
+        'Alert',
         'UIModule',
         'AdministrationModule',
         'DashboardModule',
         'TaskModule',
         'MusicModule',
-        'DemoModule'
+        'DemoModule',
+        'BudgetModule'
     ])
     .config([
         '$httpProvider',
@@ -27,7 +30,7 @@ angular
         'AuthenticationService',
         function ($rootScope, $location, HeaderService, MenuService, AuthenticationService) {
             // Check User credentials
-            $rootScope.$on("$routeChangeStart", function (event, next, current) {
+            $rootScope.$on('$routeChangeStart', function (event, next, current) {
                 if (next.access && next.access.requiredLogin && !AuthenticationService.isLogged()) {
                     // Redirect to login page
                     $location.path('/user/login');

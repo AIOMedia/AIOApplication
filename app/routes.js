@@ -1,9 +1,10 @@
 /**
  * Application routes
  */
-angular.module('App').config([
+angular.module('AioApp').config([
     '$routeProvider',
-    function ($routeProvider) {
+    'ConfigurationProvider',
+    function ($routeProvider, ConfigurationProvider) {
         var home = {
             redirectTo: '/home'
         };
@@ -21,7 +22,7 @@ angular.module('App').config([
         var error404 = {
             name: 'error.404',
             parent: error,
-            templateUrl: '../app/UI/Partials/error/404.html',
+            templateUrl: ConfigurationProvider.defaults.srcPath.core + '/UI/Partials/error/404.html',
 
             pageInfo: {
                 title: '404 Page not found'
@@ -31,7 +32,7 @@ angular.module('App').config([
         var error500 = {
             name: 'error.500',
             parent: error,
-            templateUrl: '../app/UI/Partials/error/500.html',
+            templateUrl: ConfigurationProvider.defaults.srcPath.core + '/app/UI/Partials/error/500.html',
 
             pageInfo: {
                 title: '500 Internal server error'
